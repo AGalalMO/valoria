@@ -1,32 +1,27 @@
-import buttonIcon from '../../../assets/icons/buttonIcon.svg'
-import buttonBorder from '../../../assets/icons/buttonBorder.svg'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import buttonIcon from "../../../assets/icons/buttonIcon.svg"
+import buttonBorder from "../../../assets/icons/buttonBorder.svg"
 
-export default function BorderButton() {
+export default function BorderButton({
+    text,
+    onClick
+}: {
+    text: string
+    onClick: (target?: any) => void
+}) {
     return (
-			<button className='flex flex-col  items-center gap-2 bg-transparent cursor-pointer'>
-				<div
-					className=' flex
-					flex-row gap-1 items-center'>
-					<img
-						src={buttonIcon}
-						width={16}
-						height={16}
-					/>
-					<p
-						className='text-white text-[48px] m-0 font-trajan font-normal'
-					>
-						START GAME
-					</p>
-					<img
-						src={buttonIcon}
-						width={16}
-						height={16}
-					/>
-				</div>
-				<img
-					width={"100%"}
-					src={buttonBorder}
-				/>
-			</button>
-		);
+        <button
+            onClick={onClick}
+            className="group flex cursor-pointer flex-col items-center gap-2 bg-transparent"
+        >
+            <div className="flex flex-row items-center gap-1">
+                <img src={buttonIcon} width={16} height={16} />
+                <p className="font-trajan m-0 text-[48px] font-normal text-white group-hover:text-[#DBBD51]">
+                    {text}
+                </p>
+                <img src={buttonIcon} width={16} height={16} />
+            </div>
+            <img width={"100%"} src={buttonBorder} />
+        </button>
+    )
 }

@@ -9,7 +9,7 @@ import attack from "../../../assets/icons/attack.svg"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { Way_IN } from "../../../types/Enums"
 import type { ManPower } from "../../../types/manPower"
-import map from "../../../assets/maps/allie.svg"
+import { InteractiveValoriaMap } from "../../maping/RoadJounry"
 
 export default function Home() {
     const [loading, setLoading] = useState(true)
@@ -115,9 +115,7 @@ export default function Home() {
                                 </Modal>
                             ) : progress.currentFlow == FLOW_ENUM.SELECT_ROAD ? (
                                 <Modal noBackground >
-                                    <div className="flex max-w-[900px] flex-col items-center gap-8">
-                                        <img src={map} width={"100%"} height={"400px"} />
-                                    </div>
+                                  <InteractiveValoriaMap/>
                                 </Modal>
                             ) : null}
                         </>

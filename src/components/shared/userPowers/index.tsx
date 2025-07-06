@@ -5,7 +5,7 @@ import type { ManPower } from "../../../types/manPower"
 
 export default function UserPowers({ powers }: { powers :ManPower}) {
     return (
-        <div className="flex flex-row items-end gap-6">
+        <div className="flex flex-row items-center gap-6">
             <Power img={crown} text={`${powers.people}%`} />
             <Power img={kill} text={`${powers?.army}%`} />
             <Power img={money} text={`${powers.money}%`} />

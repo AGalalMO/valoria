@@ -32,7 +32,7 @@ export const useInteractiveValeriaMap = ({
 
     useEffect(() => {
         if ((roadPhase == 7 && selectedRoad?.index == 0) || roadPhase == 8) {
-            setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SELECT_POWER_PERCENTAGE }))
+            setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VAL_MAP }))
         }
     }, [roadPhase])
     //#endregion

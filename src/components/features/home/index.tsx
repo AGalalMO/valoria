@@ -11,7 +11,7 @@ import { Way_IN } from "../../../types/Enums"
 import type { ManPower } from "../../../types/manPower"
 import { InteractiveMap } from "../../interactiveMap"
 import type { UserProgressType } from "../../../types/UserProgress"
-
+import { ShowValMap } from "../ShowMap"
 export default function Home() {
     const [loading, setLoading] = useState(true)
     const [progress, setProgress] = useState<UserProgressType>({
@@ -55,6 +55,7 @@ export default function Home() {
         return result
     }
 
+    console.log("currentFlow", progress.currentFlow)
     return (
         <div className="relative flex h-screen w-screen flex-col justify-between p-10">
             {!loading ? (
@@ -118,7 +119,7 @@ export default function Home() {
                                         setProgress={setProgress}
                                     />
                                 </Modal>
-                            ) : null}
+                            ) : progress.currentFlow == FLOW_ENUM.SHOW_VAL_MAP ? <ShowValMap /> : null}
                         </>
                     )}
                 </>

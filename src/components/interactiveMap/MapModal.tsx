@@ -5,6 +5,7 @@ import no from "../../assets/icons/noCrop.svg"
 import ImageButton from "../shared/imageButton"
 import { MAP_MODAL_TYPE } from "../../types/Enums"
 import BorderButton from "../shared/borderButton"
+import type { MapModalPropsType } from "../../types/InteractiveMap"
 export default function MapModal({
     onClickChangeRoute,
     onClickCancelChangeRoute,
@@ -12,10 +13,10 @@ export default function MapModal({
     onSelectSoliderPercentage,
     askForMen,
     continueWithoutMoreMen
-}: propsType) {
+}: MapModalPropsType) {
     return (
         <>
-            {}
+          
             {modalOptions?.isOpen ? (
                 <div className="absolute top-0 left-0 z-[1000] flex h-full w-full items-center justify-center">
                     <div
@@ -75,7 +76,7 @@ export default function MapModal({
                                     />
                                 </div>
                             </>
-                        ) : modalOptions.modalType == MAP_MODAL_TYPE.INCREASE_SOLDIERS  ? (
+                        ) : modalOptions.modalType == MAP_MODAL_TYPE.INCREASE_SOLDIERS ? (
                             <>
                                 <div className="flex items-center">
                                     <img src={dangerImg} width={120} height={120} />
@@ -101,14 +102,4 @@ export default function MapModal({
     )
 }
 
- type propsType = {
-     modalOptions: {
-         isOpen: boolean
-         modalType: MAP_MODAL_TYPE | null
-     }
-     onClickCancelChangeRoute: () => void
-     onClickChangeRoute: () => void
-     onSelectSoliderPercentage: (percentage: number) => void
-     continueWithoutMoreMen: () => void
-     askForMen: () => void
- }
+ 

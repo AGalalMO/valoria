@@ -9,7 +9,7 @@ import attack from "../../../assets/icons/attack.svg"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { Way_IN } from "../../../types/Enums"
 import type { ManPower } from "../../../types/manPower"
-import { InteractiveValeriaMap } from "../../maping/RoadJounry"
+import { InteractiveMap } from "../../interactiveMap"
 import type { UserProgressType } from "../../../types/UserProgress"
 
 export default function Home() {
@@ -113,7 +113,7 @@ export default function Home() {
                             ) : progress.currentFlow == FLOW_ENUM.SELECT_ROAD ||
                               progress.currentFlow == FLOW_ENUM.CHANGE_ROAD ? (
                                 <Modal noBackground>
-                                    <InteractiveValeriaMap
+                                    <InteractiveMap
                                         selectedWayIn={progress.selectedWayIn}
                                         setProgress={setProgress}
                                     />

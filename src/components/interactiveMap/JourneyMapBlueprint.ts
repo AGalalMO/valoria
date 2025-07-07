@@ -2,7 +2,7 @@ import spyMap from '../../assets/maps/spy.png'
 import allieMap from '../../assets/maps/allieMap.png'
 import attackMap from "../../assets/maps/attackCheck.png"
 import type { JourneyMapsType } from '../../types/RoadTypes'
-export const journeyMaps: JourneyMapsType = {
+export const JourneyMapBlueprint: JourneyMapsType = {
     Spy: {
         map: spyMap,
         roads: [

@@ -4,10 +4,12 @@ import buttonBorder from "../../../assets/icons/buttonBorder.svg"
 
 export default function BorderButton({
     text,
-    onClick
+    onClick,
+    bottomBorder = true
 }: {
     text: string
     onClick: (target?: any) => void
+    bottomBorder?: boolean
 }) {
     return (
         <button
@@ -21,7 +23,7 @@ export default function BorderButton({
                 </p>
                 <img src={buttonIcon} width={16} height={16} />
             </div>
-            <img width={"100%"} src={buttonBorder} />
+            {bottomBorder?<img width={"100%"} src={buttonBorder} />:null}
         </button>
     )
 }

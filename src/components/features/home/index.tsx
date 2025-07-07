@@ -9,15 +9,12 @@ import attack from "../../../assets/icons/attack.svg"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { Way_IN } from "../../../types/Enums"
 import type { ManPower } from "../../../types/manPower"
-import { InteractiveValoriaMap } from "../../maping/RoadJounry"
+import { InteractiveValeriaMap } from "../../maping/RoadJounry"
+import type { UserProgressType } from "../../../types/UserProgress"
 
 export default function Home() {
     const [loading, setLoading] = useState(true)
-    const [progress, setProgress] = useState<{
-        currentFlow: FLOW_ENUM
-        selectedWayIn: Way_IN | null
-        manPower: ManPower
-    }>({
+    const [progress, setProgress] = useState<UserProgressType>({
         currentFlow: FLOW_ENUM.START_GAME,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
@@ -113,9 +110,13 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </Modal>
-                            ) : progress.currentFlow == FLOW_ENUM.SELECT_ROAD ? (
-                                <Modal noBackground >
-                                  <InteractiveValoriaMap/>
+                            ) : progress.currentFlow == FLOW_ENUM.SELECT_ROAD ||
+                              progress.currentFlow == FLOW_ENUM.CHANGE_ROAD ? (
+                                <Modal noBackground>
+                                    <InteractiveValeriaMap
+                                        selectedWayIn={progress.selectedWayIn}
+                                        setProgress={setProgress}
+                                    />
                                 </Modal>
                             ) : null}
                         </>

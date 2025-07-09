@@ -82,7 +82,7 @@ export default function Home() {
                                         backgroundSize: "cover",
                                         backgroundPosition: "right"
                                                         }}
-                                                        className="-ms-10 h-[170px]"
+                                                        className="-ms-10 h-[170px] flex flex-col justify-center"
                                 >
                                     <p className="ps-20 text-[24px] font-bold text-[#DBBD51] uppercase">
                                         message from spy

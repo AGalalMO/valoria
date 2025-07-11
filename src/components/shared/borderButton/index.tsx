@@ -6,12 +6,14 @@ export default function BorderButton({
     text,
     onClick,
     bottomBorder = true,
-    size='lg'
+    size = "lg",
+    isSelected
 }: {
     text: string
     onClick: (target?: any) => void
     bottomBorder?: boolean
-    size?:'md'|'lg'|'sm'
+    size?: "md" | "lg" | "sm" | "xs"
+    isSelected?:boolean
 }) {
     return (
         <button
@@ -21,13 +23,18 @@ export default function BorderButton({
             <div className="flex flex-row items-center gap-1">
                 <img src={buttonIcon} width={16} height={16} />
                 <p
-                    className={`font-trajan ${size == "lg" ? "text-[48px]" : size=='md'?"text-[40px]":'text-4xl'} m-0 font-normal text-white group-hover:text-[#DBBD51]`}
+                    className={`font-trajan ${size == "lg" ? "text-[48px]" : size == "md" ? "text-[40px]" : size == "xs" ? "text-2xl" : size == "sm" ? "text-3xl" : "text-4xl"} m-0 font-normal ${isSelected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51]`}
                 >
                     {text}
                 </p>
                 <img src={buttonIcon} width={16} height={16} />
             </div>
-            {bottomBorder ? <img width={size == "lg" ? '"100%"' :size=='md'? "90%":'70%'} src={buttonBorder} /> : null}
+            {bottomBorder ? (
+                <img
+                    width={size == "lg" ? '"100%"' : size == "md" ? "90%" : "70%"}
+                    src={buttonBorder}
+                />
+            ) : null}
         </button>
     )
 }

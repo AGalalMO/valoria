@@ -6,20 +6,19 @@ import ImageButton from "../../../shared/imageButton"
 import { ModalWrapper } from "./modalWrapper"
 
 export const SelectSuitableLeader = ({
-    selectedWay,
     setSelectedSubLeaders,
     selectedLeaders,
     selectedSubLeaders,
     setFlow,
-    setProgress
+    setProgress,
+    headText,
+    selectedWay = VALORIA_ROAD_METHOD_ENUM?.BRIDGE
 }: propTypes) => {
-
-
     const selectSubLeaderHandler = () => {
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES) {
             const names = [selectedSubLeaders?.[0]?.name, selectedSubLeaders?.[1]?.name]
             if (names?.includes("DRAR") && names?.includes?.("SABET")) {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -30,7 +29,7 @@ export const SelectSuitableLeader = ({
                     }
                 })
             } else if (names?.includes("DRAR") || names?.includes?.("SABET")) {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -41,7 +40,7 @@ export const SelectSuitableLeader = ({
                     }
                 })
             } else {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -54,7 +53,7 @@ export const SelectSuitableLeader = ({
             }
         } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST) {
             if (selectedSubLeaders?.[0]?.name == "SLAM") {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -65,7 +64,7 @@ export const SelectSuitableLeader = ({
                     }
                 })
             } else {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -76,9 +75,10 @@ export const SelectSuitableLeader = ({
                     }
                 })
             }
-        } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER) {
+        } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER)
+        {
             if (selectedSubLeaders?.[0]?.name == "BOTHER") {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -89,7 +89,7 @@ export const SelectSuitableLeader = ({
                     }
                 })
             } else {
-                setProgress(prev => {
+                setProgress?.(prev => {
                     return {
                         ...prev,
                         manPower: {
@@ -101,19 +101,24 @@ export const SelectSuitableLeader = ({
                 })
             }
         }
+       
 
         setFlow(VALORIA_ROAD_ENUM.SELECT_OPTION_TO_CONTINUE)
     }
-  
-  
-  
+
     return (
-        <ModalWrapper classes="!justify-between">  
+        <ModalWrapper classes="!justify-between">
             <p className="font-trajan w-full text-center text-[30px] font-bold">
-                choose {selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES ? "two" : "one"} leaders from
-                your army
-                <br />
-                to help you enter valoria’s gates
+                {headText ? (
+                    headText
+                ) : (
+                    <>
+                        choose {selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES ? "two" : "one"}{" "}
+                        leaders from your army
+                        <br />
+                        to help you enter valoria’s gates
+                    </>
+                )}
             </p>
 
             <div className="mb-5 grid grid-cols-5 justify-items-center gap-y-8">
@@ -154,10 +159,11 @@ export const SelectSuitableLeader = ({
     )
 }
 type propTypes = {
-    selectedWay: VALORIA_ROAD_METHOD_ENUM | null
     setSelectedSubLeaders: React.Dispatch<React.SetStateAction<LeaderType[]>>
     selectedLeaders: LeaderType[]
     selectedSubLeaders: LeaderType[]
     setFlow: React.Dispatch<React.SetStateAction<VALORIA_ROAD_ENUM | undefined>>
-    setProgress: (value: React.SetStateAction<UserProgressType>) => void
+    setProgress?: (value: React.SetStateAction<UserProgressType>) => void
+    selectedWay?: VALORIA_ROAD_METHOD_ENUM | null
+    headText?:string
 }

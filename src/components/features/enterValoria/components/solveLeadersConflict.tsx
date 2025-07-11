@@ -54,7 +54,7 @@ export const SolveLeadersConflict = ({
     return (
         <ModalWrapper classes="max-w-[1000px]  !py-12 !justify-between  !px-4">
             <p className="font-trajan w-full text-center text-[30px] font-bold">
-                what happen still in valoria still on valoriatheir is a conflict between your
+                what happen still in valoria still on valoria their is a conflict between your
                 leaders
             </p>
             <div className="flex w-full justify-center items-center gap-6">

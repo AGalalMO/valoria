@@ -21,7 +21,8 @@ export const MAP_MODAL_TYPE = {
 export const VALORIA_ROAD_METHOD_ENUM = {
     FOREST: "FOREST",
     GATES: "GATES",
-    RIVER: "RIVER"
+    RIVER: "RIVER",
+    BRIDGE:"BRIDGE"
 } as const
 export const VALORIA_ROAD_ENUM = {
     SELECT_ROAD_TO_VALORILA: "SELECT_ROAD_TO_VALORILA",
@@ -36,10 +37,18 @@ export const LEADER_CONFLICT_ENUM = {
     MEETING: "MEETING",
     CHANGE_LEADS: "CHANGE LEADS"
 } as const
+
+
+export const BRIDGE_ACTIONS = {
+    RACE_TIME: "RACE_TIME",
+    BUILD_BRIDGE: "BUILD_BRIDGE",
+    FIGHT: "FIGHT"
+} as const
 export type Way_IN = (typeof Way_IN)[keyof typeof Way_IN]
 export type ROAD_ENUM = (typeof ROAD_ENUM)[keyof typeof ROAD_ENUM]
 export type MAP_MODAL_TYPE = (typeof MAP_MODAL_TYPE)[keyof typeof MAP_MODAL_TYPE]
 export type VALORIA_ROAD_METHOD_ENUM = (typeof VALORIA_ROAD_METHOD_ENUM)[keyof typeof VALORIA_ROAD_METHOD_ENUM]
 export type VALORIA_ROAD_ENUM = (typeof VALORIA_ROAD_ENUM)[keyof typeof VALORIA_ROAD_ENUM]
 export type LEADER_CONFLICT_ENUM = (typeof LEADER_CONFLICT_ENUM)[keyof typeof LEADER_CONFLICT_ENUM]
+export type BRIDGE_ACTIONS = (typeof BRIDGE_ACTIONS)[keyof typeof BRIDGE_ACTIONS]
 

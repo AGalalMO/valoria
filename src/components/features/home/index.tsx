@@ -9,13 +9,20 @@ import { EnterValoriaFlow } from "../enterValoria"
 import type { LeaderType } from "../../../types/leaders"
 import { SolveLeadersConflict } from "../enterValoria/components/solveLeadersConflict"
 import { SelectValoriaWayIn } from "../enterValoria/selectValoriaWayIn"
-import valoriaMap from '../../../assets/valoriaMap.png'
-import spyy from "../../../assets/spyy.png"
-import framText from "../../../assets/framText.png"
+import InValoriaMap from "../inValoriaMap"
+import { SelectSuitableLeaderToBuildBridge } from "../enterValoria/components/SelectSuitableLeaderToBuildBridge"
+import type { ManPower } from "../../../types/manPower"
+import FireCannon from "../cannon/fireCannon"
+import HowToPass from "../bridgeProblem/howToPass"
+import RaceTimeFailed from "../bridgeProblem/raceTimeFailed"
+import IsTrustEngineer from "../bridgeProblem/isTrustEngineer"
+import EngineersFailed from "../bridgeProblem/engineersFailed"
+import Attacked from "../bridgeProblem/attacked"
+import CannonAttack from "../cannon/cannonAttack"
 export default function Home() {
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
-
+    const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
     const [progress, setProgress] = useState<UserProgressType>({
         currentFlow: FLOW_ENUM.START_GAME,
         selectedWayIn: null,
@@ -28,7 +35,57 @@ export default function Home() {
         }, 1000)
     }, [])
 
+    const changeFlowState = (flow:FLOW_ENUM) => {
+        setProgress((prev)=>({...prev,currentFlow:flow}))
+    }
 
+    const ChooseSubLeader = () => {
+        if (progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE) {
+            if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: -2, people: 1 })
+            else changePowers({ money: -4, army: -4, people: -2 })
+
+            changeFlowState(FLOW_ENUM.GOT_ATTACKED)
+        } else if (progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME)
+        {
+            if (selectedSubLeaders?.name == "DRAR") changePowers({ money: -1, army: 1, people: 1 })
+            else changePowers({ money: -3, army: -2, people: -2 })
+            changeFlowState(FLOW_ENUM.RACE_FOR_TIME_FAILED)
+        } else if (progress.currentFlow == FLOW_ENUM.SEE_ME) {
+            if (selectedSubLeaders?.name == "SLAM") changePowers({ money: -3, army: -3, people: 2 })
+            else changePowers({ money: -4, army: -5, people: -1 })
+             setSelectedSubLeaders(null)
+            changeFlowState(FLOW_ENUM.CANNON_ATTACK)
+        } else if (progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY) {
+            if (selectedSubLeaders?.name == "SABET")
+                changePowers({ money: -4, army: -5, people: 1 })
+            else changePowers({ money: -6, army: -7, people: -2 })
+             setSelectedSubLeaders(null)
+            changeFlowState(FLOW_ENUM.CANNON_ATTACK)
+        } else if (progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON) {
+            if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: 0, people: 2 })
+            else changePowers({ money: -3, army: -2, people: -2 })
+            changeFlowState(FLOW_ENUM.FIRE_CANNON)
+        }
+        
+       
+
+    }
+    
+    const changePowers = (powers:ManPower) => {
+        setProgress((prev) => {
+            return {
+                ...prev,
+                manPower: {
+                    army: prev?.manPower?.army + powers.army,
+                    people: prev?.manPower?.people + powers.people,
+                    money: prev?.manPower?.money + powers.money
+                }
+            }
+        })
+    }
+
+ 
+    
     return (
         <div className="relative flex h-screen w-screen flex-col justify-between">
             {!loading ? (
@@ -71,31 +128,47 @@ export default function Home() {
                 ) : progress.currentFlow == FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA ? (
                     <SolveLeadersConflict setProgress={setProgress} />
                 ) : progress.currentFlow === FLOW_ENUM.NOW_WE_ARE_IN_VALORIA ? (
-                    <div className="flex h-screen w-screen flex-col items-center justify-start">
-                        <div className="relative h-[80%] w-[80%]">
-                            <img src={valoriaMap} className="h-full w-full" />
-                            <div className="absolute -bottom-10 -left-20 flex w-full items-center flex-row">
-                                <img src={spyy} className="z-50" width={230} height={230} />
-                                <div
-                                    style={{
-                                        backgroundImage: `url(${framText})`,
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "right"
-                                                        }}
-                                                        className="-ms-10 h-[170px] flex flex-col justify-center"
-                                >
-                                    <p className="ps-20 text-[24px] font-bold text-[#DBBD51] uppercase">
-                                        message from spy
-                                    </p>
-                                    <p className="ps-20 text-[24px] !w-[77vw] font-bold">
-                                        be aware that they put a trap bombs in the bridge the bridge{" "}
-                                        <br />
-                                        is 500 meters away from you
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <InValoriaMap changeState={changeFlowState} />
+                ) : progress.currentFlow === FLOW_ENUM.HOW_TO_PASS_BRIDGE ? (
+                    <HowToPass
+                        changeFlowState={changeFlowState}
+                        setSelectedSubLeaders={setSelectedSubLeaders}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ||
+                  progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME ||
+                  progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY ||
+                  progress.currentFlow == FLOW_ENUM.SEE_ME ||
+                  progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON ? (
+                    <SelectSuitableLeaderToBuildBridge
+                        selectedLeaders={selectedLeaders}
+                        selectedOption={progress.currentFlow}
+                        selectedSubLeaders={selectedSubLeaders}
+                        setSelectedSubLeaders={setSelectedSubLeaders}
+                        onClick={ChooseSubLeader}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME_FAILED ? (
+                    <RaceTimeFailed
+                        changeFlowState={changeFlowState}
+                        changePowers={changePowers}
+                        setSelectedSubLeaders={setSelectedSubLeaders}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.IS_TRUST_ENGINEERS ? (
+                    <IsTrustEngineer changeFlowState={changeFlowState} />
+                ) : progress.currentFlow == FLOW_ENUM.ENGINEERS_FAILED ? (
+                    <EngineersFailed
+                        changeFlowState={changeFlowState}
+                        changePowers={changePowers}
+                    />
+                ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED ? (
+                    <Attacked
+                        changeFlowState={changeFlowState}
+                        changePowers={changePowers}
+                        setSelectedSubLeaders={setSelectedSubLeaders}
+                    />
+                ) : progress?.currentFlow == FLOW_ENUM.CANNON_ATTACK ? (
+                   <CannonAttack changeFlowState={changeFlowState}/>
+                ) : progress?.currentFlow == FLOW_ENUM.FIRE_CANNON ? (
+                    <FireCannon />
                 ) : null
             ) : null}
         </div>

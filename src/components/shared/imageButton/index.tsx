@@ -12,7 +12,7 @@ export default function ImageButton({
     icon: string
     onClick: (target?: any) => void
     selected?: boolean
-    size?: "lg" | "normal"|'xl'
+    size?: "lg" | "normal"|'xl'|'xxl'
 }) {
     return (
         <button
@@ -23,7 +23,7 @@ export default function ImageButton({
             <div className="flex flex-row items-center gap-2">
                 <img src={buttonIcon} width={16} height={16} />
                 <p
-                    className={`font-trajan m-0 text-[24px] font-normal uppercase ${selected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51] ${size == "lg" ? "max-w-[250px]" : size == "normal" ? "max-w-[200px]" : size == "xl" ? "max-w-[240px] !text-[20px]" : ""}`}
+                    className={`font-trajan m-0 text-[24px] font-normal uppercase ${selected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51] ${size == "lg" ? "max-w-[250px]" : size == "normal" ? "max-w-[200px]" : size == "xl" ? "max-w-[240px] !text-[20px]" : size=="xxl"?'!w-[260px] !text-[20px]':""}`}
                 >
                     {text}
                 </p>

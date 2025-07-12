@@ -1,7 +1,7 @@
 import ImageButton from "../../shared/imageButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import actFirst from "../../../assets/icons/actFast.png"
-import valoriaMap from "../../../assets/valoriaMap.png"
+import valoriaMap from "../../../assets/valoriaMap-min.png"
 import race from "../../../assets/raace.png"
 import favor from "../../../assets/favor.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"

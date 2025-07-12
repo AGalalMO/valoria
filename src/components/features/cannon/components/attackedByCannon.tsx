@@ -1,4 +1,4 @@
-import valoriaMap from "../../../../assets/valoriaMap.png"
+import valoriaMap from "../../../../assets/valoriaMap-min.png"
 import { ModalWrapper } from "../../enterValoria/components/modalWrapper"
 import cannon from "../../../../assets/cannon.png"
 import BorderButton from "../../../shared/borderButton"

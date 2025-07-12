@@ -1,4 +1,4 @@
-import valoriaMap from "../../../assets/valoriaMap.png"
+import valoriaMap from "../../../assets/valoriaMap-min.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { ManPower } from "../../../types/manPower"
 import BorderButton from "../../shared/borderButton"

@@ -1,5 +1,5 @@
 import Modal from "../../shared/modal"
-import mapVAL from "../../../assets/valoria.png"
+import mapVAL from "../../../assets/valoria-min.png"
 import { useEffect, useState } from "react"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"

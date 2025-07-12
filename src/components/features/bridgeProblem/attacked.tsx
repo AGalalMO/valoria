@@ -1,4 +1,4 @@
-import valoriaMap from "../../../assets/valoriaMap.png"
+import valoriaMap from "../../../assets/valoriaMap-min.png"
 import ImageButton from "../../shared/imageButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import seeme from "../../../assets/seeme.png"

@@ -1,5 +1,5 @@
 
-import valoriaMap from "../../../assets/valoriaMap.png"
+import valoriaMap from "../../../assets/valoriaMap-min.png"
 import spyy from "../../../assets/spyy.png"
 import framText from "../../../assets/framText.png"
 import { useEffect } from "react"

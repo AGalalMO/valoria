@@ -12,19 +12,21 @@ import { SelectValoriaWayIn } from "../enterValoria/selectValoriaWayIn"
 import InValoriaMap from "../inValoriaMap"
 import { SelectSuitableLeaderToBuildBridge } from "../enterValoria/components/SelectSuitableLeaderToBuildBridge"
 import type { ManPower } from "../../../types/manPower"
-import FireCannon from "../cannon/fireCannon"
+import FireCannon from "../cannon"
 import HowToPass from "../bridgeProblem/howToPass"
 import RaceTimeFailed from "../bridgeProblem/raceTimeFailed"
 import IsTrustEngineer from "../bridgeProblem/isTrustEngineer"
 import EngineersFailed from "../bridgeProblem/engineersFailed"
 import Attacked from "../bridgeProblem/attacked"
-import CannonAttack from "../cannon/cannonAttack"
+import CannonAttack from "../cannon/components/attackedByCannon"
+import ControlValoria from "../controlValoria"
+import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 export default function Home() {
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.START_GAME,
+        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })
@@ -71,7 +73,7 @@ export default function Home() {
 
     }
     
-    const changePowers = (powers:ManPower) => {
+    const changePowers = (powers: ManPower) => {
         setProgress((prev) => {
             return {
                 ...prev,
@@ -88,7 +90,7 @@ export default function Home() {
     
     return (
         <div className="relative flex h-screen w-screen flex-col justify-between">
-            {!loading ? (
+            {!loading && progress.currentFlow!=FLOW_ENUM.FINISH ? (
                 <div className="flex w-full justify-end p-10">
                     <UserPowers powers={progress.manPower} />
                 </div>
@@ -166,9 +168,27 @@ export default function Home() {
                         setSelectedSubLeaders={setSelectedSubLeaders}
                     />
                 ) : progress?.currentFlow == FLOW_ENUM.CANNON_ATTACK ? (
-                   <CannonAttack changeFlowState={changeFlowState}/>
+                    <CannonAttack changeFlowState={changeFlowState} />
                 ) : progress?.currentFlow == FLOW_ENUM.FIRE_CANNON ? (
-                    <FireCannon />
+                    <FireCannon changePowers={changePowers} changeFlowState={changeFlowState} />
+                ) : progress?.currentFlow == FLOW_ENUM.CONTROL_VALORIA ? (
+                    <ControlValoria
+                        changeFlowState={changeFlowState}
+                        selectedLeaders={selectedLeaders}
+                        changePowers={changePowers}
+                    />
+                ) : progress?.currentFlow == FLOW_ENUM.FINISH ? (
+                    <ModalWrapper
+                        parentClass="w-full h-full justify-center items-center"
+                        classes="w-[60%] h-[50%]  !justify-around "
+                    >
+                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                            {" "}
+                            THE END
+                        </p>
+                        <p className="w-full text-center text-2xl text-white">FinalScore</p>
+                        <UserPowers powers={progress.manPower} />
+                    </ModalWrapper>
                 ) : null
             ) : null}
         </div>

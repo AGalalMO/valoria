@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { FLOW_ENUM } from "../../../../types/FLowEnum";
 import type { LeaderType } from "../../../../types/leaders"
 import BorderButton from "../../../shared/borderButton"
-import ImageButton from "../../../shared/imageButton"
 import { ModalWrapper } from "./modalWrapper"
+import LeaderPowers from "../../controlValoria/LeaderPowers";
+import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions";
 
 export const SelectSuitableLeaderToBuildBridge = ({
     setSelectedSubLeaders,
@@ -11,8 +13,12 @@ export const SelectSuitableLeaderToBuildBridge = ({
     selectedOption,
     onClick
 }: propTypes) => {
+    const [powerModal,setPowerModal]=useState<LeaderType|null>(null)
     return (
-        <ModalWrapper classes="!justify-between">
+        <ModalWrapper
+            parentClass="!w-full !justify-center"
+            classes="!justify-between !w-[90%] !h-[90] !relative"
+        >
             <p className="font-trajan w-full text-center text-[30px] font-bold">
                 {selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ? (
                     <>
@@ -37,10 +43,13 @@ export const SelectSuitableLeaderToBuildBridge = ({
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.name == item?.name
                     return (
-                        <ImageButton
+                        <ImageButtonDoubleAuctions
                             icon={item?.icon}
                             selected={isSelected ? true : false}
-                            onClick={() => {
+                            onClickImage={() => {
+                                setPowerModal(item)
+                            }}
+                            onClickButton={() => {
                                 if (isSelected) {
                                     setSelectedSubLeaders(null)
                                 } else {
@@ -58,11 +67,21 @@ export const SelectSuitableLeaderToBuildBridge = ({
                 text={
                     selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE
                         ? "Build Bridge"
-                        : selectedOption == FLOW_ENUM.RACE_FOR_TIME ? 'RACE FOR TIME' :
-                            selectedOption == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON  ?'HIT THE ENEMY ':'SELECT LEADER'
-                            
+                        : selectedOption == FLOW_ENUM.RACE_FOR_TIME
+                          ? "RACE FOR TIME"
+                          : selectedOption == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON
+                            ? "HIT THE ENEMY "
+                            : "SELECT LEADER"
                 }
             />
+            {powerModal ? (
+                <LeaderPowers
+                    closeModal={() => {
+                        setPowerModal(null)
+                    }}
+                    leader={powerModal}
+                />
+            ) : null}
         </ModalWrapper>
     )
 }

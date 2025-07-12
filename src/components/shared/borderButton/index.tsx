@@ -23,7 +23,7 @@ export default function BorderButton({
             <div className="flex flex-row items-center gap-1">
                 <img src={buttonIcon} width={16} height={16} />
                 <p
-                    className={`font-trajan ${size == "lg" ? "text-[48px]" : size == "md" ? "text-[40px]" : size == "xs" ? "text-2xl" : size == "sm" ? "text-3xl" : "text-4xl"} m-0 font-normal ${isSelected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51]`}
+                    className={`font-trajan ${size == "lg" ? "text-2xl lg:text-[48px]" : size == "md" ? "text-2xl lg:text-[40px]" : size == "xs" ? "text-2xl" : size == "sm" ? "text-2xl lg:text-3xl" : "text-2xl lg:text-4xl"} m-0 font-normal ${isSelected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51]`}
                 >
                     {text}
                 </p>

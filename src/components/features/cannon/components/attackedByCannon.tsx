@@ -1,8 +1,8 @@
-import valoriaMap from "../../../assets/valoriaMap.png"
-import { ModalWrapper } from "../enterValoria/components/modalWrapper"
-import cannon from "../../../assets/cannon.png"
-import BorderButton from "../../shared/borderButton"
-import { FLOW_ENUM } from "../../../types/FLowEnum"
+import valoriaMap from "../../../../assets/valoriaMap.png"
+import { ModalWrapper } from "../../enterValoria/components/modalWrapper"
+import cannon from "../../../../assets/cannon.png"
+import BorderButton from "../../../shared/borderButton"
+import { FLOW_ENUM } from "../../../../types/FLowEnum"
 
 export default function CannonAttack({ changeFlowState }: { changeFlowState: (flow: FLOW_ENUM) => void }) {
     return (

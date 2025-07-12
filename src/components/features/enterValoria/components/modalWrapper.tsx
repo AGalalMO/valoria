@@ -14,7 +14,7 @@ export const ModalWrapper = ({
             className={`flex h-full flex-col items-center justify-center gap-8 ${parentClass ? parentClass : ""}`}
         >
             <div
-                className={`flex min-h-[600px] flex-col items-center justify-center gap-8 border-5 border-[#DC8E2F] p-10 ${classes ? classes : ""}`}
+                className={`flex min-h-[600px] !max-w-[1000px] flex-col items-center justify-center gap-8 border-5 border-[#DC8E2F] p-10 ${classes ? classes : ""}`}
                 style={{
                     backgroundImage: `url(${bg})`,
                     backgroundPosition: "center"

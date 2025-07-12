@@ -1,9 +1,11 @@
+import { useState } from "react"
 import { VALORIA_ROAD_ENUM, VALORIA_ROAD_METHOD_ENUM } from "../../../../types/Enums"
 import type { LeaderType } from "../../../../types/leaders"
 import type { UserProgressType } from "../../../../types/UserProgress"
 import BorderButton from "../../../shared/borderButton"
-import ImageButton from "../../../shared/imageButton"
+import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions"
 import { ModalWrapper } from "./modalWrapper"
+import LeaderPowers from "../../controlValoria/LeaderPowers"
 
 export const SelectSuitableLeader = ({
     setSelectedSubLeaders,
@@ -14,6 +16,7 @@ export const SelectSuitableLeader = ({
     headText,
     selectedWay = VALORIA_ROAD_METHOD_ENUM?.BRIDGE
 }: propTypes) => {
+            const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
     const selectSubLeaderHandler = () => {
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES) {
             const names = [selectedSubLeaders?.[0]?.name, selectedSubLeaders?.[1]?.name]
@@ -107,8 +110,11 @@ export const SelectSuitableLeader = ({
     }
 
     return (
-        <ModalWrapper classes="!justify-between">
-            <p className="font-trajan w-full text-center text-[30px] font-bold">
+        <ModalWrapper
+            parentClass="!w-full !justify-center"
+            classes="!justify-between !w-[90%] !h-[90]  !relative"
+        >
+            <p className="font-trajan w-full text-center text-2xl lg:text-[30px] font-bold">
                 {headText ? (
                     headText
                 ) : (
@@ -121,16 +127,19 @@ export const SelectSuitableLeader = ({
                 )}
             </p>
 
-            <div className="mb-5 grid grid-cols-5 justify-items-center gap-y-8">
+            <div className="mb-5 grid grid-cols-3 justify-items-center gap-y-8 lg:!grid-cols-5">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.findIndex(
                         leader => leader?.name == item?.name
                     )
                     return (
-                        <ImageButton
+                        <ImageButtonDoubleAuctions
                             icon={item?.icon}
                             selected={isSelected >= 0 ? true : false}
-                            onClick={() => {
+                            onClickImage={() => {
+                                setPowerModal(item)
+                            }}
+                            onClickButton={() => {
                                 if (isSelected >= 0) {
                                     const newLeaders = selectedSubLeaders
                                     newLeaders?.splice(isSelected, 1)
@@ -155,6 +164,14 @@ export const SelectSuitableLeader = ({
                 })}
             </div>
             <BorderButton size="sm" onClick={selectSubLeaderHandler} text={"OPEN VALORIA"} />
+            {powerModal ? (
+                <LeaderPowers
+                    closeModal={() => {
+                        setPowerModal(null)
+                    }}
+                    leader={powerModal}
+                />
+            ) : null}
         </ModalWrapper>
     )
 }

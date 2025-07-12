@@ -1,0 +1,91 @@
+import type { LeaderType } from "../../../types/leaders"
+import bg from "../../../assets/backgrounds/modal.png"
+import box from "../../../assets/box.png"
+import mark from "../../../assets/mark.png"
+import closeModalIcon from "../../../assets/closeModal.png"
+
+export default function LeaderJobs({
+    leader,
+    closeModal,
+    selectJob,
+    selectedJobs
+}: {
+    leader: LeaderType
+    closeModal: VoidFunction
+    selectJob: (index: number) => void
+    selectedJobs: { index: number | null; leader: LeaderType }[]
+}) {
+    const jobs = [
+        "The Warden <br/> of Defense",
+        "The Marshal <br/>of Operations",
+        "The Architect <br/> of Infrastructure",
+        "The Overseer of <br/>Territory & Resources",
+        "The Commander<br/>of Borders & Trade"
+    ]
+
+    return (
+        <div
+            className="absolute start-5 top-5 z-50 h-[90%] w-[90%] border-5 border-[#DC8E2F] p-4 py-10"
+            style={{
+                backgroundImage: `url(${bg})`,
+                backgroundPosition: "center"
+            }}
+        >
+            <div className="relative -me-6 -mt-12 flex justify-end">
+                <img
+                    src={closeModalIcon}
+                    height={50}
+                    width={50}
+                    className="cursor-pointer"
+                    onClick={closeModal}
+                />
+            </div>
+            <div className="flex items-center gap-8">
+                <img
+                    src={leader?.icon}
+                    width={300}
+                    height={300}
+                    className="!h-[180] !w-[190px] lg:!h-[300px] lg:!w-[340px]"
+                />
+                <div className="flex flex-col gap-2">
+                    <p className="text-xl font-bold text-white lg:text-3xl">{leader?.name}</p>
+                    {jobs?.map((job, index) => {
+                        const currentJob = selectedJobs?.filter((item)=>item?.index==index)?.[0]
+                          const disabled =
+                              currentJob?.index == index && currentJob?.leader?.name != leader.name
+                            return (
+                                <div
+                                    className={`flex items-center gap-4 ${disabled?'opacity-60':''}`}
+                                    onClick={() => {
+                                        if (disabled)
+                                            return
+                                        else
+                                            selectJob(index)
+                                    }}
+                                >
+                                    <div className="relative cursor-pointer">
+                                        <img src={box} className="h-6 w-6 lg:h-10 lg:w-10" />
+                                        {selectedJobs?.filter(item => item?.index == index)?.[0] ? (
+                                            <img
+                                                src={mark}
+                                                className="absolute start-1 -top-3 z-30 h-6 w-6 lg:h-10 lg:w-10"
+                                            />
+                                        ) : null}
+                                    </div>
+                                    <p className="text-sm text-white lg:text-lg">
+                                        {
+                                            <>
+                                                {job?.split("<br/>")?.[0]}
+                                                <br />
+                                                {job?.split("<br/>")?.[1]}
+                                            </>
+                                        }
+                                    </p>
+                                </div>
+                            )
+                    })}
+                </div>
+            </div>
+        </div>
+    )
+}

@@ -52,12 +52,15 @@ export const SolveLeadersConflict = ({
     }
 
     return (
-        <ModalWrapper classes="max-w-[1000px]  !py-12 !justify-between  !px-4">
-            <p className="font-trajan w-full text-center text-[30px] font-bold">
+        <ModalWrapper
+            parentClass="!w-full !justify-center "
+            classes="!justify-around !w-[90%] !h-[90] !max-w-[1200px]  !relative px-10 "
+        >
+            <p className="font-trajan w-full text-center  text-2xl lg:text-[30px] font-bold">
                 what happen still in valoria still on valoria their is a conflict between your
                 leaders
             </p>
-            <div className="flex w-full justify-center items-center gap-6">
+            <div className="flex w-full items-center justify-center gap-6">
                 <ImageButton
                     size="xl"
                     icon={actFast}

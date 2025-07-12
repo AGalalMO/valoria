@@ -111,11 +111,14 @@ export const SelectedRoadOptions = ({
 
 
     return (
-        <ModalWrapper classes="min-h-[400px] !justify-around !gap-12 max-w-[850px]">
-            <p className="font-trajan w-full max-w-[80%] text-center text-[30px] font-bold">
+        <ModalWrapper
+            parentClass="!w-full !justify-center "
+            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 lg:px-[80px]"
+        >
+            <p className="font-trajan w-full max-w-[80%] text-center text-2xl lg:text-[30px] font-bold">
                 {modalData?.head}
             </p>
-            <div className="flex w-full items-center justify-center gap-9 ">
+            <div className="flex w-full items-center justify-center gap-9">
                 {selectedBefore?.length == 2 ? null : (
                     <ImageButton
                         size={"normal"}

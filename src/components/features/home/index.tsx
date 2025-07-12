@@ -26,7 +26,7 @@ export default function Home() {
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
+        currentFlow: FLOW_ENUM.START_GAME,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })
@@ -97,7 +97,7 @@ export default function Home() {
             ) : null}
             {!loading ? (
                 progress.currentFlow == FLOW_ENUM.START_GAME ? (
-                    <div className="flex w-full justify-center">
+                    <div className="flex w-full justify-center mb-12">
                         <BorderButton
                             text="START GAME"
                             onClick={() => {

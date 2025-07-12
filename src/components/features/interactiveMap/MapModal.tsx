@@ -6,6 +6,8 @@ import ImageButton from "../../shared/imageButton"
 import { MAP_MODAL_TYPE } from "../../../types/Enums"
 import BorderButton from "../../shared/borderButton"
 import type { MapModalPropsType } from "../../../types/InteractiveMap"
+import { motion, AnimatePresence } from "framer-motion"
+
 export default function MapModal({
     onClickChangeRoute,
     onClickCancelChangeRoute,
@@ -16,88 +18,214 @@ export default function MapModal({
 }: MapModalPropsType) {
     return (
         <>
-          
-            {modalOptions?.isOpen ? (
-                <div className="absolute top-0 left-0 z-[1000] flex h-full w-full items-center justify-center">
-                    <div
-                        style={{
-                            backgroundImage: `url(${bgModal})`,
-                            backgroundPosition: "center",
-                            backgroundSize: "cover"
-                        }}
-                        className={`flex min-w-[750px] flex-col items-center justify-center gap-6 border-5 border-[#DC8E2F] p-8`}
+            <AnimatePresence>
+                {modalOptions?.isOpen ? (
+                    <motion.div 
+                        className="absolute top-0 left-0 z-[1000] flex h-full w-full items-center justify-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
                     >
-                        {modalOptions.modalType == MAP_MODAL_TYPE.CHANGE_ROUTE ? (
-                            <>
-                                <div className="flex items-center">
-                                    <img src={dangerImg} width={120} height={120} />
-                                    <p className="text-3xl font-bold text-white"> CHANGE ROUTE</p>
-                                </div>
-                                <p className="text-2xl text-white">
-                                    do you want to change the Route ?
-                                </p>
-                                <div className="flex w-[400px] items-center justify-between">
-                                    <ImageButton
-                                        icon={yes}
-                                        onClick={onClickChangeRoute}
-                                        text="YES"
-                                    />
-                                    <ImageButton
-                                        icon={no}
-                                        onClick={onClickCancelChangeRoute}
-                                        text="NO"
-                                    />
-                                </div>
-                            </>
-                        ) : modalOptions.modalType == MAP_MODAL_TYPE.SOLIDER_PERCENTAGE ? (
-                            <>
-                                <div className="flex items-center">
-                                    <img src={dangerImg} width={120} height={120} />
-                                    <p className="text-3xl font-bold text-white"> Select</p>
-                                </div>
-                                <p className="text-2xl text-white">
-                                    Choose Solider Percentage You Need To change
-                                </p>
-                                <div className="flex w-[600px] items-center justify-between">
-                                    <BorderButton
-                                        bottomBorder={false}
-                                        onClick={onSelectSoliderPercentage}
-                                        text="70%"
-                                    />
-                                    <BorderButton
-                                        bottomBorder={false}
-                                        onClick={onSelectSoliderPercentage}
-                                        text="60%"
-                                    />
-                                    <BorderButton
-                                        bottomBorder={false}
-                                        onClick={onSelectSoliderPercentage}
-                                        text="50%"
-                                    />
-                                </div>
-                            </>
-                        ) : modalOptions.modalType == MAP_MODAL_TYPE.INCREASE_SOLDIERS ? (
-                            <>
-                                <div className="flex items-center">
-                                    <img src={dangerImg} width={120} height={120} />
-                                    <p className="text-3xl font-bold text-white"> Select</p>
-                                </div>
-                                <p className="text-2xl text-white">
-                                    Enemies ahead Do you want to increase soldiers
-                                </p>
-                                <div className="flex w-[400px] items-center justify-between">
-                                    <ImageButton icon={yes} onClick={askForMen} text="YES" />
-                                    <ImageButton
-                                        icon={no}
-                                        onClick={continueWithoutMoreMen}
-                                        text="NO"
-                                    />
-                                </div>
-                            </>
-                        ) : null}
-                    </div>
-                </div>
-            ) : null}
+                        <motion.div
+                            style={{
+                                backgroundImage: `url(${bgModal})`,
+                                backgroundPosition: "center",
+                                backgroundSize: "cover"
+                            }}
+                            className={`flex min-w-[750px] flex-col items-center justify-center gap-6 border-5 border-[#DC8E2F] p-8`}
+                            initial={{ scale: 0.8, opacity: 0, y: 50 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.8, opacity: 0, y: 50 }}
+                            transition={{ 
+                                duration: 0.2, 
+                                type: "spring", 
+                                stiffness: 100,
+                                damping: 15
+                            }}
+                        >
+                            {modalOptions.modalType == MAP_MODAL_TYPE.CHANGE_ROUTE ? (
+                                <>
+                                    <motion.div 
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        <motion.img 
+                                            src={dangerImg} 
+                                            width={120} 
+                                            height={120}
+                                            animate={{ 
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{ 
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+                                        <p className="text-3xl font-bold text-white"> CHANGE ROUTE</p>
+                                    </motion.div>
+                                    <motion.p 
+                                        className="text-2xl text-white"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        do you want to change the Route ?
+                                    </motion.p>
+                                    <motion.div 
+                                        className="flex w-[400px] items-center justify-between"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <ImageButton
+                                                icon={yes}
+                                                onClick={onClickChangeRoute}
+                                                text="YES"
+                                            />
+                                        </motion.div>
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <ImageButton
+                                                icon={no}
+                                                onClick={onClickCancelChangeRoute}
+                                                text="NO"
+                                            />
+                                        </motion.div>
+                                    </motion.div>
+                                </>
+                            ) : modalOptions.modalType == MAP_MODAL_TYPE.SOLIDER_PERCENTAGE ? (
+                                <>
+                                    <motion.div 
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        <motion.img 
+                                            src={dangerImg} 
+                                            width={120} 
+                                            height={120}
+                                            animate={{ 
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{ 
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+                                        <p className="text-3xl font-bold text-white"> Select</p>
+                                    </motion.div>
+                                    <motion.p 
+                                        className="text-2xl text-white"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        Choose Solider Percentage You Need To change
+                                    </motion.p>
+                                    <motion.div 
+                                        className="flex w-[600px] items-center justify-between"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        {["70%", "60%", "50%"].map((percentage, index) => (
+                                            <motion.div
+                                                key={percentage}
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ 
+                                                    delay:  index * 0.1, 
+                                                    duration: 0.3,
+                                                    type: "spring",
+                                                    stiffness: 200
+                                                }}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                            >
+                                                <BorderButton
+                                                    bottomBorder={false}
+                                                    onClick={onSelectSoliderPercentage}
+                                                    text={percentage}
+                                                />
+                                            </motion.div>
+                                        ))}
+                                    </motion.div>
+                                </>
+                            ) : modalOptions.modalType == MAP_MODAL_TYPE.INCREASE_SOLDIERS ? (
+                                <>
+                                    <motion.div 
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        <motion.img 
+                                            src={dangerImg} 
+                                            width={120} 
+                                            height={120}
+                                            animate={{ 
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{ 
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+                                        <p className="text-3xl font-bold text-white"> Select</p>
+                                    </motion.div>
+                                    <motion.p 
+                                        className="text-2xl text-white"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        Enemies ahead Do you want to increase soldiers
+                                    </motion.p>
+                                    <motion.div 
+                                        className="flex w-[400px] items-center justify-between"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{  duration: 0.2 }}
+                                    >
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <ImageButton icon={yes} onClick={askForMen} text="YES" />
+                                        </motion.div>
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <ImageButton
+                                                icon={no}
+                                                onClick={continueWithoutMoreMen}
+                                                text="NO"
+                                            />
+                                        </motion.div>
+                                    </motion.div>
+                                </>
+                            ) : null}
+                        </motion.div>
+                    </motion.div>
+                ) : null}
+            </AnimatePresence>
         </>
     )
 }

@@ -7,6 +7,14 @@ import loading4 from "../../../assets/loading/4.svg"
 import loading5 from "../../../assets/loading/5.svg"
 import loading6 from "../../../assets/loading/6.svg"
 import loading7 from "../../../assets/loading/7.svg"
+import allie from "../../../assets/icons/allie.svg"
+import attack from "../../../assets/icons/attack.svg"
+import danger from "../../../assets/icons/danger.svg"
+import forest from "../../../assets/icons/forest.svg"
+import home from "../../../assets/icons/home.svg"
+import yes from "../../../assets/icons/yes.svg"
+import noCrop from "../../../assets/icons/noCrop.svg"
+import spy from "../../../assets/icons/spy.svg"
 
 function LoadingScreen({
     setBgImage
@@ -17,6 +25,15 @@ function LoadingScreen({
     const [fade, setFade] = useState(true)
 
     const loadingImages = [loading1, loading2, loading3, loading4, loading5, loading6, loading7]
+    const imagesToPreload = [allie, attack, danger, forest, home, yes, noCrop, spy]
+
+    // Preload images on mount
+    useEffect(() => {
+        imagesToPreload.forEach((src) => {
+            const img = new window.Image();
+            img.src = src;
+        });
+    }, []);
 
     useEffect(() => {
         if (index === 6) return // Stop if last image

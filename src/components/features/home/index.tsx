@@ -21,12 +21,16 @@ import Attacked from "../bridgeProblem/attacked"
 import CannonAttack from "../cannon/components/attackedByCannon"
 import ControlValoria from "../controlValoria"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
+import { useTranslation } from "react-i18next"
 export default function Home() {
+
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
+           const { t } = useTranslation()
+
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.FIRE_CANNON,
+        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })
@@ -99,7 +103,7 @@ export default function Home() {
                 progress.currentFlow == FLOW_ENUM.START_GAME ? (
                     <div className="flex w-full justify-center mb-12">
                         <BorderButton
-                            text="START GAME"
+                            text={t('start_game')}
                             onClick={() => {
                                 setProgress(prev => ({
                                     ...prev,

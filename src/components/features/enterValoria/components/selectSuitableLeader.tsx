@@ -6,6 +6,7 @@ import BorderButton from "../../../shared/borderButton"
 import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions"
 import { ModalWrapper } from "./modalWrapper"
 import LeaderPowers from "../../controlValoria/LeaderPowers"
+import { useTranslation } from "react-i18next"
 
 export const SelectSuitableLeader = ({
     setSelectedSubLeaders,
@@ -108,26 +109,25 @@ export const SelectSuitableLeader = ({
 
         setFlow(VALORIA_ROAD_ENUM.SELECT_OPTION_TO_CONTINUE)
     }
-
+const {t}=useTranslation()
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90]  !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl lg:text-[30px] font-bold">
+            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                 {headText ? (
                     headText
                 ) : (
                     <>
-                        choose {selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES ? "two" : "one"}{" "}
-                        leaders from your army
-                        <br />
-                        to help you enter valoria’s gates
+                        {selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES
+                            ? t("select_two_leader_gates")
+                            : t("select_one_leader_gates")}
                     </>
                 )}
             </p>
 
-            <div className="mb-5 grid grid-cols-3 justify-items-center gap-y-8 lg:!grid-cols-5">
+            <div className="mb-5 grid grid-cols-3 gap-x-2 lg:gap-x-4 justify-items-center gap-y-8 lg:!grid-cols-5">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -158,12 +158,12 @@ export const SelectSuitableLeader = ({
                                     setSelectedSubLeaders(prev => [...prev, item])
                                 }
                             }}
-                            text={item?.name}
+                            text={t(item?.name)}
                         />
                     )
                 })}
             </div>
-            <BorderButton size="sm" onClick={selectSubLeaderHandler} text={"OPEN VALORIA"} />
+            <BorderButton size="sm" onClick={selectSubLeaderHandler} text={t("open_valoria")} />
             {powerModal ? (
                 <LeaderPowers
                     closeModal={() => {

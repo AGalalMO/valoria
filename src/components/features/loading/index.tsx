@@ -3,18 +3,25 @@ import homeBg from "../../../assets/backgrounds/home.svg"
 import loading1 from "../../../assets/loading/1.svg"
 import loading2 from "../../../assets/loading/2.svg"
 import loading3 from "../../../assets/loading/3.svg"
-import loading4 from "../../../assets/loading/4.svg"
-import loading5 from "../../../assets/loading/5.svg"
-import loading6 from "../../../assets/loading/6.svg"
-import loading7 from "../../../assets/loading/7.svg"
-// import allie from "../../../assets/icons/allie.svg"
-// import attack from "../../../assets/icons/attack.svg"
-// import danger from "../../../assets/icons/danger.svg"
-// import forest from "../../../assets/icons/forest.svg"
-// import home from "../../../assets/icons/home.svg"
-// import yes from "../../../assets/icons/yes.svg"
-// import noCrop from "../../../assets/icons/noCrop.svg"
-// import spy from "../../../assets/icons/spy.svg"
+ import loading4 from "../../../assets/loading/4.svg"
+ import loading5 from "../../../assets/loading/5.svg"
+ import loading6 from "../../../assets/loading/6.svg"
+ import loading7 from "../../../assets/loading/7.svg"
+
+ import allie from "../../../assets/icons/allie.svg"
+import attack from "../../../assets/icons/attack.svg"
+import danger from "../../../assets/icons/danger.svg"
+import forest from "../../../assets/icons/forest.svg"
+import home from "../../../assets/icons/home.svg"
+import yes from "../../../assets/icons/yes.svg"
+import noCrop from "../../../assets/icons/noCrop.svg"
+import spy from "../../../assets/icons/spy.svg"
+const CRITICAL_ASSETS = [homeBg]
+
+// Non-critical assets that can load in background
+const BACKGROUND_ASSETS: string[] = [
+    allie, attack, danger, forest, home, yes, noCrop, spy
+]
 
 function LoadingScreen({
     setBgImage
@@ -23,38 +30,100 @@ function LoadingScreen({
 }) {
     const [index, setIndex] = useState(0)
     const [fade, setFade] = useState(true)
+    const [loadingError, setLoadingError] = useState(false)
+    const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(false)
 
+    // Reduced loading images to prevent timeout
     const loadingImages = [loading1, loading2, loading3, loading4, loading5, loading6, loading7]
-    // const imagesToPreload = [allie, attack, danger, forest, home, yes, noCrop, spy]
+    
+    // Preload critical assets with timeout
+    useEffect(() => {
+        const preloadCriticalAssets = async () => {
+            try {
+                const loadPromises = CRITICAL_ASSETS.map((asset) => {
+                    return new Promise((resolve) => {
+                        const img = new Image()
+                        img.onload = () => resolve(true)
+                        img.onerror = () => resolve(false)
+                        img.src = asset
+                    })
+                })
+                
+                // Wait for critical assets with timeout
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Critical assets timeout')), 3000)
+                )
+                
+                await Promise.race([
+                    Promise.all(loadPromises),
+                    timeoutPromise
+                ])
+                
+                setCriticalAssetsLoaded(true)
+            } catch (error) {
+                console.warn('Critical asset preloading failed, continuing anyway:', error)
+                setLoadingError(true)
+            }
+        }
+        
+        preloadCriticalAssets()
+    }, [])
 
-    // Preload images on mount
-   
+    // Preload background assets after critical ones are loaded
+    useEffect(() => {
+        if (!criticalAssetsLoaded) return
+        
+        const preloadBackgroundAssets = async () => {
+            try {
+                BACKGROUND_ASSETS.forEach((asset) => {
+                    const img = new Image()
+                    img.src = asset
+                })
+            } catch (error) {
+                console.warn('Background asset preloading failed:', error)
+            }
+        }
+        
+        preloadBackgroundAssets()
+    }, [criticalAssetsLoaded])
 
     useEffect(() => {
-        if (index === 6) return // Stop if last image
+        if (index >= loadingImages.length - 1) return // Stop if last image
+        
         const interval = setInterval(() => {
             setFade(false)
             setTimeout(() => {
                 setIndex(prev => {
-                    if (prev < 6) {
+                    if (prev < loadingImages.length - 1) {
                         return prev + 1
                     }
                     return prev
                 })
                 setFade(true)
             }, 200) // fade out duration
-        }, 500)
+        }, 800) // Increased interval to reduce server load
+        
         return () => clearInterval(interval)
-    }, [index])
+    }, [index, loadingImages.length])
 
     useEffect(() => {
-        if (index === 6) {
-            const timeout = setTimeout(() => {
+        // Auto-advance to home after critical assets are loaded or timeout
+        const timeout = setTimeout(() => {
+            if (criticalAssetsLoaded || loadingError) {
                 setBgImage(homeBg)
-            }, 300)
-            return () => clearTimeout(timeout)
+            }
+        }, 2500)
+        
+        return () => clearTimeout(timeout)
+    }, [criticalAssetsLoaded, loadingError, setBgImage])
+
+    // If there's a loading error, skip to home immediately
+    useEffect(() => {
+        if (loadingError) {
+            setBgImage(homeBg)
         }
-    }, [index])
+    }, [loadingError, setBgImage])
+
     return (
         <>
             <img
@@ -63,6 +132,7 @@ function LoadingScreen({
                     fade ? "opacity-100" : "opacity-50"
                 }`}
                 alt="loading"
+                onError={() => setLoadingError(true)}
             />
         </>
     )

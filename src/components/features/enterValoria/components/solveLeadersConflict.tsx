@@ -6,11 +6,13 @@ import actFast from "../../../../assets/icons/actFast.png"
 import changeLead from "../../../../assets/icons/changeLead.png"
 import meeting from "../../../../assets/icons/meeting.png"
 import { FLOW_ENUM } from "../../../../types/FLowEnum"
+import { useTranslation } from "react-i18next"
 export const SolveLeadersConflict = ({
     setProgress
 }: {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
-}) => {
+    }) => {
+    const {t}=useTranslation()
     const solveConflictBetweenLeaders = (action: LEADER_CONFLICT_ENUM) => {
         if (action == LEADER_CONFLICT_ENUM.ACT_FAST) {
             setProgress(prev => {
@@ -56,9 +58,8 @@ export const SolveLeadersConflict = ({
             parentClass="!w-full !justify-center "
             classes="!justify-around !w-[90%] !h-[90] !max-w-[1200px]  !relative px-10 "
         >
-            <p className="font-trajan w-full text-center  text-2xl lg:text-[30px] font-bold">
-                what happen still in valoria still on valoria their is a conflict between your
-                leaders
+            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+                {t("what_happen_in_valoria")}
             </p>
             <div className="flex w-full items-center justify-center gap-6">
                 <ImageButton
@@ -67,7 +68,7 @@ export const SolveLeadersConflict = ({
                     onClick={() => {
                         solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.ACT_FAST)
                     }}
-                    text="act very fast threaten them to fire them"
+                    text={t("act_fast")}
                 />
                 <ImageButton
                     size="xl"
@@ -75,7 +76,7 @@ export const SolveLeadersConflict = ({
                     onClick={() => {
                         solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.MEETING)
                     }}
-                    text="meeting between leader discuss the old problems"
+                    text={t("meet_leaders")}
                 />
                 <ImageButton
                     size="xl"
@@ -83,7 +84,7 @@ export const SolveLeadersConflict = ({
                     onClick={() => {
                         solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.CHANGE_LEADS)
                     }}
-                    text="change leaders dutes and separate them"
+                    text={t("act_leaderChange")}
                 />
             </div>
         </ModalWrapper>

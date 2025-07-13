@@ -5,6 +5,7 @@ import BorderButton from "../../../shared/borderButton"
 import { ModalWrapper } from "./modalWrapper"
 import LeaderPowers from "../../controlValoria/LeaderPowers";
 import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions";
+import { useTranslation } from "react-i18next";
 
 export const SelectSuitableLeaderToBuildBridge = ({
     setSelectedSubLeaders,
@@ -13,7 +14,8 @@ export const SelectSuitableLeaderToBuildBridge = ({
     selectedOption,
     onClick
 }: propTypes) => {
-    const [powerModal,setPowerModal]=useState<LeaderType|null>(null)
+    const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
+    const {t}=useTranslation()
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -21,25 +23,17 @@ export const SelectSuitableLeaderToBuildBridge = ({
         >
             <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                 {selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ? (
-                    <>
-                        {" "}
-                        choose one leader from your army <br />
-                        to help you build alternative bridge
-                    </>
+                    <> {t("choose_leader_bridge")}</>
                 ) : selectedOption == FLOW_ENUM.SEE_ME ||
                   selectedOption == FLOW_ENUM.OVER_MY_DEAD_BODY ? (
-                    <>choose one leader from your army</>
+                    <>{t("choose_leader_")}</>
                 ) : selectedOption == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON ? (
-                    <>
-                        choose one leader from your army <br /> to help you hit the enemy by cannon
-                    </>
+                    <>{t("select_one_leader_cannon")}</>
                 ) : (
-                    <>
-                        choose one leader from your army <br /> to help you pass the bridge
-                    </>
+                    <>{t("select_two_leader_pass_gates")}</>
                 )}
             </p>
-            <div className="mb-5 grid grid-cols-3  lg:!grid-cols-5 justify-items-center gap-y-8">
+            <div className="mb-5 grid grid-cols-3 justify-items-center gap-x-2 gap-y-8 lg:!grid-cols-5 lg:gap-x-4">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.name == item?.name
                     return (
@@ -56,7 +50,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
                                     setSelectedSubLeaders(item)
                                 }
                             }}
-                            text={item?.name}
+                            text={t(item?.name)}
                         />
                     )
                 })}
@@ -66,12 +60,12 @@ export const SelectSuitableLeaderToBuildBridge = ({
                 onClick={onClick}
                 text={
                     selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE
-                        ? "Build Bridge"
+                        ? t("build_bridge")
                         : selectedOption == FLOW_ENUM.RACE_FOR_TIME
-                          ? "RACE FOR TIME"
+                          ? t("race_for_time")
                           : selectedOption == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON
-                            ? "HIT THE ENEMY "
-                            : "SELECT LEADER"
+                            ? t("hit_enemy")
+                            : t("select_your_leader")
                 }
             />
             {powerModal ? (

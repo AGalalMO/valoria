@@ -7,13 +7,15 @@ import spy from "../../../assets/icons/spy.svg"
 import attack from "../../../assets/icons/attack.svg"
 import type { UserProgressType } from "../../../types/UserProgress"
 import { ModalWrapper } from "./components/modalWrapper"
+import { useTranslation } from "react-i18next"
 export const SelectValoriaWayIn = ({
     setProgress,
     progress
 }: {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
     progress: UserProgressType
-}) => {
+    }) => {
+    const {t}=useTranslation()
     const calculateManPower = (way: Way_IN, currentPower: ManPower) => {
         let result: ManPower = currentPower
         switch (way) {
@@ -49,8 +51,8 @@ export const SelectValoriaWayIn = ({
             classes="!justify-around !w-[90%] !h-[90]
             !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl lg:text-[30px] font-bold">
-                to start the war you need to get the map of valoria choose the best way to get it
+            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+                {t("way_map")}
             </p>
             <div className="flex items-center gap-8">
                 <ImageButton
@@ -58,21 +60,21 @@ export const SelectValoriaWayIn = ({
                         onSelectWayIn(Way_IN.SPY)
                     }}
                     icon={spy}
-                    text="SEND SPY"
+                    text={t("send_spy")}
                 />
                 <ImageButton
                     onClick={() => {
                         onSelectWayIn(Way_IN.ALLIE)
                     }}
                     icon={allie}
-                    text="favour from allie"
+                    text={t("favour_allie")}
                 />
                 <ImageButton
                     onClick={() => {
                         onSelectWayIn(Way_IN.ATTACK)
                     }}
                     icon={attack}
-                    text="Attack Now"
+                    text={t("attack_nw")}
                 />
             </div>
         </ModalWrapper>

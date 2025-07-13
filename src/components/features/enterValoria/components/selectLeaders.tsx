@@ -5,6 +5,7 @@ import type { LeaderType } from "../../../../types/leaders"
 import { useState } from "react"
 import LeaderPowers from "../../controlValoria/LeaderPowers"
 import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions"
+import { useTranslation } from "react-i18next"
 
 export const ChooseFiveLeaders = ({
     selectedLeaders,
@@ -16,19 +17,17 @@ export const ChooseFiveLeaders = ({
     openValoriaHandler: () => void
     }) => {
         const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
-
+        const {t}=useTranslation()
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
             <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                choose five leaders from your army
-                <br />
-                to help you enter valoria
+                {t("choose_leaders")}
             </p>
 
-            <div className="mb-5 grid grid-cols-4 content-center justify-items-center gap-y-8 lg:!grid-cols-5">
+            <div className="mb-5 grid grid-cols-4 content-center gap-x-2 lg:gap-x-4 justify-items-center gap-y-8 lg:!grid-cols-5">
                 {leaders?.map(item => {
                     const isSelected = selectedLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -52,12 +51,12 @@ export const ChooseFiveLeaders = ({
                                     setSelectedLeaders(prev => [...prev, item])
                                 }
                             }}
-                            text={item?.name}
+                            text={t(item?.name)}
                         />
                     )
                 })}
             </div>
-            <BorderButton size="md" onClick={openValoriaHandler} text={"OPEN VALORIA"} />
+            <BorderButton size="md" onClick={openValoriaHandler} text={t('open_valoria')} />
             {powerModal ? (
                 <LeaderPowers
                     closeModal={() => {

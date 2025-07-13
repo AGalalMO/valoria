@@ -7,6 +7,7 @@ import deadBody from "../../../assets/deadBody.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"
 import type { ManPower } from "../../../types/manPower"
+import { useTranslation } from "react-i18next"
 export default function Attacked({
     setSelectedSubLeaders,
     changeFlowState,
@@ -15,9 +16,10 @@ export default function Attacked({
     changeFlowState: (flow: FLOW_ENUM) => void
     setSelectedSubLeaders: React.Dispatch<React.SetStateAction<LeaderType | null>>
     changePowers: (powers: ManPower) => void
-}) {
+    }) {
+    const {t}=useTranslation()
     return (
-        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
@@ -28,12 +30,10 @@ export default function Attacked({
             >
                 <ModalWrapper
                     parentClass="!w-full !justify-center"
-                    classes="!justify-between !w-[90%] !h-[90] !relative"
+                    classes="!justify-around !w-[90%] !h-[90] !relative"
                 >
                     <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                        you got attacked while
-                        <br />
-                        building the bridge
+                        {t("attacked_building")}
                     </p>
                     <div className="flex w-full items-center justify-center gap-6">
                         <ImageButton
@@ -42,7 +42,7 @@ export default function Attacked({
                                 setSelectedSubLeaders(null)
                                 changeFlowState(FLOW_ENUM.OVER_MY_DEAD_BODY)
                             }}
-                            text={`over my dead body`}
+                            text={t("dead_body")}
                         />
                         <ImageButton
                             icon={seeme}
@@ -51,7 +51,7 @@ export default function Attacked({
 
                                 changeFlowState(FLOW_ENUM.SEE_ME)
                             }}
-                            text={`you can't see me`}
+                            text={t("see_me")}
                         />
                         <ImageButton
                             icon={alliez}
@@ -61,7 +61,7 @@ export default function Attacked({
 
                                 changeFlowState(FLOW_ENUM.CANNON_ATTACK)
                             }}
-                            text={`allez allez allez take 1/2 time`}
+                            text={t("allez")}
                         />
                     </div>
                 </ModalWrapper>

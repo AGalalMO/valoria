@@ -9,6 +9,7 @@ import { RightLeaders } from "../enterValoria/leaderData"
 import type { ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
+import { useTranslation } from "react-i18next";
 
 export default function ControlValoria({
     selectedLeaders,
@@ -19,10 +20,12 @@ export default function ControlValoria({
     const [jobModal, setJobModal] = useState<LeaderType | null>(null)
     const [tryAgain, setTryAgain] = useState(false)
     const [selectedJobs, setSelectedJobs] = useState<SelectedJobsType[]>([])
+    const { t } = useTranslation()
+
 const leaders = useMemo(() => {
-  const newLeaders:LeaderType[] = []
+    const newLeaders: LeaderType[] = []
+    
     const jobs: SelectedJobsType[] = []
-        
     selectedLeaders?.map((item) => {
             if (RightLeaders?.includes(item?.name))
             {
@@ -65,7 +68,6 @@ const leaders = useMemo(() => {
                 }
 
     }
-    console.log("SELECTED JOBS",selectedJobs)
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -73,22 +75,20 @@ const leaders = useMemo(() => {
         >
             {tryAgain ? (
                 <TryAgainModal
-                    buttonText="Control Valoria"
+                    buttonText={t("control_valoria")}
                     closeModal={() => {
                         setTryAgain(false)
                     }}
-                    headerText1="Wrong Selection"
-                    headerText2="Try again"
+                    headerText1={t("wrong_selection")}
+                    headerText2={t("try_again")}
                 />
             ) : (
                 <>
                     <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                        finally we entered valoria, now we have <br /> to put a mission for each
-                        leader to <br /> fully occupy valoria
+                        {t("finally_we_entered_valoria")}
                     </p>
                     <div className="mb-5 flex flex-wrap justify-center gap-x-8 gap-y-8">
                         {leaders?.map(item => {
-                            
                             return (
                                 <>
                                     <ImageButtonDoubleAuctions
@@ -99,13 +99,13 @@ const leaders = useMemo(() => {
                                         onClickImage={() => {
                                             setPowerModal(item)
                                         }}
-                                        text={item?.name}
+                                        text={t(item?.name)}
                                     />
                                 </>
                             )
                         })}
                     </div>
-                    <BorderButton size="sm" onClick={controlValoria} text={"CONTROL VALORIA"} />
+                    <BorderButton size="sm" onClick={controlValoria} text={t("control_valoria")} />
                 </>
             )}
             {powerModal ? (
@@ -119,17 +119,15 @@ const leaders = useMemo(() => {
             ) : null}
             {jobModal ? (
                 <LeaderJobs
-                    selectJob={index =>
-                    {
-                        const jobs=selectedJobs
-                        const leadIndex = jobs?.findIndex(item => item?.leader?.name == jobModal?.name)
-                        console.log('LEAD INDE',leadIndex)
-                        console.log(" jobs[leadIndex]", jobs[leadIndex])
-                        jobs[leadIndex] = { ...jobs?.[leadIndex], index: index }    
+                    selectJob={index => {
+                        const jobs = selectedJobs
+                        const leadIndex = jobs?.findIndex(
+                            item => item?.leader?.name == jobModal?.name
+                        )
+                        jobs[leadIndex] = { ...jobs?.[leadIndex], index: index }
                         setSelectedJobs([...jobs])
                     }}
                     selectedJobs={selectedJobs}
-                    
                     closeModal={() => {
                         setJobModal(null)
                     }}

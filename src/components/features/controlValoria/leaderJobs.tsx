@@ -3,6 +3,7 @@ import bg from "../../../assets/backgrounds/modal.png"
 import box from "../../../assets/box.png"
 import mark from "../../../assets/mark.png"
 import closeModalIcon from "../../../assets/closeModal.png"
+import { useTranslation } from "react-i18next"
 
 export default function LeaderJobs({
     leader,
@@ -14,14 +15,9 @@ export default function LeaderJobs({
     closeModal: VoidFunction
     selectJob: (index: number) => void
     selectedJobs: { index: number | null; leader: LeaderType }[]
-}) {
-    const jobs = [
-        "The Warden <br/> of Defense",
-        "The Marshal <br/>of Operations",
-        "The Architect <br/> of Infrastructure",
-        "The Overseer of <br/>Territory & Resources",
-        "The Commander<br/>of Borders & Trade"
-    ]
+    }) {
+    const {t}=useTranslation()
+    const jobs = [t("the_warden"), t("the_marshal"), t("architect"), t("overseer"), t("commander")]
 
     return (
         <div
@@ -48,41 +44,39 @@ export default function LeaderJobs({
                     className="!h-[180] !w-[190px] lg:!h-[300px] lg:!w-[340px]"
                 />
                 <div className="flex flex-col gap-2">
-                    <p className="text-xl font-bold text-white lg:text-3xl">{leader?.name}</p>
+                    <p className="text-xl font-bold text-white lg:text-3xl">{t("leader?.name")}</p>
                     {jobs?.map((job, index) => {
-                        const currentJob = selectedJobs?.filter((item)=>item?.index==index)?.[0]
-                          const disabled =
-                              currentJob?.index == index && currentJob?.leader?.name != leader.name
-                            return (
-                                <div
-                                    className={`flex items-center gap-4 ${disabled?'opacity-60':''}`}
-                                    onClick={() => {
-                                        if (disabled)
-                                            return
-                                        else
-                                            selectJob(index)
-                                    }}
-                                >
-                                    <div className="relative cursor-pointer">
-                                        <img src={box} className="h-6 w-6 lg:h-10 lg:w-10" />
-                                        {selectedJobs?.filter(item => item?.index == index)?.[0] ? (
-                                            <img
-                                                src={mark}
-                                                className="absolute start-1 -top-3 z-30 h-6 w-6 lg:h-10 lg:w-10"
-                                            />
-                                        ) : null}
-                                    </div>
-                                    <p className="text-sm text-white lg:text-lg">
-                                        {
-                                            <>
-                                                {job?.split("<br/>")?.[0]}
-                                                <br />
-                                                {job?.split("<br/>")?.[1]}
-                                            </>
-                                        }
-                                    </p>
+                        const currentJob = selectedJobs?.filter(item => item?.index == index)?.[0]
+                        const disabled =
+                            currentJob?.index == index && currentJob?.leader?.name != leader.name
+                        return (
+                            <div
+                                className={`flex items-center gap-4 ${disabled ? "opacity-60" : ""}`}
+                                onClick={() => {
+                                    if (disabled) return
+                                    else selectJob(index)
+                                }}
+                            >
+                                <div className="relative cursor-pointer">
+                                    <img src={box} className="h-6 w-6 lg:h-10 lg:w-10" />
+                                    {selectedJobs?.filter(item => item?.index == index)?.[0] ? (
+                                        <img
+                                            src={mark}
+                                            className="absolute start-1 -top-3 z-30 h-6 w-6 lg:h-10 lg:w-10"
+                                        />
+                                    ) : null}
                                 </div>
-                            )
+                                <p className="text-sm text-white lg:text-lg">
+                                    {
+                                        <>
+                                            {job?.split("<br/>")?.[0]}
+                                            <br />
+                                            {job?.split("<br/>")?.[1]}
+                                        </>
+                                    }
+                                </p>
+                            </div>
+                        )
                     })}
                 </div>
             </div>

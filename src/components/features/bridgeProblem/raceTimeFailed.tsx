@@ -5,6 +5,7 @@ import bridgee from "../../../assets/bridgee.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { ManPower } from "../../../types/manPower"
 import type { LeaderType } from "../../../types/leaders"
+import { useTranslation } from "react-i18next"
 
 export default function RaceTimeFailed({
     changePowers,
@@ -14,9 +15,10 @@ export default function RaceTimeFailed({
     changePowers: (powers: ManPower) => void
     setSelectedSubLeaders: React.Dispatch<React.SetStateAction<LeaderType | null>>
     changeFlowState: (flow: FLOW_ENUM) => void
-}) {
+    }) {
+    const {t}=useTranslation()
     return (
-        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
@@ -31,8 +33,7 @@ export default function RaceTimeFailed({
                 >
                     <img src={bridgee} />
                     <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                        your about to defuse the bridge but it blows up now you have to build
-                        alternative bridge
+                        {t("race_time_failed_head")}
                     </p>
                     <div className="max-w-[700px]">
                         <BorderButton
@@ -41,7 +42,7 @@ export default function RaceTimeFailed({
                                 setSelectedSubLeaders(null)
                                 changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE)
                             }}
-                            text="build alternative bridge"
+                            text={t("alternate_bridge")}
                         />
                     </div>
                 </ModalWrapper>

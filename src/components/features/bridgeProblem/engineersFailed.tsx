@@ -4,6 +4,7 @@ import type { ManPower } from "../../../types/manPower"
 import BorderButton from "../../shared/borderButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import favor from "../../../assets/favor.png"
+import { useTranslation } from "react-i18next"
 
 export default function EngineersFailed({
     changePowers,
@@ -11,15 +12,15 @@ export default function EngineersFailed({
 }: {
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
-}) {
+    }) {
+    const {t}=useTranslation()
     return (
-        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                   
+                    backgroundPosition: "center"
                 }}
                 className="h-[80vh] w-[95vw] lg:!h-[70vh] lg:!w-[80vw]"
             >
@@ -29,7 +30,7 @@ export default function EngineersFailed({
                 >
                     <img src={favor} />
                     <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                        the engineer betrays you <br /> now you have to build alternative bridge
+                        {t("eng_failed")}
                     </p>
                     <div className="max-w-[700px]">
                         <BorderButton
@@ -42,7 +43,7 @@ export default function EngineersFailed({
 
                                 changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE)
                             }}
-                            text="build alternative bridge"
+                            text={t("alternate_bridge")}
                         />
                     </div>
                 </ModalWrapper>

@@ -8,6 +8,7 @@ import TryAgainModal from "../../shared/tryAgainModal"
 import HorizontalAngelSection from "./components/cannonDirections/horizontalAngelSection"
 import HitPowerSection from "./components/cannonDirections/hitPowerSection"
 import VerticalAngelSection from "./components/cannonDirections/verticalAngelSection"
+import { useTranslation } from "react-i18next"
 export default function FireCannon({
     changePowers,
     changeFlowState
@@ -16,23 +17,25 @@ export default function FireCannon({
     changeFlowState: (flow: FLOW_ENUM) => void
 }) {
  
-
+const {t,i18n}=useTranslation()
     const { hitByCannon, setPowers, setXValue, setYValue, tryAgain, setTryAgain, cannonDirection } =
         useFireCannon({ changePowers, changeFlowState })
     return (
-        <div className="ms-5 lg:ms-[5%] me-5 lg:me-[5%] flex h-[90%] w-[95%] lg:!w-[90%] items-start justify-center gap-4">
+        <div
+            className={`ms-5 me-5 flex ${i18n?.language=='ar'?'flex-row-reverse':''} h-[90%] w-[95%] items-start justify-center gap-4 lg:ms-[5%] lg:me-[5%] lg:!w-[90%]`}
+        >
             <ModalWrapper
                 parentClass="!w-full !justify-center"
                 classes="!justify-start !w-[90%]  !relative"
             >
                 {tryAgain ? (
                     <TryAgainModal
-                        buttonText="HIT THE ENEMY"
+                        buttonText={t("hit_enemy")}
                         closeModal={() => {
                             setTryAgain(false)
                         }}
-                        headerText1="Wrong Aiming"
-                        headerText2="Try Again"
+                        headerText1={t("wrong_aiming")}
+                        headerText2={t("try_again")}
                     />
                 ) : (
                     <div className="flex !w-full flex-col justify-start gap-4">
@@ -47,7 +50,7 @@ export default function FireCannon({
                         />
 
                         <div className="flex w-full items-center justify-center pt-4">
-                            <BorderButton onClick={hitByCannon} text="hit the enemy" />
+                            <BorderButton onClick={hitByCannon} text={t("hit_enemy")} />
                         </div>
                     </div>
                 )}

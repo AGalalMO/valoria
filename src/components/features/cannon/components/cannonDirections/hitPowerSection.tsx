@@ -2,6 +2,7 @@ import power from "../../../../../assets/power.png"
 import type { CannonDirectType } from "../../hooks/useFireCannon"
 import check from "../../../../../assets/check.png"
 import BorderButton from "../../../../shared/borderButton"
+import { useTranslation } from "react-i18next"
 
 export default function HitPowerSection({
     cannonDirection,
@@ -9,10 +10,13 @@ export default function HitPowerSection({
 }: {
     cannonDirection: CannonDirectType
     setPowers: (value: number) => void
-}) {
+    }) {
+    const {t,i18n}=useTranslation()
     return (
         <div className="flex !w-full flex-col gap-2">
-            <div className="flex items-center gap-3">
+            <div
+                className={`flex ${i18n?.language == "ar" ? "flex-row-reverse" : ""} items-center gap-3`}
+            >
                 <img
                     src={power}
                     height={135}
@@ -20,8 +24,7 @@ export default function HitPowerSection({
                     className="h-[80px] w-[80px] lg:!h-[135px] lg:!w-[135px]"
                 />
                 <p className="font-trajan !text-lg !leading-none font-bold lg:!text-xl xl:!text-[30px]">
-                    choose the <br />
-                    hit power
+                    {t("choose_hit_power")}
                 </p>
             </div>
             <div className="flex items-center justify-around">

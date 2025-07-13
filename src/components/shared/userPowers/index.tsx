@@ -5,13 +5,28 @@ import type { ManPower } from "../../../types/manPower"
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { useMotionValue, useAnimationFrame, animate } from "framer-motion"
+import BorderButton from "../borderButton"
+import { useTranslation } from "react-i18next"
 
-export default function UserPowers({ powers }: { powers :ManPower}) {
+export default function UserPowers({ powers }: { powers: ManPower }) {
+       const { t, i18n } = useTranslation()
+
+       const changeLanguage = (lng: string) => {
+           i18n.changeLanguage(lng)
+       }
     return (
-        <div className="flex flex-row items-center gap-6">
-            <Power img={crown} text={`${powers.people}%`} />
-            <Power img={kill} text={`${powers?.army}%`} />
-            <Power img={money} text={`${powers.money}%`} />
+        <div className="flex items-center justify-between w-full">
+            <BorderButton
+                size="xs"
+                bottomBorder={false}
+                text={t("change_lang")}
+                onClick={() => changeLanguage(i18n?.language == "en" ? "ar" : "en")}
+            />
+            <div className="flex flex-row items-center gap-6">
+                <Power img={crown} text={`${powers.people}%`} />
+                <Power img={kill} text={`${powers?.army}%`} />
+                <Power img={money} text={`${powers.money}%`} />
+            </div>
         </div>
     )
 }
@@ -35,12 +50,12 @@ const Power = ({ img, text }: { img: string; text: string }) => {
     })
     return (
         <div className="flex items-center gap-1">
-            <img src={img} width={"50px"} height={"50px"} />
+            <img src={img} width={"50px"} height={"50px"} className="w-8 lg:w-[50px] h-8 lg:h-[50px]" />
             <AnimatePresence mode="wait" initial={false}>
                 {number !== null ? (
                     <motion.span
                         key={number}
-                        className="font-trajan text-3xl text-white"
+                        className="font-trajan text-lg lg:text-3xl text-white"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}
@@ -51,7 +66,7 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                 ) : (
                     <motion.p
                         key={text}
-                        className="font-trajan text-3xl text-white"
+                        className="font-trajan text-lg lg:text-3xl text-white"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}

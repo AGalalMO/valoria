@@ -3,10 +3,12 @@ import { ModalWrapper } from "../../enterValoria/components/modalWrapper"
 import cannon from "../../../../assets/cannon.png"
 import BorderButton from "../../../shared/borderButton"
 import { FLOW_ENUM } from "../../../../types/FLowEnum"
+import { useTranslation } from "react-i18next"
 
 export default function CannonAttack({ changeFlowState }: { changeFlowState: (flow: FLOW_ENUM) => void }) {
+    const {t}=useTranslation()
     return (
-        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
@@ -21,14 +23,14 @@ export default function CannonAttack({ changeFlowState }: { changeFlowState: (fl
                 >
                     <img src={cannon} />
                     <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
-                        you attacked by a cannon you have a cannon too
+                        {t("attacked_by_cannon")}
                     </p>
                     <div className="max-w-[700px]">
                         <BorderButton
                             onClick={() => {
                                 changeFlowState(FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON)
                             }}
-                            text={`choose leader to hit the enemy`}
+                            text={t("choose_to_hit_enemy")}
                         />
                     </div>
                 </ModalWrapper>

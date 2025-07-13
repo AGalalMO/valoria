@@ -11,6 +11,7 @@ import burnWood from "../../../../assets/icons/forest/burnWood.png"
 import send_spy from "../../../../assets/icons/forest/send_spy.png"
 import riverAttack from "../../../../assets/icons/river/riverAttack.png"
 import ImageButton from "../../../shared/imageButton"
+import { useTranslation } from "react-i18next";
 
 export const SelectedRoadOptions = ({
     setProgress,
@@ -21,33 +22,32 @@ export const SelectedRoadOptions = ({
     selectedBefore,
     setSelectedBefore
 }: propTypes) => {
-
+const {t}=useTranslation()
     const modalData = useMemo(() => {
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST)
             return {
-                head: "traps hidden in the woods do you want to change the plan",
+                head: t("traps_hidden"),
                 actionIcon: burnWood,
-                actionText: "burn the wood",
+                actionText: t("burn_wood"),
                 alternativeButtonIcon: send_spy,
-                alternativeButtonText: "SEND SPY TO CAPTURE TRAPS"
+                alternativeButtonText: t("cap_traps")
             }
         else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES)
             return {
-                head: "not easy to attack the gates do you want to change the plan",
+                head: t("not_easy_to_attack"),
                 actionIcon: keep_gates,
-                actionText: "KEEP ATTACKING",
+                actionText: t("keep_attacking"),
                 alternativeButtonIcon: gates_test,
-                alternativeButtonText: "TEST THEIR DURABILITY"
+                alternativeButtonText: t("text_durability")
             }
              
         else
              return {
-                 head: "traps on a river fides do you want to change the plan",
+                 head: t("traps_hidden_river"),
                  actionIcon: riverAttack,
-                 actionText: "ATTACK ON THE GROUND",
+                 actionText: t("attack_on_ground"),
                  alternativeButtonIcon: gates_test,
-                 alternativeButtonText: "SEND SPY TO CAPTURE TRAPS"
-                
+                 alternativeButtonText: t("cap_traps")
              }
     }, [selectedWay])
     
@@ -115,7 +115,7 @@ export const SelectedRoadOptions = ({
             parentClass="!w-full !justify-center "
             classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 lg:px-[80px]"
         >
-            <p className="font-trajan w-full max-w-[80%] text-center text-2xl lg:text-[30px] font-bold">
+            <p className="font-trajan w-full max-w-[80%] text-center text-2xl font-bold lg:text-[30px]">
                 {modalData?.head}
             </p>
             <div className="flex w-full items-center justify-center gap-9">
@@ -124,7 +124,7 @@ export const SelectedRoadOptions = ({
                         size={"normal"}
                         icon={changePlan}
                         onClick={onChangePlan}
-                        text="CHANGE PLAN"
+                        text={t("change_plan")}
                     />
                 )}
 

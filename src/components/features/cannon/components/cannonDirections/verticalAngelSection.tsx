@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import angel from "../../../../../assets/angel.png"
 import check from "../../../../../assets/check.png"
 import BorderButton from "../../../../shared/borderButton"
@@ -8,14 +9,19 @@ export default function VerticalAngelSection({
 }: {
     cannonDirection: CannonDirectType
     setYValue: (value: number) => void
-}) {
+    }) {
+    const {t,i18n}=useTranslation()
     return (
         <div className="flex !w-full flex-col gap-3">
-            <div className="flex items-center gap-3">
-                <img src={angel} height={135} width={135}  className="w-[80px] h-[80px] lg:!w-[135px] lg:!h-[135px]"/>
-                <p className="font-trajan !text-lg lg:!text-xl xl:!text-[30px] !leading-none font-bold">
-                    choose the <br />
-                    vertical angle
+            <div className={`flex ${i18n?.language=='ar'?'flex-row-reverse':''} items-center gap-3`}>
+                <img
+                    src={angel}
+                    height={135}
+                    width={135}
+                    className="h-[80px] w-[80px] lg:!h-[135px] lg:!w-[135px]"
+                />
+                <p className="font-trajan !text-lg !leading-none font-bold lg:!text-xl xl:!text-[30px]">
+                    {t("choose_vertical")}
                 </p>
             </div>
             <div className="flex items-center justify-around">

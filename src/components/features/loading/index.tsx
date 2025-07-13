@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import homeBg from "../../../assets/backgrounds/home.svg"
+import loadingBg from "./../../assets/backgrounds/loading.svg"
 import loading1 from "../../../assets/loading/1.svg"
 import loading2 from "../../../assets/loading/2.svg"
 import loading3 from "../../../assets/loading/3.svg"
@@ -16,7 +17,7 @@ import home from "../../../assets/icons/home.svg"
 import yes from "../../../assets/icons/yes.svg"
 import noCrop from "../../../assets/icons/noCrop.svg"
 import spy from "../../../assets/icons/spy.svg"
-const CRITICAL_ASSETS = [homeBg]
+const CRITICAL_ASSETS = [homeBg, loadingBg,loading1,loading2,loading3,loading4,loading5,loading6,loading7]
 
 // Non-critical assets that can load in background
 const BACKGROUND_ASSETS: string[] = [

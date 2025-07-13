@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import homeBg from "../../../assets/backgrounds/home.svg"
-import loadingBg from "./../../assets/backgrounds/loading.svg"
+import loadingBg from "./../../../assets/backgrounds/loading.svg"
 import loading1 from "../../../assets/loading/1.svg"
 import loading2 from "../../../assets/loading/2.svg"
 import loading3 from "../../../assets/loading/3.svg"

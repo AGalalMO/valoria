@@ -33,7 +33,7 @@ function LoadingScreen({
     const [fade, setFade] = useState(true)
     const [loadingError, setLoadingError] = useState(false)
     const [criticalAssetsLoaded, setCriticalAssetsLoaded] = useState(false)
-
+    const [backgroundAssetsLoaded,setBackgroundAssetsLoaded]=useState(false)
     // Reduced loading images to prevent timeout
     const loadingImages = [loading1, loading2, loading3, loading4, loading5, loading6, loading7]
     
@@ -85,7 +85,9 @@ function LoadingScreen({
             }
         }
         
-        preloadBackgroundAssets()
+        preloadBackgroundAssets().then(() => {
+            setBackgroundAssetsLoaded(true)
+        })
     }, [criticalAssetsLoaded])
 
     useEffect(() => {
@@ -120,10 +122,10 @@ function LoadingScreen({
 
     // If there's a loading error, skip to home immediately
     useEffect(() => {
-        if (loadingError) {
+        if (backgroundAssetsLoaded) {
             setBgImage(homeBg)
         }
-    }, [loadingError, setBgImage])
+    }, [backgroundAssetsLoaded])
 
     return (
         <>

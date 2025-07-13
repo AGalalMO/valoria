@@ -19,7 +19,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
-            <p className="font-trajan w-full text-center text-[30px] font-bold">
+            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                 {selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ? (
                     <>
                         {" "}
@@ -39,7 +39,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
                     </>
                 )}
             </p>
-            <div className="mb-5 grid grid-cols-5 justify-items-center gap-y-8">
+            <div className="mb-5 grid grid-cols-3  lg:!grid-cols-5 justify-items-center gap-y-8">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.name == item?.name
                     return (

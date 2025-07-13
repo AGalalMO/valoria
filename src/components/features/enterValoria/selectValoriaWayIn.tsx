@@ -2,11 +2,11 @@ import { Way_IN } from "../../../types/Enums"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { ManPower } from "../../../types/manPower"
 import ImageButton from "../../shared/imageButton"
-import Modal from "../../shared/modal"
 import allie from "../../../assets/icons/allie.svg"
 import spy from "../../../assets/icons/spy.svg"
 import attack from "../../../assets/icons/attack.svg"
 import type { UserProgressType } from "../../../types/UserProgress"
+import { ModalWrapper } from "./components/modalWrapper"
 export const SelectValoriaWayIn = ({
     setProgress,
     progress
@@ -42,38 +42,39 @@ export const SelectValoriaWayIn = ({
             }
         })
     }
-
+ 
     return (
-        <Modal>
-            <div className="flex max-w-[900px] flex-col items-center gap-8">
-                <p className="font-trajan w-full text-center text-[30px] font-bold">
-                    to start the war you need to get the map of valoria choose the best way to get
-                    it
-                </p>
-                <div className="flex items-center gap-8">
-                    <ImageButton
-                        onClick={() => {
-                            onSelectWayIn(Way_IN.SPY)
-                        }}
-                        icon={spy}
-                        text="SEND SPY"
-                    />
-                    <ImageButton
-                        onClick={() => {
-                            onSelectWayIn(Way_IN.ALLIE)
-                        }}
-                        icon={allie}
-                        text="favour from allie"
-                    />
-                    <ImageButton
-                        onClick={() => {
-                            onSelectWayIn(Way_IN.ATTACK)
-                        }}
-                        icon={attack}
-                        text="Attack Now"
-                    />
-                </div>
+        <ModalWrapper
+            parentClass="!w-full !justify-center"
+            classes="!justify-around !w-[90%] !h-[90]
+            !relative"
+        >
+            <p className="font-trajan w-full text-center text-2xl lg:text-[30px] font-bold">
+                to start the war you need to get the map of valoria choose the best way to get it
+            </p>
+            <div className="flex items-center gap-8">
+                <ImageButton
+                    onClick={() => {
+                        onSelectWayIn(Way_IN.SPY)
+                    }}
+                    icon={spy}
+                    text="SEND SPY"
+                />
+                <ImageButton
+                    onClick={() => {
+                        onSelectWayIn(Way_IN.ALLIE)
+                    }}
+                    icon={allie}
+                    text="favour from allie"
+                />
+                <ImageButton
+                    onClick={() => {
+                        onSelectWayIn(Way_IN.ATTACK)
+                    }}
+                    icon={attack}
+                    text="Attack Now"
+                />
             </div>
-        </Modal>
+        </ModalWrapper>
     )
 }

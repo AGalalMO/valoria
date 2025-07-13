@@ -14,21 +14,24 @@ export default function HowToPass({
     changeFlowState: (flow: FLOW_ENUM) => void
 }) {
     return (
-        <div className="mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    width: "70%",
-                    height: "80%"
+                   
                 }}
+                className="w-[95vw] lg:!w-[80vw] h-[80vh] lg:!h-[70vh]"
             >
-                <ModalWrapper classes="m-20 py-8 !px-6 !justify-around">
-                    <p className="font-trajan w-full text-center text-[30px] font-bold">
+                <ModalWrapper
+                    parentClass="!w-full !justify-center"
+                    classes="!justify-around !w-[100%] h-[90%] l !relative"
+                >
+                    <p className="font-trajan w-full text-center text-2xl lg:text-[30px] font-bold">
                         what will you do to pass the bridge
                     </p>
-                    <div className="flex w-full items-center justify-center gap-6">
+                    <div className="flex w-full items-center flex-wrap lg:!flex-nowrap justify-center gap-6">
                         <ImageButton
                             size="xxl"
                             icon={race}

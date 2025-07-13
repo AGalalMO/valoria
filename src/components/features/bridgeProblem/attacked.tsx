@@ -17,18 +17,20 @@ export default function Attacked({
     changePowers: (powers: ManPower) => void
 }) {
     return (
-        <div className="mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    width: "70%",
-                    height: "80%"
+                    backgroundPosition: "center"
                 }}
+                className="h-[80vh] w-[95vw] lg:!h-[70vh] lg:!w-[80vw]"
             >
-                <ModalWrapper classes="!m-0 py-8 !px-6 !justify-around min-w-[90%]">
-                    <p className="font-trajan w-full text-center text-[30px] font-bold">
+                <ModalWrapper
+                    parentClass="!w-full !justify-center"
+                    classes="!justify-between !w-[90%] !h-[90] !relative"
+                >
+                    <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                         you got attacked while
                         <br />
                         building the bridge

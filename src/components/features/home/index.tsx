@@ -26,7 +26,7 @@ export default function Home() {
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.START_GAME,
+        currentFlow: FLOW_ENUM.FIRE_CANNON,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })

@@ -13,19 +13,22 @@ export default function EngineersFailed({
     changeFlowState: (flow: FLOW_ENUM) => void
 }) {
     return (
-        <div className="mt-10 flex h-full w-full flex-col items-center justify-start">
+        <div className="lg:mt-10 flex h-full w-full flex-col items-center justify-start">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    width: "70%",
-                    height: "80%"
+                   
                 }}
+                className="h-[80vh] w-[95vw] lg:!h-[70vh] lg:!w-[80vw]"
             >
-                <ModalWrapper classes="!m-0 py-8 !px-6 !justify-around min-w-[90%]">
+                <ModalWrapper
+                    parentClass="!w-full !justify-center"
+                    classes="!justify-between !w-[90%] !h-[90] !relative"
+                >
                     <img src={favor} />
-                    <p className="font-trajan w-full text-center text-[30px] font-bold">
+                    <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                         the engineer betrays you <br /> now you have to build alternative bridge
                     </p>
                     <div className="max-w-[700px]">

@@ -12,8 +12,8 @@ export default function VerticalAngelSection({
     return (
         <div className="flex !w-full flex-col gap-3">
             <div className="flex items-center gap-3">
-                <img src={angel} height={135} width={135} />
-                <p className="font-trajan text-text text-[30px] !leading-none font-bold">
+                <img src={angel} height={135} width={135}  className="w-[80px] h-[80px] lg:!w-[135px] lg:!h-[135px]"/>
+                <p className="font-trajan !text-lg lg:!text-xl xl:!text-[30px] !leading-none font-bold">
                     choose the <br />
                     vertical angle
                 </p>

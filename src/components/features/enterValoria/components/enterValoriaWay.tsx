@@ -14,7 +14,7 @@ export const EnterValoriaMethod = ({
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center "
-            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 lg:px-[80px]"
+            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-10 lg:px-[80px]"
         >
             <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
                 choose way to enter valoria

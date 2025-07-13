@@ -17,7 +17,7 @@ export default function MapModal({
     continueWithoutMoreMen
 }: MapModalPropsType) {
     return (
-        <>
+        < >
             <AnimatePresence>
                 {modalOptions?.isOpen ? (
                     <motion.div 
@@ -33,7 +33,7 @@ export default function MapModal({
                                 backgroundPosition: "center",
                                 backgroundSize: "cover"
                             }}
-                            className={`flex min-w-[750px] flex-col items-center justify-center gap-6 border-5 border-[#DC8E2F] p-8`}
+                            className={`flex  flex-col items-center w-[80%] justify-center gap-6 border-5 border-[#DC8E2F] p-8`}
                             initial={{ scale: 0.8, opacity: 0, y: 50 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.8, opacity: 0, y: 50 }}
@@ -66,10 +66,10 @@ export default function MapModal({
                                                 ease: "easeInOut"
                                             }}
                                         />
-                                        <p className="text-3xl font-bold text-white"> CHANGE ROUTE</p>
+                                        <p className="text-xl lg:text-3xl font-bold text-white"> CHANGE ROUTE</p>
                                     </motion.div>
                                     <motion.p 
-                                        className="text-2xl text-white"
+                                        className="text-xl lg:text-2xl text-center text-white"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}
@@ -77,7 +77,7 @@ export default function MapModal({
                                         do you want to change the Route ?
                                     </motion.p>
                                     <motion.div 
-                                        className="flex w-[400px] items-center justify-between"
+                                        className="flex w-[80%] items-center justify-between"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}
@@ -126,10 +126,10 @@ export default function MapModal({
                                                 ease: "easeInOut"
                                             }}
                                         />
-                                        <p className="text-3xl font-bold text-white"> Select</p>
+                                        <p className="text-xl lg:text-3xl font-bold text-white"> Select</p>
                                     </motion.div>
                                     <motion.p 
-                                        className="text-2xl text-white"
+                                        className="text-xl lg:text-2xl text-center text-white"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}
@@ -137,7 +137,7 @@ export default function MapModal({
                                         Choose Solider Percentage You Need To change
                                     </motion.p>
                                     <motion.div 
-                                        className="flex w-[600px] items-center justify-between"
+                                        className="flex w-[80%] items-center justify-between"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}
@@ -187,10 +187,10 @@ export default function MapModal({
                                                 ease: "easeInOut"
                                             }}
                                         />
-                                        <p className="text-3xl font-bold text-white"> Select</p>
+                                        <p className="text-xl lg:text-3xl font-bold text-white"> Select</p>
                                     </motion.div>
                                     <motion.p 
-                                        className="text-2xl text-white"
+                                        className="text-xl lg:text-2xl text-center text-white"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}
@@ -198,7 +198,7 @@ export default function MapModal({
                                         Enemies ahead Do you want to increase soldiers
                                     </motion.p>
                                     <motion.div 
-                                        className="flex w-[400px] items-center justify-between"
+                                        className="flex w-[80%] items-center justify-between"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{  duration: 0.2 }}

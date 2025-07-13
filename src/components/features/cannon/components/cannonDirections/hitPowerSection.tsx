@@ -13,8 +13,13 @@ export default function HitPowerSection({
     return (
         <div className="flex !w-full flex-col gap-2">
             <div className="flex items-center gap-3">
-                <img src={power} height={135} width={135} />
-                <p className="font-trajan text-text text-[30px] !leading-none font-bold">
+                <img
+                    src={power}
+                    height={135}
+                    width={135}
+                    className="h-[80px] w-[80px] lg:!h-[135px] lg:!w-[135px]"
+                />
+                <p className="font-trajan !text-lg !leading-none font-bold lg:!text-xl xl:!text-[30px]">
                     choose the <br />
                     hit power
                 </p>

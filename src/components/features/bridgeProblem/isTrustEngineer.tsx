@@ -7,7 +7,8 @@ import noIcon from "../../../assets/icons/noCrop.svg"
 export default function IsTrustEngineer({ changeFlowState }: { changeFlowState: (flow: FLOW_ENUM) => void }) {
     return (
         <Modal noBackground>
-            <ModalWrapper classes="min-w-[850px] !justify-around">
+            <ModalWrapper   parentClass="!w-full !justify-center"
+            classes="!justify-between !w-[90%] !h-[90] !relative">
                 <p className="text-2xl text-white">do you trust him ?</p>
                 <div className="flex w-[400px] items-center justify-between">
                     <ImageButton

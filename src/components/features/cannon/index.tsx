@@ -20,10 +20,10 @@ export default function FireCannon({
     const { hitByCannon, setPowers, setXValue, setYValue, tryAgain, setTryAgain, cannonDirection } =
         useFireCannon({ changePowers, changeFlowState })
     return (
-        <div className="ms-[5%] me-[5%] flex h-[100%] w-[90%] items-start justify-center gap-4">
+        <div className="ms-5 lg:ms-[5%] me-5 lg:me-[5%] flex h-[90%] w-[95%] lg:!w-[90%] items-start justify-center gap-4">
             <ModalWrapper
-                parentClass="!w-[65%] !h-[100%] !justify-start "
-                classes=" !p-0 !gap-0 !overflow-y-auto h-[96%] !W-full  !min-w-full "
+                parentClass="!w-full !justify-center"
+                classes="!justify-start !w-[90%]  !relative"
             >
                 {tryAgain ? (
                     <TryAgainModal
@@ -35,7 +35,7 @@ export default function FireCannon({
                         headerText2="Try Again"
                     />
                 ) : (
-                    <div className="flex !w-full flex-col gap-4">
+                    <div className="flex !w-full flex-col justify-start gap-4">
                         <VerticalAngelSection
                             cannonDirection={cannonDirection}
                             setYValue={setYValue}
@@ -45,7 +45,7 @@ export default function FireCannon({
                             cannonDirection={cannonDirection}
                             setXValue={setXValue}
                         />
-                     
+
                         <div className="flex w-full items-center justify-center pt-4">
                             <BorderButton onClick={hitByCannon} text="hit the enemy" />
                         </div>

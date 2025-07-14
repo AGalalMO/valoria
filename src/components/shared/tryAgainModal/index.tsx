@@ -1,4 +1,4 @@
-import danger from "../../../assets/icons/danger.svg"
+import danger from "../../../assets/icons/dange.png"
 import BorderButton from "../borderButton"
 
 export default function TryAgainModal({ closeModal, headerText1, headerText2, buttonText }: {

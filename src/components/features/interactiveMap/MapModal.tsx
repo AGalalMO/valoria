@@ -1,7 +1,7 @@
 import bgModal from "../../../assets/backgrounds/modal.png"
-import dangerImg from "../../../assets/icons/danger.svg"
-import yes from "../../../assets/icons/yes.svg"
-import no from "../../../assets/icons/noCrop.svg"
+import dangerImg from "../../../assets/icons/dange.png"
+import yes from "../../../assets/icons/yes.png"
+import no from "../../../assets/icons/no.png"
 import ImageButton from "../../shared/imageButton"
 import { MAP_MODAL_TYPE } from "../../../types/Enums"
 import BorderButton from "../../shared/borderButton"
@@ -71,7 +71,7 @@ export default function MapModal({
                                       
                                     </motion.div>
                                     <motion.p
-                                        className="text-center text-xl text-white lg:text-2xl"
+                                        className="text-center text-xl text-white xl:text-2xl"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}
@@ -131,7 +131,7 @@ export default function MapModal({
                                         
                                     </motion.div>
                                     <motion.p
-                                        className="text-center text-xl text-white lg:text-2xl"
+                                        className="text-center text-xl text-white xl:text-2xl"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}
@@ -192,7 +192,7 @@ export default function MapModal({
                                       
                                     </motion.div>
                                     <motion.p
-                                        className="text-center text-xl text-white lg:text-2xl"
+                                        className="text-center text-xl text-white xl:text-2xl"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}

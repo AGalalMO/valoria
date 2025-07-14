@@ -16,23 +16,23 @@ export default function HowToPass({
     }) {
     const {t}=useTranslation()
     return (
-        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
+        <div className="flex h-full w-full flex-col items-center justify-start xl:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center"
                 }}
-                className="h-[80vh] w-[95vw] lg:!h-[70vh] lg:!w-[80vw]"
+                className="h-[80vh] w-[95vw] xl:!h-[70vh] xl:!w-[80vw]"
             >
                 <ModalWrapper
                     parentClass="!w-full !justify-center"
                     classes="!justify-around !w-[100%] h-[90%] l !relative"
                 >
-                    <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                         {t("what_to_pass_brige")}
                     </p>
-                    <div className="flex w-full flex-wrap items-center justify-center gap-6 lg:!flex-nowrap">
+                    <div className="flex w-full flex-wrap items-center justify-center gap-6 xl:!flex-nowrap">
                         <ImageButton
                             size="xxl"
                             icon={race}

@@ -44,10 +44,10 @@ export default function LeaderJobs({
                     src={leader?.icon}
                     width={300}
                     height={300}
-                    className="!h-[180] !w-[190px] lg:!h-[300px] lg:!w-[340px]"
+                    className="!h-[180] !w-[190px] xl:!h-[300px] xl:!w-[340px]"
                 />
                 <div className="flex flex-col gap-2" dir={i18n?.language == "ar" ? "rtl" : "ltr"}>
-                    <p className="text-xl font-bold text-white lg:text-3xl">{t(leader?.name)}</p>
+                    <p className="text-xl font-bold text-white xl:text-3xl">{t(leader?.name)}</p>
                     {jobs?.map((job, index) => {
                         const currentJob = selectedJobs?.filter(item => item?.index == index)?.[0]
                         const disabled =
@@ -61,15 +61,15 @@ export default function LeaderJobs({
                                 }}
                             >
                                 <div className="relative cursor-pointer">
-                                    <img src={box} className="h-6 w-6 lg:h-10 lg:w-10" />
+                                    <img src={box} className="h-6 w-6 xl:h-10 xl:w-10" />
                                     {selectedJobs?.filter(item => item?.index == index)?.[0] ? (
                                         <img
                                             src={mark}
-                                            className="absolute start-1 -top-3 z-30 h-6 w-6 lg:h-10 lg:w-10"
+                                            className="absolute start-1 -top-3 z-30 h-6 w-6 xl:h-10 xl:w-10"
                                         />
                                     ) : null}
                                 </div>
-                                <p className="text-sm text-white lg:text-lg">
+                                <p className="text-sm text-white xl:text-lg">
                                     {
                                         <>
                                             {job?.replace("<br/>",'')}

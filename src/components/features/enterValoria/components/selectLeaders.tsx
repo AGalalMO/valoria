@@ -23,11 +23,11 @@ export const ChooseFiveLeaders = ({
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("choose_leaders")}
             </p>
 
-            <div className="mb-5 grid grid-cols-4 content-center gap-x-2 lg:gap-x-4 justify-items-center gap-y-8 lg:!grid-cols-5">
+            <div className="mb-5 grid grid-cols-4 content-center gap-x-2 xl:gap-x-4 justify-items-center gap-y-8 xl:!grid-cols-5">
                 {leaders?.map(item => {
                     const isSelected = selectedLeaders?.findIndex(
                         leader => leader?.name == item?.name

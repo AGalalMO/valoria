@@ -12,14 +12,14 @@ export const ModalWrapper = ({
 }) => {
     return (
         <motion.div
-            className={`flex h-full flex-col items-center justify-center gap-8 ${parentClass ? parentClass : ""}`}
+            className={`flex-col flex h-full   items-center justify-center gap-8 xl:h-full ${parentClass ? parentClass : ""}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
         >
             <motion.div
-                className={`flex max-h-[80vh] min-h-[300px] lg:!min-h-[600px] !max-w-[1000px] flex-col items-center justify-center gap-8 overflow-auto border-5 border-[#DC8E2F] p-10  ${classes ? classes : ""}`}
+                className={`flex max-h-[80vh] !min-h-[300px] !max-w-[1000px] flex-col items-center justify-center gap-8 overflow-auto border-5 border-[#DC8E2F] p-5 xl:!min-h-[600px] xl:p-10 ${classes ? classes : ""}`}
                 style={{
                     backgroundImage: `url(${bg})`,
                     backgroundPosition: "center"

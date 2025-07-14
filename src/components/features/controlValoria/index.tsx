@@ -84,7 +84,7 @@ const leaders = useMemo(() => {
                 />
             ) : (
                 <>
-                    <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                         {t("finally_we_entered_valoria")}
                     </p>
                     <div className="mb-5 flex flex-wrap justify-center gap-x-8 gap-y-8">

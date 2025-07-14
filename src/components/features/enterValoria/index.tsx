@@ -104,7 +104,7 @@ const Loader = () => {
     return (
         <Modal background={mapVAL}>
             <div
-                className={`justify-center ${"h-[500px] w-[80vw] border-5 border-[#DC8E2F] p-8 lg:!h-[700px] lg:!w-[900px]"} `}
+                className={`justify-center ${"h-[500px] w-[80vw] border-5 border-[#DC8E2F] p-8 xl:!h-[700px] xl:!w-[900px]"} `}
             ></div>
         </Modal>
     )

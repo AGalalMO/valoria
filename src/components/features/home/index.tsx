@@ -20,8 +20,8 @@ import EngineersFailed from "../bridgeProblem/engineersFailed"
 import Attacked from "../bridgeProblem/attacked"
 import CannonAttack from "../cannon/components/attackedByCannon"
 import ControlValoria from "../controlValoria"
-import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import { useTranslation } from "react-i18next"
+import TheEnd from "../theEnd"
 export default function Home() {
 
     const [loading, setLoading] = useState(true)
@@ -94,16 +94,16 @@ export default function Home() {
     
     return (
         <div className="relative flex h-screen w-screen flex-col justify-between">
-            {!loading && progress.currentFlow!=FLOW_ENUM.FINISH ? (
+            {!loading && progress.currentFlow != FLOW_ENUM.FINISH ? (
                 <div className="flex w-full justify-end p-10">
-                    <UserPowers powers={progress.manPower} />
+                    <UserPowers isTheEnd={false} powers={progress.manPower} />
                 </div>
             ) : null}
             {!loading ? (
                 progress.currentFlow == FLOW_ENUM.START_GAME ? (
-                    <div className="flex w-full justify-center mb-12">
+                    <div className="mb-12 flex w-full justify-center">
                         <BorderButton
-                            text={t('start_game')}
+                            text={t("start_game")}
                             onClick={() => {
                                 setProgress(prev => ({
                                     ...prev,
@@ -182,17 +182,7 @@ export default function Home() {
                         changePowers={changePowers}
                     />
                 ) : progress?.currentFlow == FLOW_ENUM.FINISH ? (
-                    <ModalWrapper
-                        parentClass="w-full h-full justify-center items-center"
-                        classes="w-[60%] h-[50%]  !justify-around "
-                    >
-                        <p className="font-trajan text-center text-[30px] font-bold text-white">
-                            {" "}
-                            THE END
-                        </p>
-                        <p className="w-full text-center text-2xl text-white">FinalScore</p>
-                        <UserPowers powers={progress.manPower} />
-                    </ModalWrapper>
+                 <TheEnd progress={progress}/>
                 ) : null
             ) : null}
         </div>

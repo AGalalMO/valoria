@@ -113,9 +113,9 @@ const {t}=useTranslation()
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center "
-            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 lg:px-[80px]"
+            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 xl:px-[80px]"
         >
-            <p className="font-trajan w-full max-w-[80%] text-center text-2xl font-bold lg:text-[30px]">
+            <p className="font-trajan w-full max-w-[80%] text-center text-2xl font-bold xl:text-[30px]">
                 {modalData?.head}
             </p>
             <div className="flex w-full items-center justify-center gap-9">

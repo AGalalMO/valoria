@@ -21,7 +21,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                 {selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ? (
                     <> {t("choose_leader_bridge")}</>
                 ) : selectedOption == FLOW_ENUM.SEE_ME ||
@@ -33,7 +33,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
                     <>{t("select_two_leader_pass_gates")}</>
                 )}
             </p>
-            <div className="mb-5 grid grid-cols-3 justify-items-center gap-x-2 gap-y-8 lg:!grid-cols-5 lg:gap-x-4">
+            <div className="mb-5 grid grid-cols-3 justify-items-center gap-x-2 gap-y-8 xl:!grid-cols-5 xl:gap-x-4">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.name == item?.name
                     return (
@@ -44,11 +44,12 @@ export const SelectSuitableLeaderToBuildBridge = ({
                                 setPowerModal(item)
                             }}
                             onClickButton={() => {
+                              
                                 if (isSelected) {
-                                    setSelectedSubLeaders(null)
-                                } else {
-                                    setSelectedSubLeaders(item)
-                                }
+                                        setSelectedSubLeaders(null)
+                                    } else {
+                                        setSelectedSubLeaders(item)
+                                    }
                             }}
                             text={t(item?.name)}
                         />
@@ -57,7 +58,11 @@ export const SelectSuitableLeaderToBuildBridge = ({
             </div>
             <BorderButton
                 size="sm"
-                onClick={onClick}
+                onClick={() => {
+                    if (!selectedSubLeaders) return
+                    else onClick()
+
+                }}
                 text={
                     selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE
                         ? t("build_bridge")

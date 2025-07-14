@@ -51,7 +51,7 @@ export const SelectValoriaWayIn = ({
             classes="!justify-around !w-[90%] !h-[90]
             !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("way_map")}
             </p>
             <div className="flex items-center gap-8">

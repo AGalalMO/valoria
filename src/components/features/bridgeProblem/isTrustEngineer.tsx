@@ -2,15 +2,15 @@ import { FLOW_ENUM } from "../../../types/FLowEnum"
 import ImageButton from "../../shared/imageButton"
 import Modal from "../../shared/modal"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
-import yesIcon from "../../../assets/icons/yes.svg"
-import noIcon from "../../../assets/icons/noCrop.svg"
+import yesIcon from "../../../assets/icons/yes.png"
+import noIcon from "../../../assets/icons/no.png"
 import { useTranslation } from "react-i18next"
 export default function IsTrustEngineer({ changeFlowState }: { changeFlowState: (flow: FLOW_ENUM) => void }) {
     const {t}=useTranslation()
     return (
         <Modal background={'../'}>
             <ModalWrapper
-                parentClass="!w-full !justify-center !min-w-[650px] lg:!min-w-[800px] !h-[400px]"
+                parentClass="!w-full !justify-center !min-w-[650px] xl:!min-w-[800px] !h-[400px]"
                 classes="!justify-around !w-[90%] !h-[90] !relative"
             >
                 <p className="text-2xl text-white">{t("trusted")}</p>

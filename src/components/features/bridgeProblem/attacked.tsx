@@ -19,20 +19,20 @@ export default function Attacked({
     }) {
     const {t}=useTranslation()
     return (
-        <div className="flex h-full w-full flex-col items-center justify-start lg:mt-10">
+        <div className="flex h-full w-full flex-col items-center justify-start xl:mt-10">
             <div
                 style={{
                     backgroundImage: `url(${valoriaMap})`,
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center"
                 }}
-                className="h-[80vh] w-[95vw] lg:!h-[70vh] lg:!w-[80vw]"
+                className="h-[80vh] w-[95vw] xl:!h-[70vh] xl:!w-[80vw]"
             >
                 <ModalWrapper
                     parentClass="!w-full !justify-center"
                     classes="!justify-around !w-[90%] !h-[90] !relative"
                 >
-                    <p className="font-trajan w-full text-center text-2xl font-bold lg:text-[30px]">
+                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                         {t("attacked_building")}
                     </p>
                     <div className="flex w-full items-center justify-center gap-6">

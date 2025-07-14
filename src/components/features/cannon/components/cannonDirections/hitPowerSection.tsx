@@ -21,9 +21,9 @@ export default function HitPowerSection({
                     src={power}
                     height={135}
                     width={135}
-                    className="h-[80px] w-[80px] lg:!h-[135px] lg:!w-[135px]"
+                    className="h-[80px] w-[80px] xl:!h-[135px] xl:!w-[135px]"
                 />
-                <p className="font-trajan !text-lg !leading-none font-bold lg:!text-xl xl:!text-[30px]">
+                <p className="font-trajan !text-lg !leading-none font-bold xl:!text-xl xl:!text-[30px]">
                     {t("choose_hit_power")}
                 </p>
             </div>

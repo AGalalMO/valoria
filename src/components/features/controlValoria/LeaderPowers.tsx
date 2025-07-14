@@ -31,7 +31,7 @@ export default function LeaderPowers({ leader, closeModal }: { leader: LeaderTyp
                     src={leader?.icon}
                     width={300}
                     height={300}
-                    className="!h-[180] !w-[190px] lg:!h-[300px] lg:!w-[340px]"
+                    className="!h-[180] !w-[190px] xl:!h-[300px] xl:!w-[340px]"
                 />
                 <div className="flex flex-col gap-2">
                     {leader?.pros?.map(adv => (
@@ -39,8 +39,8 @@ export default function LeaderPowers({ leader, closeModal }: { leader: LeaderTyp
                             className="flex items-center gap-1"
                             dir={i18n?.language == "ar" ? "rtl" : ""}
                         >
-                            <img src={check} className="h-6 w-6 lg:h-10 lg:w-10" />
-                            <p className="text-sm text-white lg:text-lg">{t(adv)}</p>
+                            <img src={check} className="h-6 w-6 xl:h-10 xl:w-10" />
+                            <p className="text-sm text-white xl:text-lg">{t(adv)}</p>
                         </div>
                     ))}
                     {leader?.cons?.map(adv => (
@@ -48,8 +48,8 @@ export default function LeaderPowers({ leader, closeModal }: { leader: LeaderTyp
                             className="flex items-center gap-1"
                             dir={i18n?.language == "ar" ? "rtl" : ""}
                         >
-                            <img src={wrong} className="h-6 w-6 lg:h-10 lg:w-10" />
-                            <p className="text-sm text-white lg:text-lg">{t(adv)}</p>
+                            <img src={wrong} className="h-6 w-6 xl:h-10 xl:w-10" />
+                            <p className="text-sm text-white xl:text-lg">{t(adv)}</p>
                         </div>
                     ))}
                 </div>

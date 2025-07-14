@@ -22,10 +22,10 @@ const {t,i18n}=useTranslation()
         useFireCannon({ changePowers, changeFlowState })
     return (
         <div
-            className={`ms-5 me-5 flex ${i18n?.language=='ar'?'flex-row-reverse':''} h-[90%] w-[95%] items-start justify-center gap-4 lg:ms-[5%] lg:me-[5%] lg:!w-[90%]`}
+            className={`ms-5 me-5 flex ${i18n?.language == "ar" ? "flex-row-reverse" : ""} w-[95%] items-start justify-center gap-4 xl:ms-[5%] xl:me-[5%] xl:!w-[90%]`}
         >
             <ModalWrapper
-                parentClass="!w-full !justify-center"
+                parentClass="!w-full !justify-center  !h-fit !w-fit "
                 classes="!justify-start !w-[90%]  !relative"
             >
                 {tryAgain ? (
@@ -38,7 +38,7 @@ const {t,i18n}=useTranslation()
                         headerText2={t("try_again")}
                     />
                 ) : (
-                    <div className="flex !w-full flex-col justify-start gap-4">
+                    <div className="flex !w-full flex-col justify-start pb-20 xl:pb-0 gap-4">
                         <VerticalAngelSection
                             cannonDirection={cannonDirection}
                             setYValue={setYValue}

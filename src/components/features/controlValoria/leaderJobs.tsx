@@ -16,7 +16,7 @@ export default function LeaderJobs({
     selectJob: (index: number) => void
     selectedJobs: { index: number | null; leader: LeaderType }[]
     }) {
-    const {t}=useTranslation()
+    const {t,i18n}=useTranslation()
     const jobs = [t("the_warden"), t("the_marshal"), t("architect"), t("overseer"), t("commander")]
 
     return (
@@ -27,7 +27,10 @@ export default function LeaderJobs({
                 backgroundPosition: "center"
             }}
         >
-            <div className="relative -me-6 -mt-12 flex justify-end">
+            <div
+                className="relative -me-6 -mt-12 flex justify-end"
+                dir={i18n?.language == "ar" ? "rtl" : "ltr"}
+            >
                 <img
                     src={closeModalIcon}
                     height={50}
@@ -36,15 +39,15 @@ export default function LeaderJobs({
                     onClick={closeModal}
                 />
             </div>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-8" dir={i18n?.language == "ar" ? "rtl" : "ltr"}>
                 <img
                     src={leader?.icon}
                     width={300}
                     height={300}
                     className="!h-[180] !w-[190px] lg:!h-[300px] lg:!w-[340px]"
                 />
-                <div className="flex flex-col gap-2">
-                    <p className="text-xl font-bold text-white lg:text-3xl">{t("leader?.name")}</p>
+                <div className="flex flex-col gap-2" dir={i18n?.language == "ar" ? "rtl" : "ltr"}>
+                    <p className="text-xl font-bold text-white lg:text-3xl">{t(leader?.name)}</p>
                     {jobs?.map((job, index) => {
                         const currentJob = selectedJobs?.filter(item => item?.index == index)?.[0]
                         const disabled =
@@ -69,9 +72,9 @@ export default function LeaderJobs({
                                 <p className="text-sm text-white lg:text-lg">
                                     {
                                         <>
-                                            {job?.split("<br/>")?.[0]}
-                                            <br />
-                                            {job?.split("<br/>")?.[1]}
+                                            {job?.replace("<br/>",'')}
+                                          
+                                            
                                         </>
                                     }
                                 </p>

@@ -1,9 +1,9 @@
 import { VALORIA_ROAD_METHOD_ENUM } from "../../../../types/Enums"
 import ImageButton from "../../../shared/imageButton"
 import { ModalWrapper } from "./modalWrapper"
-import forstBg from "../../../../assets/icons/forest.svg"
+import forstBg from "../../../../assets/icons/forest.png"
 import bridgeBG from "../../../../assets/icons/bridge.png"
-import homesBg from "../../../../assets/icons/home.svg"
+import homesBg from "../../../../assets/river.png"
 import { useTranslation } from "react-i18next"
 export const EnterValoriaMethod = ({
     selectedBefore,

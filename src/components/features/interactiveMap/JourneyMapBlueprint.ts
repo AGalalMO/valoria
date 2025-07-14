@@ -1,6 +1,6 @@
 import spyMap from '../../../assets/maps/spy_Map.png'
 import allieMap from '../../../assets/maps/Allie.png'
-import attackMap from "../../../assets/maps/Attack_Map.png"
+import attackMap from "../../../assets/attack.png"
 import type { JourneyMapsType } from '../../../types/RoadTypes'
 export const JourneyMapBlueprint: JourneyMapsType = {
     Spy: {
@@ -408,8 +408,8 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         phase: 1,
 
                         style: {
-                            top: "33%",
-                            right: "14%"
+                            top: "34%",
+                            right: "18%"
                         },
                         visible: false
                     },

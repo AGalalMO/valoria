@@ -4,13 +4,13 @@ import { VALORIA_ROAD_ENUM, VALORIA_ROAD_METHOD_ENUM } from "../../../../types/E
 import type { UserProgressType } from "../../../../types/UserProgress"
 import type { LeaderType } from "../../../../types/leaders"
 import { FLOW_ENUM } from "../../../../types/FLowEnum"
-import changePlan from "../../../../assets/icons/gates/changePlan.png"
-import gates_test from "../../../../assets/icons/gates/gates_test.png"
-import keep_gates from "../../../../assets/icons/gates/keep_gates.png"
+import changePlan from "../../../../assets/icons/changePlan.png"
+import gates_test from "../../../../assets/icons/tesst.png"
+import keep_gates from "../../../../assets/icons/attack.png"
 import burnWood from "../../../../assets/icons/forest/burnWood.png"
-import send_spy from "../../../../assets/icons/forest/send_spy.png"
-import riverAttack from "../../../../assets/icons/river/riverAttack.png"
 import ImageButton from "../../../shared/imageButton"
+import ground from "../../../../assets/icons/forest/ground.png"
+import send_spy from "../../../../assets/icons/forest/send_spy.png"
 import { useTranslation } from "react-i18next";
 
 export const SelectedRoadOptions = ({
@@ -44,7 +44,7 @@ const {t}=useTranslation()
         else
              return {
                  head: t("traps_hidden_river"),
-                 actionIcon: riverAttack,
+                 actionIcon: ground,
                  actionText: t("attack_on_ground"),
                  alternativeButtonIcon: gates_test,
                  alternativeButtonText: t("cap_traps")

@@ -19,7 +19,7 @@ export const ModalWrapper = ({
             transition={{ duration: 0.3 }}
         >
             <motion.div
-                className={`flex min-h-[600px] !max-w-[1000px] flex-col items-center justify-center gap-8 border-5 border-[#DC8E2F] p-10 ${classes ? classes : ""}`}
+                className={`flex max-h-[80vh] min-h-[300px] lg:!min-h-[600px] !max-w-[1000px] flex-col items-center justify-center gap-8 overflow-auto border-5 border-[#DC8E2F] p-10  ${classes ? classes : ""}`}
                 style={{
                     backgroundImage: `url(${bg})`,
                     backgroundPosition: "center"
@@ -27,8 +27,8 @@ export const ModalWrapper = ({
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                transition={{ 
-                    duration: 0.5, 
+                transition={{
+                    duration: 0.5,
                     ease: "easeOut",
                     type: "spring",
                     stiffness: 100,

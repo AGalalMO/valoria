@@ -23,7 +23,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
        roadPhase
    } = useInteractiveValeriaMap({ selectedWayIn, setProgress })
     return (
-        <div className='min-w-[650px] max-w-[900px]'>
+        <div className='min-w-[550px] max-w-[900px]'>
             <div
                 style={{
                     position: "relative",

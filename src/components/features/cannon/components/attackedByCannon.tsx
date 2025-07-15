@@ -27,6 +27,7 @@ export default function CannonAttack({ changeFlowState }: { changeFlowState: (fl
                     </p>
                     <div className="max-w-[700px]">
                         <BorderButton
+                            size="md"
                             onClick={() => {
                                 changeFlowState(FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON)
                             }}

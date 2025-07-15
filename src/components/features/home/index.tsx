@@ -22,15 +22,32 @@ import CannonAttack from "../cannon/components/attackedByCannon"
 import ControlValoria from "../controlValoria"
 import { useTranslation } from "react-i18next"
 import TheEnd from "../theEnd"
+import intro from '../../../assets/videos/ar/intro.mp4'
+import introEn from "../../../assets/videos/en/intro.mp4"
+import valoriaIntroEn from "../../../assets/videos/en/whatHappend.webm"
+import valoriaIntro from "../../../assets/videos/ar/whatHappend.webm"
+import bridge1 from "../../../assets/videos/ar/bridge1.webm"
+import bridge2 from "../../../assets/videos/ar/bridge2.webm"
+import bridge1En from "../../../assets/videos/en/bridge1.webm"
+import bridge2En from "../../../assets/videos/en/bridge2.webm"
+import aim from "../../../assets/videos/ar/aim.webm"
+import hit from "../../../assets/videos/ar/hit.webm"
+import aimEn from "../../../assets/videos/en/aim.webm"
+import hitEn from "../../../assets/videos/en/hit.webm"
+import end from "../../../assets/videos/ar/end.webm"
+import endEn from "../../../assets/videos/en/end.webm"
+
+import  VideoPlayer from "../../videoComponent"
+import SelectLanguage from "../../selectLanguage"
 export default function Home() {
 
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
-           const { t } = useTranslation()
+           const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.START_GAME,
+        currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })
@@ -50,7 +67,7 @@ export default function Home() {
             if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: -2, people: 1 })
             else changePowers({ money: -4, army: -4, people: -2 })
 
-            changeFlowState(FLOW_ENUM.GOT_ATTACKED)
+            changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
         } else if (progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME)
         {
             if (selectedSubLeaders?.name == "DRAR") changePowers({ money: -1, army: 1, people: 1 })
@@ -70,7 +87,7 @@ export default function Home() {
         } else if (progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON) {
             if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: 0, people: 2 })
             else changePowers({ money: -3, army: -2, people: -2 })
-            changeFlowState(FLOW_ENUM.FIRE_CANNON)
+            changeFlowState(FLOW_ENUM.FIRE_CANNON_INTRO)
         }
         
        
@@ -100,7 +117,20 @@ export default function Home() {
                 </div>
             ) : null}
             {!loading ? (
-                progress.currentFlow == FLOW_ENUM.START_GAME ? (
+                progress.currentFlow == FLOW_ENUM.SELECT_LANG ? (
+                    <SelectLanguage
+                        changeFlow={() => {
+                            setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.INTRO }))
+                        }}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.INTRO ? (
+                    <VideoPlayer
+                        video={i18n?.language == "en" ? introEn : intro}
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.START_GAME)
+                        }}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.START_GAME ? (
                     <div className="mb-12 flex w-full justify-center">
                         <BorderButton
                             text={t("start_game")}
@@ -131,10 +161,24 @@ export default function Home() {
                         selectedLeaders={selectedLeaders}
                         setSelectedLeaders={setSelectedLeaders}
                     />
+                ) : progress.currentFlow == FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO ? (
+                    <VideoPlayer
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA)
+                        }}
+                        video={i18n?.language == "en" ? valoriaIntroEn : valoriaIntro}
+                    />
                 ) : progress.currentFlow == FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA ? (
                     <SolveLeadersConflict setProgress={setProgress} />
                 ) : progress.currentFlow === FLOW_ENUM.NOW_WE_ARE_IN_VALORIA ? (
                     <InValoriaMap changeState={changeFlowState} />
+                ) : progress.currentFlow == FLOW_ENUM.NOW_WE_ARE_IN_VALORIA_INTRO_BRIDGE ? (
+                    <VideoPlayer
+                        video={i18n?.language == "ar" ? bridge1 : bridge1En}
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.HOW_TO_PASS_BRIDGE)
+                        }}
+                    />
                 ) : progress.currentFlow === FLOW_ENUM.HOW_TO_PASS_BRIDGE ? (
                     <HowToPass
                         changeFlowState={changeFlowState}
@@ -165,6 +209,13 @@ export default function Home() {
                         changeFlowState={changeFlowState}
                         changePowers={changePowers}
                     />
+                ) : progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE ? (
+                    <VideoPlayer
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.GOT_ATTACKED)
+                        }}
+                        video={i18n?.language == "en" ? bridge2En : bridge2}
+                    />
                 ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED ? (
                     <Attacked
                         changeFlowState={changeFlowState}
@@ -173,16 +224,37 @@ export default function Home() {
                     />
                 ) : progress?.currentFlow == FLOW_ENUM.CANNON_ATTACK ? (
                     <CannonAttack changeFlowState={changeFlowState} />
+                ) : progress.currentFlow == FLOW_ENUM.FIRE_CANNON_INTRO ? (
+                    <VideoPlayer
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.FIRE_CANNON)
+                        }}
+                        video={i18n?.language == "en" ? aimEn : aim}
+                    />
                 ) : progress?.currentFlow == FLOW_ENUM.FIRE_CANNON ? (
                     <FireCannon changePowers={changePowers} changeFlowState={changeFlowState} />
+                ) : progress.currentFlow == FLOW_ENUM.FIRE_CANNON_SUCCESS ? (
+                    <VideoPlayer
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.CONTROL_VALORIA)
+                        }}
+                        video={i18n?.language == "en" ? hitEn : hit}
+                    />
                 ) : progress?.currentFlow == FLOW_ENUM.CONTROL_VALORIA ? (
                     <ControlValoria
                         changeFlowState={changeFlowState}
                         selectedLeaders={selectedLeaders}
                         changePowers={changePowers}
                     />
+                ) : progress?.currentFlow == FLOW_ENUM.THE_END ? (
+                    <VideoPlayer
+                        onEnd={() => {
+                            changeFlowState(FLOW_ENUM.FINISH)
+                        }}
+                        video={i18n?.language == "en" ? endEn : end}
+                    />
                 ) : progress?.currentFlow == FLOW_ENUM.FINISH ? (
-                 <TheEnd progress={progress}/>
+                    <TheEnd progress={progress} />
                 ) : null
             ) : null}
         </div>

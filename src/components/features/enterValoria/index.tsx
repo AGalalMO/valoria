@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from "../../shared/modal"
 import mapVAL from "../../../assets/valoria-min.png"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"
 import type { ManPower } from "../../../types/manPower"
@@ -10,13 +11,30 @@ import { SelectedRoadOptions } from "./components/selectedRoadOptionsModal"
 import { ChooseFiveLeaders } from "./components/selectLeaders"
 import { EnterValoriaMethod } from "./components/enterValoriaWay"
 import { SelectSuitableLeader } from "./components/selectSuitableLeader"
-
+import riverEn from '../../../assets/videos/en/river.webm'
+import riverAr from "../../../assets/videos/ar/river.webm"
+import getesEn from "../../../assets/videos/en/gates.webm"
+import gatesAr from "../../../assets/videos/ar/gates.webm"
+import woodsAr from "../../../assets/videos/ar/woods.webm"
+import woodsEn from "../../../assets/videos/en/woods.webm"
+import  VideoPlayer from "../../videoComponent";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,setSelectedLeaders}: propTypes) => {
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType[]>([])
     const [selectedBefore, setSelectedBefore] = useState<VALORIA_ROAD_METHOD_ENUM[]>([])
     const [selectedWay, setSelectedWay] = useState<VALORIA_ROAD_METHOD_ENUM | null>(null)
     const [flow, setFlow] = useState<VALORIA_ROAD_ENUM>()
+    const {t,i18n}=useTranslation()
+    const notify = () =>
+        toast(t("please_Select_five_leaders"), {
+            progress: 0,
+            theme: 'dark',
+            autoClose: 1500,
+            position:'top-center'
+            
+        })
 
     useEffect(() => {
         if (currentFlow == FLOW_ENUM.SHOW_VALORIA_MAP) {
@@ -25,12 +43,17 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                     ...prev,
                     currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS
                 }))
-            }, 15000)
+            }, 3000)
         }
+
+     
     }, [])
 
     const openValoriaHandler = () => {
-        if (selectedLeaders?.length < 5) return
+        if (selectedLeaders?.length < 5) {
+            notify();
+            return
+        }
         let advantage: ManPower = { army: 0, money: 0, people: 0 }
         selectedLeaders?.map(item => {
             advantage = {
@@ -54,6 +77,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
     const selectWayHandler = (way: VALORIA_ROAD_METHOD_ENUM) => {
         setSelectedWay(way)
         setFlow(VALORIA_ROAD_ENUM.SELECT_SUITABLE_LEADER)
+        
     }
 
 
@@ -73,6 +97,26 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                         <EnterValoriaMethod
                             selectWayHandler={selectWayHandler}
                             selectedBefore={selectedBefore}
+                        />
+                    ) : flow == VALORIA_ROAD_ENUM.SHOW_VIDEO ? (
+                        <VideoPlayer
+                            onEnd={() => {
+                                setFlow(VALORIA_ROAD_ENUM.SELECT_OPTION_TO_CONTINUE)
+                            }}
+                            video={
+                                i18n.language == "en"
+                                    ? selectedWay == "GATES"
+                                        ? getesEn
+                                        : selectedWay == "FOREST"
+                                          ? woodsEn
+                                          : riverEn
+                                    : selectedWay == "GATES"
+                                      ? gatesAr
+                                      : selectedWay == "FOREST"
+                                        ? woodsAr
+                                        : riverAr
+                            }
+                                        
                         />
                     ) : flow == VALORIA_ROAD_ENUM.SELECT_SUITABLE_LEADER ? (
                         <SelectSuitableLeader

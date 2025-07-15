@@ -78,7 +78,7 @@ const {t}=useTranslation()
                         people: prev?.manPower?.people + (attack ? 1 : -4),
                         army: prev?.manPower?.army + (attack ? -6 : -3)
                     },
-                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA
+                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
                 }
             })
         } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES) {
@@ -90,7 +90,7 @@ const {t}=useTranslation()
                         people: prev?.manPower?.people + (attack ? 1 : -4),
                         army: prev?.manPower?.army + (attack ? -10 : -5)
                     },
-                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA
+                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
                 }
             })
         } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER) {
@@ -102,7 +102,7 @@ const {t}=useTranslation()
                         people: prev?.manPower?.people + (attack ? 1 : -4),
                         army: prev?.manPower?.army + (attack ? -9 : -3)
                     },
-                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA
+                    currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
                 }
             })
         }

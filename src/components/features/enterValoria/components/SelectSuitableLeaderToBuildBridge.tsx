@@ -6,6 +6,7 @@ import { ModalWrapper } from "./modalWrapper"
 import LeaderPowers from "../../controlValoria/LeaderPowers";
 import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export const SelectSuitableLeaderToBuildBridge = ({
     setSelectedSubLeaders,
@@ -15,7 +16,14 @@ export const SelectSuitableLeaderToBuildBridge = ({
     onClick
 }: propTypes) => {
     const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
-    const {t}=useTranslation()
+    const { t } = useTranslation()
+     const notify = () =>
+         toast(t("please_Select_leader"), {
+             progress: 0,
+             theme: "dark",
+             autoClose: 1500,
+             position: "top-center"
+         })
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -44,12 +52,11 @@ export const SelectSuitableLeaderToBuildBridge = ({
                                 setPowerModal(item)
                             }}
                             onClickButton={() => {
-                              
                                 if (isSelected) {
-                                        setSelectedSubLeaders(null)
-                                    } else {
-                                        setSelectedSubLeaders(item)
-                                    }
+                                    setSelectedSubLeaders(null)
+                                } else {
+                                    setSelectedSubLeaders(item)
+                                }
                             }}
                             text={t(item?.name)}
                         />
@@ -59,9 +66,10 @@ export const SelectSuitableLeaderToBuildBridge = ({
             <BorderButton
                 size="sm"
                 onClick={() => {
-                    if (!selectedSubLeaders) return
-                    else onClick()
-
+                    if (!selectedSubLeaders) {
+                        notify()
+                        return
+                    } else onClick()
                 }}
                 text={
                     selectedOption == FLOW_ENUM.BUILD_ANOTHER_BRIDGE
@@ -75,6 +83,15 @@ export const SelectSuitableLeaderToBuildBridge = ({
             />
             {powerModal ? (
                 <LeaderPowers
+                    onClickButton={() => {
+                        const isSelected = selectedSubLeaders?.name == powerModal?.name
+                        if (isSelected) {
+                            setSelectedSubLeaders(null)
+                        } else {
+                            setSelectedSubLeaders(powerModal)
+                        }
+                        setPowerModal(null)
+                    }}
                     closeModal={() => {
                         setPowerModal(null)
                     }}

@@ -17,7 +17,8 @@ export const ChooseFiveLeaders = ({
     openValoriaHandler: () => void
     }) => {
         const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
-        const {t}=useTranslation()
+    const { t } = useTranslation()
+
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -27,7 +28,7 @@ export const ChooseFiveLeaders = ({
                 {t("choose_leaders")}
             </p>
 
-            <div className="mb-5 grid grid-cols-4 content-center gap-x-2 xl:gap-x-4 justify-items-center gap-y-8 xl:!grid-cols-5">
+            <div className="mb-5 grid grid-cols-4 content-center justify-items-center gap-x-2 gap-y-8 xl:!grid-cols-5 xl:gap-x-4">
                 {leaders?.map(item => {
                     const isSelected = selectedLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -56,10 +57,26 @@ export const ChooseFiveLeaders = ({
                     )
                 })}
             </div>
-            <BorderButton size="md" onClick={openValoriaHandler} text={t('open_valoria')} />
+            <BorderButton size="md" onClick={openValoriaHandler} text={t("open_valoria")} />
             {powerModal ? (
                 <LeaderPowers
                     closeModal={() => {
+                        setPowerModal(null)
+                    }}
+                    onClickButton={() => {
+                          const isSelected = selectedLeaders?.findIndex(
+                              leader => leader?.name == powerModal?.name
+                          )
+                        if (isSelected >= 0) {
+                            const newLeaders = selectedLeaders
+                            newLeaders?.splice(isSelected, 1)
+                            setSelectedLeaders([...newLeaders])
+                        } else if (selectedLeaders?.length == 5) {
+                            const slice = selectedLeaders?.slice(0, 4)
+                            setSelectedLeaders([...slice, powerModal])
+                        } else {
+                            setSelectedLeaders(prev => [...prev, powerModal])
+                        }
                         setPowerModal(null)
                     }}
                     leader={powerModal}

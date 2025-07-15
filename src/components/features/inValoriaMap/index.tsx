@@ -9,8 +9,8 @@ export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW
     const {t}=useTranslation()
     useEffect(() => {
         setTimeout(() => {
-            changeState(FLOW_ENUM.HOW_TO_PASS_BRIDGE)
-        }, 10000)
+            changeState(FLOW_ENUM.NOW_WE_ARE_IN_VALORIA_INTRO_BRIDGE)
+        }, 3500)
     }, [])
 
     return (

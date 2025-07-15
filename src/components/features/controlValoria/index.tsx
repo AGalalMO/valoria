@@ -10,6 +10,7 @@ import type { ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function ControlValoria({
     selectedLeaders,
@@ -21,7 +22,13 @@ export default function ControlValoria({
     const [tryAgain, setTryAgain] = useState(false)
     const [selectedJobs, setSelectedJobs] = useState<SelectedJobsType[]>([])
     const { t } = useTranslation()
-
+ const notify = () =>
+     toast(t("please_Select_leader_Jobs"), {
+         progress: 0,
+         theme: "dark",
+         autoClose: 1500,
+         position: "top-center"
+     })
 const leaders = useMemo(() => {
     const newLeaders: LeaderType[] = []
     
@@ -42,8 +49,10 @@ const leaders = useMemo(() => {
     const controlValoria = () => {
         let rightCount = 0;
         const isNotCompleted = selectedJobs?.filter((item) => item?.index == null)?.[0]
-        if (isNotCompleted)
-            return;
+        if (isNotCompleted) {
+            notify()
+            return
+        }
       
           selectedJobs?.map((item) => {
                 if (item?.leader?.rightJobIndex == item.index)
@@ -59,7 +68,7 @@ const leaders = useMemo(() => {
                     money: (-2 * minusPower)+2
                 }
                 changePowers(powers)
-                changeFlowState(FLOW_ENUM.FINISH)
+                changeFlowState(FLOW_ENUM.THE_END)
              }
             else
             {
@@ -114,6 +123,11 @@ const leaders = useMemo(() => {
                         setPowerModal(null)
                     }}
                     leader={powerModal}
+                    btnText={t("CHOOSE_JOB")}
+                    onClickButton={() => {
+                        setJobModal(powerModal)
+                        setPowerModal(null)
+                    }}
                     key={`leaderModal ${powerModal?.name}`}
                 />
             ) : null}

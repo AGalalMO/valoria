@@ -1,6 +1,8 @@
 import { useState } from "react"
 import type { ManPower } from "../../../../types/manPower"
 import { FLOW_ENUM } from "../../../../types/FLowEnum"
+import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
 
 export default function useFireCannon({
     changePowers,
@@ -10,6 +12,8 @@ export default function useFireCannon({
     changeFlowState: (flow: FLOW_ENUM) => void
 }) {
     const [tryAgain, setTryAgain] = useState(false)
+    const { t } = useTranslation()
+    
     const [cannonDirection, setCannonDirection] = useState<CannonDirectType>({
         xAngle: {
             success: false,
@@ -27,7 +31,13 @@ export default function useFireCannon({
             value: null
         }
     })
-
+ const notify = () =>
+     toast(t("please_Select_cannon_angles"), {
+         progress: 0,
+         theme: "dark",
+         autoClose: 1500,
+         position: "top-center"
+     })
     const hitByCannon = () => {
         let powers = { money: 0, people: 0, army: 0 }
         if (
@@ -35,7 +45,10 @@ export default function useFireCannon({
             cannonDirection.xAngle.value == null ||
             cannonDirection.yAngle.value == null
         ) {
-            return
+            {
+                notify();
+                return
+            }
         } else {
             if (!cannonDirection.power.selected) {
                 powers = {
@@ -67,7 +80,7 @@ export default function useFireCannon({
                 cannonDirection.yAngle.selected
             ) {
                 changePowers({ army: 0, people: 3, money: -3 })
-                changeFlowState(FLOW_ENUM.CONTROL_VALORIA)
+                changeFlowState(FLOW_ENUM.FIRE_CANNON_SUCCESS)
             }
             else if (
                 !cannonDirection.power.selected ||

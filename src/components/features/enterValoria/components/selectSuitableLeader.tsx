@@ -7,6 +7,7 @@ import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions
 import { ModalWrapper } from "./modalWrapper"
 import LeaderPowers from "../../controlValoria/LeaderPowers"
 import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
 
 export const SelectSuitableLeader = ({
     setSelectedSubLeaders,
@@ -17,10 +18,20 @@ export const SelectSuitableLeader = ({
     headText,
     selectedWay = VALORIA_ROAD_METHOD_ENUM?.BRIDGE
 }: propTypes) => {
-    console.log("selectedSubLeaders", selectedSubLeaders)
-            const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
+    const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
+    const { t } = useTranslation()
+    const notify = () =>
+        toast(t("please_Select_leader"), {
+            progress: 0,
+            theme: "dark",
+            autoClose: 1500,
+            position: "top-center"
+        })
     const selectSubLeaderHandler = () => {
-        if (selectedSubLeaders?.length == 0) return;
+        if (selectedSubLeaders?.length == 0 || (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES && selectedSubLeaders?.length<2)) {
+            notify()
+            return
+        }
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES) {
             const names = [selectedSubLeaders?.[0]?.name, selectedSubLeaders?.[1]?.name]
             if (names?.includes("DRAR") && names?.includes?.("SABET")) {
@@ -81,8 +92,7 @@ export const SelectSuitableLeader = ({
                     }
                 })
             }
-        } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER)
-        {
+        } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER) {
             if (selectedSubLeaders?.[0]?.name == "BOTHER") {
                 setProgress?.(prev => {
                     return {
@@ -107,11 +117,9 @@ export const SelectSuitableLeader = ({
                 })
             }
         }
-       
 
-        setFlow(VALORIA_ROAD_ENUM.SELECT_OPTION_TO_CONTINUE)
+        setFlow(VALORIA_ROAD_ENUM.SHOW_VIDEO)
     }
-const {t}=useTranslation()
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -124,12 +132,14 @@ const {t}=useTranslation()
                     <>
                         {selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES
                             ? t("select_two_leader_gates")
-                            : t("select_one_leader_gates")}
+                            : selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER
+                              ? t("select_one_leader_river")
+                              : t("select_one_leader_woods")}
                     </>
                 )}
             </p>
 
-            <div className="mb-5 grid grid-cols-3 gap-x-2 xl:gap-x-4 justify-items-center gap-y-8 xl:!grid-cols-5">
+            <div className="mb-5 grid grid-cols-3 justify-items-center gap-x-2 gap-y-8 xl:!grid-cols-5 xl:gap-x-4">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -142,9 +152,7 @@ const {t}=useTranslation()
                                 setPowerModal(item)
                             }}
                             onClickButton={() => {
-                                
-                                if (isSelected >= 0)
-                                {
+                                if (isSelected >= 0) {
                                     const newLeaders = selectedSubLeaders
                                     newLeaders?.splice(isSelected, 1)
                                     setSelectedSubLeaders([...newLeaders])
@@ -174,6 +182,29 @@ const {t}=useTranslation()
                         setPowerModal(null)
                     }}
                     leader={powerModal}
+                    onClickButton={() => {
+                         const isSelected = selectedSubLeaders?.findIndex(
+                             leader => leader?.name == powerModal?.name
+                         )
+                            if (isSelected >= 0) {
+                                const newLeaders = selectedSubLeaders
+                                newLeaders?.splice(isSelected, 1)
+                                setSelectedSubLeaders([...newLeaders])
+                            } else if (
+                                (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES &&
+                                    selectedSubLeaders?.length == 2) ||
+                                (selectedSubLeaders.length == 1 &&
+                                    selectedWay !== VALORIA_ROAD_METHOD_ENUM.GATES)
+                            ) {
+                                const subleads = selectedSubLeaders
+                                subleads.pop()
+
+                                setSelectedSubLeaders([...subleads, powerModal])
+                            } else {
+                                setSelectedSubLeaders(prev => [...prev, powerModal])
+                            }
+                        setPowerModal(null)
+                    }}
                 />
             ) : null}
         </ModalWrapper>
@@ -186,5 +217,5 @@ type propTypes = {
     setFlow: React.Dispatch<React.SetStateAction<VALORIA_ROAD_ENUM | undefined>>
     setProgress?: (value: React.SetStateAction<UserProgressType>) => void
     selectedWay?: VALORIA_ROAD_METHOD_ENUM | null
-    headText?:string
+    headText?: string
 }

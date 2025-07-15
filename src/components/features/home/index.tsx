@@ -47,7 +47,7 @@ export default function Home() {
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP,
+        currentFlow: FLOW_ENUM.SELECT_LANG,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })

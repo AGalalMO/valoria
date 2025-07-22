@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { useMotionValue, useAnimationFrame, animate } from "framer-motion"
 import BorderButton from "../borderButton"
 import { useTranslation } from "react-i18next"
+import { Tooltip as ReactTooltip } from "react-tooltip"
 
 export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isTheEnd:boolean }) {
     const { t, i18n } = useTranslation()
@@ -27,19 +28,40 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
             <div
                 className={`flex items-center gap-6 ${isTheEnd ? "w-full flex-col items-center" : "flex-row"}`}
             >
-                <div className="flex items-center gap-2">
+                <div data-tooltip-id="my-tooltip-1" className="flex items-center gap-2">
                     <Power img={crown} text={`${powers.people}%`} />
-                      {!isTheEnd?null: <p className="font-trajan text-center text-[30px] font-bold text-white">people</p>}
+                    {!isTheEnd ? null : (
+                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                            {t("people")}
+                        </p>
+                    )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-tooltip-id="my-tooltip-2" className="flex items-center gap-2">
                     <Power img={kill} text={`${powers?.army}%`} />
-                    {!isTheEnd ? null : <p className="font-trajan text-center text-[30px] font-bold text-white">army</p>}
+                    {!isTheEnd ? null : (
+                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                            {t("army")}
+                        </p>
+                    )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-tooltip-id="my-tooltip-3" className="flex items-center gap-2">
                     <Power img={money} text={`${powers.money}%`} />
-                    {!isTheEnd ? null : <p className="font-trajan text-center text-[30px] font-bold text-white">money</p>}
+                    {!isTheEnd ? null : (
+                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                            {t("money")}
+                        </p>
+                    )}
                 </div>
             </div>
+
+            <ReactTooltip
+                id="my-tooltip-1"
+                place="bottom"
+                variant="warning"
+                content={t("people")}
+            />
+            <ReactTooltip id="my-tooltip-2" place="bottom" variant="warning" content={t("army")} />
+            <ReactTooltip id="my-tooltip-3" place="bottom" variant="warning" content={t("money")} />
         </div>
     )
 }
@@ -63,23 +85,29 @@ const Power = ({ img, text }: { img: string; text: string }) => {
     })
     return (
         <div className="flex items-center gap-1">
-            <img src={img} width={"50px"} height={"50px"} className="w-8 xl:w-[50px] h-8 xl:h-[50px]" />
+            <img
+                src={img}
+                width={"50px"}
+                height={"50px"}
+                className="h-8 w-8 xl:h-[50px] xl:w-[50px]"
+            />
             <AnimatePresence mode="wait" initial={false}>
                 {number !== null ? (
                     <motion.span
                         key={number}
-                        className="font-trajan text-lg xl:text-3xl text-white"
+                        className="font-trajan text-lg text-white xl:text-3xl"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}
                         transition={{ duration: 0.3 }}
                     >
-                        {Math.round(display)}{suffix}
+                        {Math.round(display)}
+                        {suffix}
                     </motion.span>
                 ) : (
                     <motion.p
                         key={text}
-                        className="font-trajan text-lg xl:text-3xl text-white"
+                        className="font-trajan text-lg text-white xl:text-3xl"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}
@@ -89,6 +117,8 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                     </motion.p>
                 )}
             </AnimatePresence>
+
+            
         </div>
     )
 }

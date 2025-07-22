@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ModalWrapper } from "./features/enterValoria/components/modalWrapper";
 import BorderButton from "./shared/borderButton";
 import { useTranslation } from "react-i18next";
@@ -7,8 +7,27 @@ import { useTranslation } from "react-i18next";
 export default function VideoPlayer({ video, onEnd }: { video: string, onEnd: VoidFunction }) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-        const [isMuted, setIsMuted]=useState(true)
-const {t}=useTranslation()
+        const [isMuted, setIsMuted]=useState(false)
+    const { t } = useTranslation()
+    
+     useEffect(() => {
+         const video = videoRef.current
+         if (video) {
+             const playPromise = video.play()
+             if (playPromise !== undefined) {
+                 playPromise
+                     .then(() => {
+                         console.log("Autoplay started")
+                     })
+                     .catch(error => {
+                         console.warn("Autoplay with sound failed, muting and retrying", error)
+                         video.muted = true
+                         setIsMuted(true)
+                         video.play()
+                     })
+             }
+         }
+     }, [])
     return (
         <ModalWrapper>
             <div style={{ position: "relative", width: "100%" }}>
@@ -16,9 +35,11 @@ const {t}=useTranslation()
                     ref={videoRef}
                     onEnded={onEnd}
                     autoPlay
-                    muted
+                    playsInline
                     style={{ width: "100%" }}
-                    onLoadedData={() => setIsLoading(false)}
+                    onLoadedData={() => {
+                        setIsLoading(false)
+                    }}
                 >
                     <source src={video} type="video/mp4" />
                 </video>
@@ -36,7 +57,7 @@ const {t}=useTranslation()
                             background: "rgba(0,0,0,0.5)",
                             color: "white",
                             fontSize: "1.5rem",
-                            zIndex: 2,
+                            zIndex: 2
                         }}
                     >
                         Loading...
@@ -46,22 +67,18 @@ const {t}=useTranslation()
             <div className="flex flex-row items-center">
                 <BorderButton
                     onClick={() => {
-                        if(isMuted)
-                        {
-                            (videoRef as any).current.muted = false
+                        if (isMuted) {
+                            ;(videoRef as any).current.muted = false
                             setIsMuted(false)
-                           }
-                        else
-                        {
-                            (videoRef as any).current.muted = true
+                        } else {
+                            ;(videoRef as any).current.muted = true
                             setIsMuted(true)
                         }
-                            
                     }}
-                    text={!isMuted?t('mute'):t('unmute')}
+                    text={!isMuted ? t("mute") : t("unmute")}
                     size="sm"
                 />
-                <BorderButton onClick={onEnd} text={t('skip')} size="sm" />
+                <BorderButton onClick={onEnd} text={t("skip")} size="sm" />
             </div>
         </ModalWrapper>
     )

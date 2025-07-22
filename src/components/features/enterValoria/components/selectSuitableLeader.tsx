@@ -182,27 +182,30 @@ export const SelectSuitableLeader = ({
                         setPowerModal(null)
                     }}
                     leader={powerModal}
+                    isSelected={selectedSubLeaders?.findIndex(
+                        leader => leader?.name == powerModal?.name
+                    )}
                     onClickButton={() => {
-                         const isSelected = selectedSubLeaders?.findIndex(
-                             leader => leader?.name == powerModal?.name
-                         )
-                            if (isSelected >= 0) {
-                                const newLeaders = selectedSubLeaders
-                                newLeaders?.splice(isSelected, 1)
-                                setSelectedSubLeaders([...newLeaders])
-                            } else if (
-                                (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES &&
-                                    selectedSubLeaders?.length == 2) ||
-                                (selectedSubLeaders.length == 1 &&
-                                    selectedWay !== VALORIA_ROAD_METHOD_ENUM.GATES)
-                            ) {
-                                const subleads = selectedSubLeaders
-                                subleads.pop()
+                        const isSelected = selectedSubLeaders?.findIndex(
+                            leader => leader?.name == powerModal?.name
+                        )
+                        if (isSelected >= 0) {
+                            const newLeaders = selectedSubLeaders
+                            newLeaders?.splice(isSelected, 1)
+                            setSelectedSubLeaders([...newLeaders])
+                        } else if (
+                            (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES &&
+                                selectedSubLeaders?.length == 2) ||
+                            (selectedSubLeaders.length == 1 &&
+                                selectedWay !== VALORIA_ROAD_METHOD_ENUM.GATES)
+                        ) {
+                            const subleads = selectedSubLeaders
+                            subleads.pop()
 
-                                setSelectedSubLeaders([...subleads, powerModal])
-                            } else {
-                                setSelectedSubLeaders(prev => [...prev, powerModal])
-                            }
+                            setSelectedSubLeaders([...subleads, powerModal])
+                        } else {
+                            setSelectedSubLeaders(prev => [...prev, powerModal])
+                        }
                         setPowerModal(null)
                     }}
                 />

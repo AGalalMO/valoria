@@ -83,6 +83,7 @@ export const SelectSuitableLeaderToBuildBridge = ({
             />
             {powerModal ? (
                 <LeaderPowers
+                    isSelected={selectedSubLeaders?.name == powerModal?.name?1:-1}
                     onClickButton={() => {
                         const isSelected = selectedSubLeaders?.name == powerModal?.name
                         if (isSelected) {

@@ -28,7 +28,9 @@
     "gates": "البوابات",
     "please_Select_five_leaders": "الرجاء اختيار خمسة قادة",
     "please_Select_cannon_angles": "الرجاء تحديد زاوية المدفع",
-
+    "army": "عدد قوات الجيش",
+    "people": "عدد الاشخاص",
+    "money": "المال المتوفر",
     "please_Select_leader": "الرجاء اختيار القادة",
     "please_Select_leader_Jobs": "الرجاء اختيار وظائف القادة",
 
@@ -74,6 +76,7 @@
     "race_for_time": "تسابق مع الزمن",
     "hit_enemy": "اضرب العدو",
     "select_your_leader": "اختر القائد",
+    "un_select_your_leader": "الغاء اختيار القائد",
     "race_time_failed_head": "كنت على وشك نزع فتيل الجسر، لكنه انفجر، عليك الآن بناء جسر بديل",
     "finally_we_entered_valoria": "أخيرًا دخلنا فالوريا، الآن علينا تحديد مهمة لكل قائد لاحتلال فالوريا بالكامل",
     "trusted": "هل تثق به؟",

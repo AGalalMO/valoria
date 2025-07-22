@@ -5,19 +5,32 @@ import wrong from "../../../assets/x.png"
 import closeModalIcon from "../../../assets/closeModal.png"
 import { useTranslation } from "react-i18next";
 import BorderButton from "../../shared/borderButton";
+import { useMemo } from "react";
 
 export default function LeaderPowers({
     leader,
     closeModal,
     onClickButton,
-    btnText
+    btnText,
+    isSelected
 }: {
     leader: LeaderType
     closeModal: VoidFunction
-        onClickButton?: VoidFunction
-    btnText?:string
-}) {
+    onClickButton?: VoidFunction
+    btnText?: string
+    isSelected?:number
+    }) {
+    console.log("IS SELECTED",isSelected)
     const { t, i18n } = useTranslation()
+
+    const text = useMemo(() => {
+        if (btnText) return btnText
+        if (isSelected != undefined && isSelected != -1)
+            return t("un_select_your_leader")
+        else
+            return t("select_your_leader")
+       
+    },[isSelected,btnText])
     return (
         <div
             className="absolute start-5 top-5 z-50 h-[90%] w-[90%] border-5 border-[#DC8E2F] p-4 py-10"
@@ -26,18 +39,18 @@ export default function LeaderPowers({
                 backgroundPosition: "center"
             }}
         >
-                <div
-                    className={`relative ${i18n?.language == "ar" ? "-ms-6 justify-start" : "-me-6 justify-end"} -mt-12 flex`}
-                >
-                    <img
-                        src={closeModalIcon}
-                        height={50}
-                        width={50}
-                        className="cursor-pointer"
-                        onClick={closeModal}
-                    />
-                </div>
-            <div className="flex flex-col h-full justify-around">
+            <div
+                className={`relative ${i18n?.language == "ar" ? "-ms-6 justify-start" : "-me-6 justify-end"} -mt-12 flex`}
+            >
+                <img
+                    src={closeModalIcon}
+                    height={50}
+                    width={50}
+                    className="cursor-pointer"
+                    onClick={closeModal}
+                />
+            </div>
+            <div className="flex h-full flex-col justify-around">
                 <div className="flex items-center gap-4" dir={i18n?.language == "ar" ? "rtl" : ""}>
                     <img
                         src={leader?.icon}
@@ -67,11 +80,7 @@ export default function LeaderPowers({
                     </div>
                 </div>
                 <div className="flex w-full justify-center">
-                    <BorderButton
-                        text={btnText?btnText:t("select_your_leader")}
-                        size="sm"
-                        onClick={onClickButton as VoidFunction}
-                    />
+                    <BorderButton text={text} size="sm" onClick={onClickButton as VoidFunction} />
                 </div>
             </div>
         </div>

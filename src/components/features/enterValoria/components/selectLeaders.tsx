@@ -63,10 +63,13 @@ export const ChooseFiveLeaders = ({
                     closeModal={() => {
                         setPowerModal(null)
                     }}
+                    isSelected={selectedLeaders?.findIndex(
+                        leader => leader?.name == powerModal?.name
+                    )}
                     onClickButton={() => {
-                          const isSelected = selectedLeaders?.findIndex(
-                              leader => leader?.name == powerModal?.name
-                          )
+                        const isSelected = selectedLeaders?.findIndex(
+                            leader => leader?.name == powerModal?.name
+                        )
                         if (isSelected >= 0) {
                             const newLeaders = selectedLeaders
                             newLeaders?.splice(isSelected, 1)

@@ -32,7 +32,7 @@ export const useInteractiveValeriaMap = ({
 
     useEffect(() => {
         if ((roadPhase == 7 && selectedRoad?.index == 0) || roadPhase == 8) {
-            setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP }))
+            // setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP }))
         }
     }, [roadPhase])
     //#endregion
@@ -134,7 +134,7 @@ export const useInteractiveValeriaMap = ({
                                 isOpen: true,
                                 modalType: MAP_MODAL_TYPE.INCREASE_SOLDIERS
                             })
-                        }, 1000)
+                        }, 2000)
                     } else {
                         changePhase(phase + 1, roadZone?.roads?.[index])
                     }
@@ -142,7 +142,7 @@ export const useInteractiveValeriaMap = ({
                     setTimeout(() => {
                         setAlternate(alternates?.[0])
                         setModalOptions({ isOpen: true, modalType: MAP_MODAL_TYPE.CHANGE_ROUTE })
-                    }, 1000)
+                    }, 2000)
                 }
             }, 2000)
         }

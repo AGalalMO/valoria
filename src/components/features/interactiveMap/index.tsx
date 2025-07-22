@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import intersect from '../../../assets/maps/intesect.png';
 import danger from "../../../assets/maps/danger.png"
-import checked from "../../../assets/maps/checked.svg"
+import checked from "../../../assets/footstep.png"
 import { Way_IN } from "../../../types/Enums";
 import MapModal from "./MapModal";
 import type { InteractiveMapPropsType } from "../../../types/InteractiveMap";
 import { useInteractiveValeriaMap } from "./useInteractiveValeriaMap";
+import { motion } from "framer-motion";
 
 
 export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPropsType) => {
+
    const {
        completedRoad,
        onClickChangeRoute,
@@ -22,8 +24,20 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
        modalOptions,
        roadPhase
    } = useInteractiveValeriaMap({ selectedWayIn, setProgress })
+
+
+ const containerVariants = {
+     hidden: {},
+     visible: {
+         transition: {
+             staggerChildren: 0.3
+         }
+     }
+ }
+
+
     return (
-        <div className='min-w-[550px] max-w-[900px]'>
+        <div className="max-w-[900px] min-w-[550px]">
             <div
                 style={{
                     position: "relative",
@@ -53,7 +67,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                             zIndex: 500
                         }}
                     >
-                        <img src={checked} width={40} height={40} />
+                        <img src={checked}  className='rotate-[300deg]' width={40} height={40} />
                     </div>
                 )}
                 {/* Clickable Zones */}
@@ -113,22 +127,32 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                     </>
                 ))}
 
-                {completedRoad?.map((item: any) => (
-                    <>
-                        {item?.id?.includes("hidden") && item?.phase >= roadPhase ? null : (
-                            <div
+                <motion.div variants={containerVariants} initial="hidden" animate="visible">
+                    {completedRoad?.map((item: any, index: number) => {
+                        if (item?.id?.includes("hidden") && item?.phase >= roadPhase) return null
+
+                        return (
+                            <motion.div
                                 key={item.id}
                                 className="rounded-full"
                                 style={{
                                     position: "absolute",
                                     ...item.style
                                 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.2, duration: 0.4 }}
                             >
-                                <img src={checked} width={32} height={32} />
-                            </div>
-                        )}
-                    </>
-                ))}
+                                <img
+                                    src={checked}
+                                    className="rotate-[300deg]"
+                                    width={32}
+                                    height={32}
+                                />
+                            </motion.div>
+                        )
+                    })}
+                </motion.div>
                 {selectedWayIn == Way_IN.ATTACK ? null : (
                     <div
                         key={"start"}

@@ -465,12 +465,49 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                     },
                     {
                         id: "Complete",
+                        style: {
+                            top: "12%",
+                            right: "14%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "10%",
+                            right: "18%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+
+                    {
+                        id: "Complete",
                         phase: 1,
 
                         style: {
                             top: "7%",
                             right: "25%"
                         },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "7%",
+                            right: "31%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "7%",
+                            right: "36%"
+                        },
+                        phase: 1,
                         visible: false
                     },
                     {
@@ -481,6 +518,15 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                             top: "8%",
                             right: "52%"
                         },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "13%",
+                            right: "61%"
+                        },
+                        phase: 4,
                         visible: false
                     },
                     {
@@ -552,12 +598,42 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                 nextLabel: "Silk Road",
                 road: [
                     {
+                        id: "complete",
+                        phase: 1,
+
+                        style: {
+                            top: "31%",
+                            right: "9%"
+                        },
+                        visible: false
+                    },
+                    {
                         id: "enemy",
                         phase: 1,
 
                         style: {
                             top: "34%",
                             right: "18%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 2,
+
+                        style: {
+                            top: "38%",
+                            right: "21%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 2,
+
+                        style: {
+                            top: "39%",
+                            right: "29%"
                         },
                         visible: false
                     },
@@ -586,12 +662,32 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         visible: false
                     },
                     {
+                        id: "complete",
+                        phase: 5,
+
+                        style: {
+                            top: "43%",
+                            right: "65%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 5,
+
+                        style: {
+                            top: "44%",
+                            right: "63%"
+                        },
+                        visible: false
+                    },
+                    {
                         id: "enemy_hidden2",
                         phase: 6,
 
                         style: {
                             top: "39%",
-                            right: "68%"
+                            right: "70%"
                         },
                         visible: false
                     }
@@ -629,6 +725,36 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         phase: 1,
 
                         style: {
+                            top: "40%",
+                            right: "7%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
+                            top: "58%",
+                            right: "18%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
+                            top: "63%",
+                            right: "26%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
                             top: "49%",
                             right: "11%"
                         },
@@ -656,6 +782,26 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         visible: false
                     },
                     {
+                        id: "complete",
+                        phase: 2,
+
+                        style: {
+                            top: "73%",
+                            right: "45%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 2,
+
+                        style: {
+                            top: "73%",
+                            right: "59%"
+                        },
+                        visible: false
+                    },
+                    {
                         id: "enemy_hidden1",
                         phase: 4,
 
@@ -673,6 +819,26 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                             right: "76%"
                         },
 
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 5,
+
+                        style: {
+                            top: "57%",
+                            right: "83%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "complete",
+                        phase: 5,
+
+                        style: {
+                            top: "64%",
+                            right: "79%"
+                        },
                         visible: false
                     },
                     {
@@ -730,6 +896,25 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                     },
                     {
                         id: "Complete",
+                        style: {
+                            top: "12%",
+                            right: "14%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "10%",
+                            right: "18%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+
+                    {
+                        id: "Complete",
                         phase: 1,
 
                         style: {
@@ -739,12 +924,40 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         visible: false
                     },
                     {
+                        id: "Complete",
+                        style: {
+                            top: "7%",
+                            right: "31%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        style: {
+                            top: "7%",
+                            right: "36%"
+                        },
+                        phase: 1,
+                        visible: false
+                    },
+                    {
                         id: "enemy",
                         phase: 3,
 
                         style: {
                             top: "8%",
                             right: "54%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 4,
+
+                        style: {
+                            top: "13%",
+                            right: "61%"
                         },
                         visible: false
                     },
@@ -821,8 +1034,28 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         phase: 1,
 
                         style: {
-                            top: "39%",
-                            right: "25%"
+                            top: "33%",
+                            right: "14%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 2,
+
+                        style: {
+                            top: "37%",
+                            right: "20%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 2,
+
+                        style: {
+                            top: "43%",
+                            right: "28%"
                         },
                         visible: false
                     },
@@ -840,7 +1073,7 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         id: "enemy_hidden1",
                         phase: 4,
                         style: {
-                            top: "51%",
+                            top: "52%",
                             right: "52%"
                         },
                         visible: false
@@ -889,8 +1122,38 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         phase: 1,
 
                         style: {
+                            top: "39%",
+                            right: "6%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
                             top: "49%",
                             right: "11%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
+                            top: "54%",
+                            right: "15%"
+                        },
+                        visible: false
+                    },
+                    {
+                        id: "Complete",
+                        phase: 1,
+
+                        style: {
+                            top: "59%",
+                            right: "19%"
                         },
                         visible: false
                     },
@@ -903,7 +1166,15 @@ export const JourneyMapBlueprint: JourneyMapsType = {
                         },
                         visible: false
                     },
-
+                    {
+                        id: "complete",
+                        phase: 2,
+                        style: {
+                            top: "70%",
+                            right: "36%"
+                        },
+                        visible: false
+                    },
                     {
                         id: "enemy_hidden1",
                         phase: 4,
@@ -939,4 +1210,3 @@ export const JourneyMapBlueprint: JourneyMapsType = {
         ]
     }
 }
- 

@@ -32,7 +32,7 @@ export const useInteractiveValeriaMap = ({
 
     useEffect(() => {
         if ((roadPhase == 7 && selectedRoad?.index == 0) || roadPhase == 8) {
-            setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP }))
+            // setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP }))
         }
     }, [roadPhase])
     //#endregion
@@ -54,6 +54,7 @@ export const useInteractiveValeriaMap = ({
     //#region main journey handler
     // main function responsible for all phase changing and start the journey
     const onSelectRoad = (index: number, phase: number, isChange?: boolean) => {
+        console.log("phase",phase)
         if (isChange) {
             setModalOptions({ isOpen: false, modalType: null })
             setTimeout(() => {
@@ -93,6 +94,7 @@ export const useInteractiveValeriaMap = ({
                 let haveEnemies = false
                 roadZone?.roads?.[index]?.intersections?.map((item: any) => {
                     if (item?.phase == phase) {
+                        console.log("ITEM",item)
                         roads.push(item)
                     }
                 })
@@ -104,6 +106,8 @@ export const useInteractiveValeriaMap = ({
                     roadZone?.roads?.[index]?.road?.map((item: RoadCheckPointType) => {
                         if (item?.phase == phase && !item?.id?.includes("enemy")) {
                             {
+                                                        console.log("ITEM@", item)
+
                                 roads.push(item)
                                 if (item?.advantage) {
                                     setProgress(prev => ({
@@ -127,7 +131,8 @@ export const useInteractiveValeriaMap = ({
                     })
                 }
                 setCompletedRoads((prev: any) => [...prev, ...roads])
-                if (!alternates?.length) {
+                if (!alternates?.length)
+                {
                     if (haveEnemies) {
                         setTimeout(() => {
                             setModalOptions({
@@ -142,7 +147,7 @@ export const useInteractiveValeriaMap = ({
                     setTimeout(() => {
                         setAlternate(alternates?.[0])
                         setModalOptions({ isOpen: true, modalType: MAP_MODAL_TYPE.CHANGE_ROUTE })
-                    }, 2000)
+                    }, 2300)
                 }
             }, 2000)
         }
@@ -150,6 +155,7 @@ export const useInteractiveValeriaMap = ({
 
     //sub function for main function to check if there an army or intersection with another road
     const changePhase = (phase: number, currentRoad: any) => {
+        console.log("CHANGE FPADs",phase)
         setRoadPhase(phase)
         const alternates = currentRoad?.phases?.filter((item: any) => item?.id == phase)
         const enemies = currentRoad?.road?.filter(
@@ -159,13 +165,13 @@ export const useInteractiveValeriaMap = ({
             setTimeout(() => {
                 setAlternate(alternates?.[0])
                 setModalOptions({ isOpen: true, modalType: MAP_MODAL_TYPE.CHANGE_ROUTE })
-            }, 1000)
+            }, 2000)
             return
         }
         if (enemies?.length) {
             setTimeout(() => {
                 setModalOptions({ isOpen: true, modalType: MAP_MODAL_TYPE.INCREASE_SOLDIERS })
-            }, 1000)
+            }, 2000)
         }
     }
     //#endregion

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import intersect from '../../../assets/maps/intesect.png';
-import danger from "../../../assets/maps/danger.png"
+import danger from "../../../assets/sword.png"
 import checked from "../../../assets/footstep.png"
 import { Way_IN } from "../../../types/Enums";
 import MapModal from "./MapModal";
@@ -54,22 +54,20 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                     style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
                 />
 
-                {selectedWayIn == Way_IN.ATTACK ? null : (
-                    <div
-                        key={"start"}
-                        className="rounded-full"
-                        style={{
-                            position: "absolute",
-                            top: "27.5%",
-                            right: "2%",
-                            width: "32px",
-                            height: "32px",
-                            zIndex: 500
-                        }}
-                    >
-                        <img src={checked}  className='rotate-[300deg]' width={40} height={40} />
-                    </div>
-                )}
+                <div
+                    key={"start"}
+                    className="rounded-full"
+                    style={{
+                        position: "absolute",
+                        top: "27.5%",
+                        right: "2%",
+                        width: "32px",
+                        height: "32px",
+                        zIndex: 500
+                    }}
+                >
+                    <img src={checked} className="rotate-[300deg]" width={40} height={40} />
+                </div>
                 {/* Clickable Zones */}
                 {roadZone?.roads.map((zone, index) => (
                     <>
@@ -105,7 +103,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                                                   ...item.style
                                               }}
                                           >
-                                              <img src={danger} width={32} height={32} />
+                                              <img src={danger} width={40} height={40} />
                                           </div>
                                       )
                               })

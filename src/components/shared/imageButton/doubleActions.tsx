@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion"
 import buttonIcon from "../../../assets/icons/buttonIcon.svg"
+import wrong from "../../../assets/x.png"
 
 export default function ImageButtonDoubleAuctions({
     onClickButton,
@@ -8,7 +9,9 @@ export default function ImageButtonDoubleAuctions({
     icon,
     text,
     selected,
-    size
+    size,
+
+    isWrong
 }: {
     text: string
     icon: string
@@ -16,19 +19,20 @@ export default function ImageButtonDoubleAuctions({
     onClickImage: (target?: any) => void
     selected?: boolean
     size?: "lg" | "normal" | "xl" | "xxl"
+    isWrong?:boolean
 }) {
     return (
-        <motion.button 
+        <motion.button
             className="group flex cursor-pointer flex-col items-center gap-2 bg-transparent"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
         >
-            <motion.img 
-                onClick={onClickImage} 
-                src={icon} 
-                width={136} 
+            <motion.img
+                onClick={onClickImage}
+                src={icon}
+                width={136}
                 height={136}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ duration: 0.2 }}
@@ -45,6 +49,7 @@ export default function ImageButtonDoubleAuctions({
                 </motion.p>
                 <img src={buttonIcon} width={16} height={16} />
             </div>
+            {isWrong ? <img src={wrong} height={32} width={32} /> : null}
         </motion.button>
     )
 }

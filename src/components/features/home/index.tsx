@@ -15,7 +15,6 @@ import type { ManPower } from "../../../types/manPower"
 import FireCannon from "../cannon"
 import HowToPass from "../bridgeProblem/howToPass"
 import RaceTimeFailed from "../bridgeProblem/raceTimeFailed"
-import IsTrustEngineer from "../bridgeProblem/isTrustEngineer"
 import EngineersFailed from "../bridgeProblem/engineersFailed"
 import Attacked from "../bridgeProblem/attacked"
 import CannonAttack from "../cannon/components/attackedByCannon"
@@ -36,9 +35,9 @@ import aimEn from "../../../assets/videos/en/aim.webm"
 import hitEn from "../../../assets/videos/en/hit.webm"
 import end from "../../../assets/videos/ar/end.webm"
 import endEn from "../../../assets/videos/en/end.webm"
-
 import  VideoPlayer from "../../videoComponent"
 import SelectLanguage from "../../selectLanguage"
+import Intro from "../../Intro"
 export default function Home() {
 
     const [loading, setLoading] = useState(true)
@@ -47,7 +46,7 @@ export default function Home() {
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.SELECT_LANG,
+        currentFlow: FLOW_ENUM.INTRO,
         selectedWayIn: null,
         manPower: { army: 90, money: 90, people: 90 }
     })
@@ -137,6 +136,17 @@ export default function Home() {
                             onClick={() => {
                                 setProgress(prev => ({
                                     ...prev,
+                                    currentFlow: FLOW_ENUM.INTRO_WAR
+                                }))
+                            }}
+                        />
+                    </div>
+                ) : progress.currentFlow == FLOW_ENUM.INTRO_WAR ? (
+                    <div className="mb-12 flex w-full justify-center">
+                        <Intro
+                            onEnd={() => {
+                                setProgress(prev => ({
+                                    ...prev,
                                     currentFlow: FLOW_ENUM.SELECT_WAY_IN
                                 }))
                             }}
@@ -172,21 +182,28 @@ export default function Home() {
                     <SolveLeadersConflict setProgress={setProgress} />
                 ) : progress.currentFlow === FLOW_ENUM.NOW_WE_ARE_IN_VALORIA ? (
                     <InValoriaMap changeState={changeFlowState} />
-                ) : progress.currentFlow == FLOW_ENUM.NOW_WE_ARE_IN_VALORIA_INTRO_BRIDGE ? (
-                    <VideoPlayer
-                        video={i18n?.language == "ar" ? bridge1 : bridge1En}
-                        onEnd={() => {
-                            changeFlowState(FLOW_ENUM.HOW_TO_PASS_BRIDGE)
-                        }}
-                    />
                 ) : progress.currentFlow === FLOW_ENUM.HOW_TO_PASS_BRIDGE ? (
                     <HowToPass
                         changeFlowState={changeFlowState}
-                        setSelectedSubLeaders={setSelectedSubLeaders}
+                        changePowers={() => {
+                            changePowers({
+                                army: 0,
+                                people: 0,
+                                money: -4
+                            })
+                        }}
                     />
-                ) : progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE ||
-                  progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME ||
-                  progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY ||
+                ) : progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME ||
+                  progress.currentFlow == FLOW_ENUM.IS_TRUST_ENGINEERS ? (
+                    <VideoPlayer
+                        video={i18n?.language == "ar" ? bridge1 : bridge1En}
+                        onEnd={() => {
+                            if (progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME)
+                                changeFlowState(FLOW_ENUM.RACE_FOR_TIME_FAILED)
+                            else changeFlowState(FLOW_ENUM.ENGINEERS_FAILED)
+                        }}
+                    />
+                ) : progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY ||
                   progress.currentFlow == FLOW_ENUM.SEE_ME ||
                   progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON ? (
                     <SelectSuitableLeaderToBuildBridge
@@ -202,8 +219,6 @@ export default function Home() {
                         changePowers={changePowers}
                         setSelectedSubLeaders={setSelectedSubLeaders}
                     />
-                ) : progress.currentFlow == FLOW_ENUM.IS_TRUST_ENGINEERS ? (
-                    <IsTrustEngineer changeFlowState={changeFlowState} />
                 ) : progress.currentFlow == FLOW_ENUM.ENGINEERS_FAILED ? (
                     <EngineersFailed
                         changeFlowState={changeFlowState}
@@ -220,7 +235,8 @@ export default function Home() {
                     <Attacked
                         changeFlowState={changeFlowState}
                         changePowers={changePowers}
-                        setSelectedSubLeaders={setSelectedSubLeaders}
+                        selectedLeaders={selectedLeaders}
+                        // setSelectedSubLeaders={setSelectedSubLeaders}
                     />
                 ) : progress?.currentFlow == FLOW_ENUM.CANNON_ATTACK ? (
                     <CannonAttack changeFlowState={changeFlowState} />
@@ -260,3 +276,9 @@ export default function Home() {
         </div>
     )
 }
+
+
+
+// : progress.currentFlow == FLOW_ENUM.IS_TRUST_ENGINEERS ? (
+//                     <IsTrustEngineer changeFlowState={changeFlowState} />
+//                 ) 

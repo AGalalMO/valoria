@@ -29,39 +29,42 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                 className={`flex items-center gap-6 ${isTheEnd ? "w-full flex-col items-center" : "flex-row"}`}
             >
                 <div data-tooltip-id="my-tooltip-1" className="flex items-center gap-2">
-                    <Power img={crown} text={`${powers.people}%`} />
-                    {!isTheEnd ? null : (
-                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                    <div className="flex flex-col gap-1">
+                        <Power img={crown} text={`${powers.people}%`} />
+                        <p className="font-trajan text-center text-xl font-bold text-white">
                             {t("people")}
                         </p>
-                    )}
+                    </div>
+                   
                 </div>
                 <div data-tooltip-id="my-tooltip-2" className="flex items-center gap-2">
-                    <Power img={kill} text={`${powers?.army}%`} />
-                    {!isTheEnd ? null : (
-                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                    <div className="flex flex-col gap-1">
+                        <Power img={kill} text={`${powers?.army}%`} />
+                        <p className="font-trajan text-center text-xl font-bold text-white">
                             {t("army")}
                         </p>
-                    )}
+                    </div>
+                   
                 </div>
                 <div data-tooltip-id="my-tooltip-3" className="flex items-center gap-2">
-                    <Power img={money} text={`${powers.money}%`} />
-                    {!isTheEnd ? null : (
-                        <p className="font-trajan text-center text-[30px] font-bold text-white">
+                    <div className="flex flex-col gap-1">
+                        <Power img={money} text={`${powers.money}%`} />
+                        <p className="font-trajan text-center text-xl font-bold text-white">
                             {t("money")}
                         </p>
-                    )}
+                    </div>
+                    
                 </div>
             </div>
 
             <ReactTooltip
                 id="my-tooltip-1"
-                place="bottom"
-                variant="warning"
-                content={t("people")}
+                place="bottom-end"
+                variant="dark"
+                content={t("money1")}
             />
-            <ReactTooltip id="my-tooltip-2" place="bottom" variant="warning" content={t("army")} />
-            <ReactTooltip id="my-tooltip-3" place="bottom" variant="warning" content={t("money")} />
+            <ReactTooltip id="my-tooltip-2" place="bottom-end" variant="dark" content={t("army1")} />
+            <ReactTooltip id="my-tooltip-3" place="bottom-end" variant="dark" content={t("people1")} />
         </div>
     )
 }

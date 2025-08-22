@@ -1,4 +1,3 @@
-import valoriaMap from "../../../assets/valoriaMap-min.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { ManPower } from "../../../types/manPower"
 import BorderButton from "../../shared/borderButton"
@@ -17,11 +16,11 @@ export default function EngineersFailed({
     return (
         <div className="flex h-full w-full flex-col items-center justify-start xl:mt-10">
             <div
-                style={{
-                    backgroundImage: `url(${valoriaMap})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center"
-                }}
+                // style={{
+                //     backgroundImage: `url(${valoriaMap})`,
+                //     backgroundRepeat: "no-repeat",
+                //     backgroundPosition: "center"
+                // }}
                 className="h-[80vh] w-[95vw] xl:!h-[70vh] xl:!w-[80vw]"
             >
                 <ModalWrapper
@@ -41,8 +40,9 @@ export default function EngineersFailed({
                                     people: -7
                                 })
 
-                                changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE)
+                                changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
                             }}
+                            size="sm"
                             text={t("alternate_bridge")}
                         />
                     </div>

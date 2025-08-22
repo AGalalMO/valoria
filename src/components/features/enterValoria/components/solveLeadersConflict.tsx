@@ -1,39 +1,45 @@
-import { LEADER_CONFLICT_ENUM } from "../../../../types/Enums"
 import type { UserProgressType } from "../../../../types/UserProgress"
-import ImageButton from "../../../shared/imageButton"
 import { ModalWrapper } from "./modalWrapper"
 import actFast from "../../../../assets/icons/actFast.png"
 import changeLead from "../../../../assets/icons/changeLead.png"
 import meeting from "../../../../assets/icons/meeting.png"
 import { FLOW_ENUM } from "../../../../types/FLowEnum"
 import { useTranslation } from "react-i18next"
+import { ButtonDescription } from "../../../buttonDescription"
+import { useState } from "react"
+import BorderButton from "../../../shared/borderButton"
 export const SolveLeadersConflict = ({
     setProgress
 }: {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
-    }) => {
-    const {t}=useTranslation()
-    const solveConflictBetweenLeaders = (action: LEADER_CONFLICT_ENUM) => {
-        if (action == LEADER_CONFLICT_ENUM.ACT_FAST) {
+}) => {
+    const { t } = useTranslation()
+    const [selectedOption, setSelectedOption] = useState(-1)
+    const solveConflictBetweenLeaders = () => {
+        if(selectedOption<0) return
+        if (selectedOption == 0) {
             setProgress(prev => {
                 return {
                     ...prev,
                     manPower: {
-                        money: prev?.manPower?.money - 2,
-                        people: prev?.manPower?.people - 7,
-                        army: prev?.manPower?.army - 5
+                        money: prev?.manPower?.money - 0,
+                        people: prev?.manPower?.people - 5,
+                        army: prev?.manPower?.army +3
                     },
-                    currentFlow:FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
+                    currentFlow: FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
                 }
             })
-        } else if (action == LEADER_CONFLICT_ENUM.MEETING) {
+        }
+        else if (selectedOption == 1) {
             setProgress(prev => {
                 return {
                     ...prev,
                     manPower: {
-                        money: prev?.manPower?.money - 5,
-                        people: prev?.manPower?.people + 2,
-                        army: prev?.manPower?.army - 1
+                 
+
+                         money: prev?.manPower?.money - 2,
+                        people: prev?.manPower?.people +4,
+                        army: prev?.manPower?.army -0
                     },
                     currentFlow: FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
                 }
@@ -43,15 +49,19 @@ export const SolveLeadersConflict = ({
                 return {
                     ...prev,
                     manPower: {
-                        money: prev?.manPower?.money - 2,
-                        people: prev?.manPower?.people - 7,
-                        army: prev?.manPower?.army - 2
+                        money: prev?.manPower?.money +3,
+                        people: prev?.manPower?.people - 0,
+                        army: prev?.manPower?.army - 4
                     },
                     currentFlow: FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
                 }
             })
         }
     }
+
+    
+
+
 
     return (
         <ModalWrapper
@@ -61,32 +71,45 @@ export const SolveLeadersConflict = ({
             <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("what_happen_in_valoria")}
             </p>
-            <div className="flex w-full items-center justify-center gap-6">
-                <ImageButton
-                    size="xl"
+            <div className="flex w-full flex-col items-center justify-center gap-3">
+                <ButtonDescription
+                    description={`Act very fast & threaten to fire them.
+This affects the popularity negatively & Army powers positively. 
+`}
+                    isSelected={selectedOption == 0}
                     icon={actFast}
                     onClick={() => {
-                        solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.ACT_FAST)
+                        setSelectedOption(0)
                     }}
+                    small
                     text={t("act_fast")}
                 />
-                <ImageButton
-                    size="xl"
+                <ButtonDescription
+                    description={`Meeting between leaders to discuss old problems.
+This affects the popularity positively & Resources negatively.
+`}
+                    small
+                    isSelected={selectedOption == 1}
                     icon={meeting}
                     onClick={() => {
-                        solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.MEETING)
+                        setSelectedOption(1)
                     }}
                     text={t("meet_leaders")}
                 />
-                <ImageButton
-                    size="xl"
+                <ButtonDescription
+                    description={`Change leaders’ duty & separate them.
+This affects the Army power negatively, & Resources Positively
+`}
+                    isSelected={selectedOption == 2}
+                    small
                     icon={changeLead}
                     onClick={() => {
-                        solveConflictBetweenLeaders(LEADER_CONFLICT_ENUM.CHANGE_LEADS)
+                        setSelectedOption(2)
                     }}
                     text={t("act_leaderChange")}
                 />
             </div>
+            <BorderButton text="NEXT"  onClick={solveConflictBetweenLeaders} />
         </ModalWrapper>
     )
 }

@@ -13,7 +13,6 @@ export default function useFireCannon({
 }) {
     const [tryAgain, setTryAgain] = useState(false)
     const { t } = useTranslation()
-    
     const [cannonDirection, setCannonDirection] = useState<CannonDirectType>({
         xAngle: {
             success: false,
@@ -31,13 +30,14 @@ export default function useFireCannon({
             value: null
         }
     })
- const notify = () =>
-     toast(t("please_Select_cannon_angles"), {
-         progress: 0,
-         theme: "dark",
-         autoClose: 1500,
-         position: "top-center"
-     })
+    const [wrongAnswers, setWrongAnswers] = useState<number[]>([])
+    const notify = () =>
+        toast(t("please_Select_cannon_angles"), {
+            progress: 0,
+            theme: "dark",
+            autoClose: 1500,
+            position: "top-center"
+        })
     const hitByCannon = () => {
         let powers = { money: 0, people: 0, army: 0 }
         if (
@@ -46,7 +46,7 @@ export default function useFireCannon({
             cannonDirection.yAngle.value == null
         ) {
             {
-                notify();
+                notify()
                 return
             }
         } else {
@@ -54,26 +54,28 @@ export default function useFireCannon({
                 powers = {
                     army: powers.army - 1,
                     people: powers.people - 1,
-                    money: powers.money - 2
+                    money: powers.money - 1
                 }
+                setWrongAnswers(prev => [...prev, cannonDirection.power.value as number])
             }
 
             if (!cannonDirection.xAngle.selected) {
                 powers = {
                     army: powers.army - 1,
                     people: powers.people - 1,
-                    money: powers.money - 2
+                    money: powers.money - 1
                 }
+                setWrongAnswers(prev => [...prev, cannonDirection.xAngle.value as number])
             }
             if (!cannonDirection.yAngle.selected) {
                 powers = {
                     army: powers.army - 1,
                     people: powers.people - 1,
-                    money: powers.money - 2
+                    money: powers.money - 1
                 }
+                setWrongAnswers(prev => [...prev, cannonDirection.yAngle.value as number])
             }
 
-          
             if (
                 cannonDirection.power.selected &&
                 cannonDirection.xAngle.selected &&
@@ -81,8 +83,7 @@ export default function useFireCannon({
             ) {
                 changePowers({ army: 0, people: 3, money: -3 })
                 changeFlowState(FLOW_ENUM.FIRE_CANNON_SUCCESS)
-            }
-            else if (
+            } else if (
                 !cannonDirection.power.selected ||
                 !cannonDirection.xAngle.selected ||
                 !cannonDirection.yAngle.selected
@@ -110,7 +111,11 @@ export default function useFireCannon({
         else
             setCannonDirection(prev => ({
                 ...prev,
-                xAngle: { ...prev.xAngle, value: value, selected: value == -2.25 }
+                xAngle: {
+                    ...prev.xAngle,
+                    value: value,
+                    selected: value == -2.25
+                }
             }))
     }
     const setYValue = (value: number) => {
@@ -122,7 +127,7 @@ export default function useFireCannon({
         } else {
             setCannonDirection(prev => ({
                 ...prev,
-                yAngle: { ...prev.yAngle, value: value, selected: value == 40 }
+                yAngle: { ...prev.yAngle, value: value, selected: value == 45 }
             }))
         }
     }
@@ -135,7 +140,7 @@ export default function useFireCannon({
         } else {
             setCannonDirection(prev => ({
                 ...prev,
-                power: { ...prev.power, value: value, selected: value == 380 }
+                power: { ...prev.power, value: value, selected: value == 420 }
             }))
         }
     }
@@ -147,10 +152,10 @@ export default function useFireCannon({
         hitByCannon,
         setXValue,
         setYValue,
-        setPowers
+        setPowers,
+        wrongAnswers
     }
 }
-
 
 export type CannonDirectType = {
     xAngle: {

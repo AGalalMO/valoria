@@ -15,7 +15,7 @@ export default function NotesSection() {
            },
            {
                title: t('note3'),
-               value: `20%`
+               value: ``
            }
        ]
        const notes2 = [
@@ -25,11 +25,11 @@ export default function NotesSection() {
            },
            {
                title: t("note5"),
-               value: `350 m/sec`
+               value: ``
            },
            {
                title: t("note6"),
-               value: t("note6_desc")
+               value: ''
            }
        ]
     return (
@@ -40,37 +40,33 @@ export default function NotesSection() {
             <div className="row mt-7 flex items-center">
                 <img
                     src={note}
-                    height={140}
-                    width={140}
+                    height={120}
+                    width={120}
                     className="mb-2 h-[40px] w-[40px] xl:mb-0 xl:!h-[100px] xl:!w-[100px]"
                 />
-                <p className="font-trajan text-xl !leading-none font-bold text-[#DBBD51] xl:text-[40px]">
+                <p className="font-trajan text-xl !leading-none font-bold text-[#DBBD51] xl:text-[30px]">
                     {t("notes")}
                 </p>
             </div>
             <div className="!mb-4 flex flex-col gap-4 px-6 pb-12 xl:pb-0">
                 {notes?.map(item => (
                     <div className="flex flex-col gap-1">
-                        <p className="font-trajan text-xs font-bold text-white uppercase xl:!text-[18px]">
+                        <p className="font-trajan text-xs font-bold text-white uppercase xl:!text-base">
                             {item?.title}
                         </p>
-                        <p className="font-trajan text-[10px] !leading-none font-bold text-[#DBBD51] uppercase xl:!text-[20px]">
+                        <p className="font-trajan text-[10px] !leading-none font-bold text-[#DBBD51] uppercase xl:!text-lg">
                             {item?.value}
                         </p>
                     </div>
                 ))}
 
-                <p className="font-trajan w-full text-xs font-bold text-white uppercase xl:text-[22px]">
+                <p className="font-trajan w-full text-xs font-bold text-[#DBBD51] uppercase xl:text-lg">
                     {t("if_there_obstacles")}
                 </p>
-                <p className="font-trajan w-full text-start text-xs font-bold text-[#DBBD51] uppercase xl:text-[24px]">
-                    {t("ideal_hit")}
-                    <br />
-                    {t("will_be")}
-                </p>
+
                 {notes2?.map(item => (
                     <div className="flex flex-col gap-1">
-                        <p className="font-trajan text-xs font-bold text-white uppercase xl:text-[18px]">
+                        <p className="font-trajan text-xs font-bold text-white uppercase xl:text-base">
                             {item?.title?.includes("<br") ? (
                                 <>
                                     {item?.title?.split("<br/>")?.[0]}
@@ -80,7 +76,7 @@ export default function NotesSection() {
                                 item?.title
                             )}
                         </p>
-                        <p className="font-trajan text-sm !leading-none font-bold text-[#DBBD51] uppercase xl:text-[20px]">
+                        <p className="font-trajan text-sm !leading-none font-bold text-[#DBBD51] uppercase xl:text-lg">
                             {item?.value}
                         </p>
                     </div>

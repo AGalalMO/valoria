@@ -1,4 +1,3 @@
-import valoriaMap from "../../../../assets/valoriaMap-min.png"
 import { ModalWrapper } from "../../enterValoria/components/modalWrapper"
 import cannon from "../../../../assets/cannon.png"
 import BorderButton from "../../../shared/borderButton"
@@ -10,11 +9,11 @@ export default function CannonAttack({ changeFlowState }: { changeFlowState: (fl
     return (
         <div className="flex h-full w-full flex-col items-center justify-start xl:mt-10">
             <div
-                style={{
-                    backgroundImage: `url(${valoriaMap})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center"
-                }}
+                // style={{
+                //     backgroundImage: `url(${valoriaMap})`,
+                //     backgroundRepeat: "no-repeat",
+                //     backgroundPosition: "center"
+                // }}
                 className="h-[80vh] w-[95vw] xl:!h-[70vh] xl:!w-[80vw]"
             >
                 <ModalWrapper
@@ -29,7 +28,7 @@ export default function CannonAttack({ changeFlowState }: { changeFlowState: (fl
                         <BorderButton
                             size="md"
                             onClick={() => {
-                                changeFlowState(FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON)
+                                changeFlowState(FLOW_ENUM.FIRE_CANNON_INTRO)
                             }}
                             text={t("choose_to_hit_enemy")}
                         />

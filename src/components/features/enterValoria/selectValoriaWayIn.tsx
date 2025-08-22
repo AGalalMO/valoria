@@ -1,13 +1,15 @@
 import { Way_IN } from "../../../types/Enums"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { ManPower } from "../../../types/manPower"
-import ImageButton from "../../shared/imageButton"
 import allie from "../../../assets/icons/allie.png"
 import spy from "../../../assets/icons/spy.png"
 import attack from "../../../assets/icons/attack.png"
 import type { UserProgressType } from "../../../types/UserProgress"
 import { ModalWrapper } from "./components/modalWrapper"
 import { useTranslation } from "react-i18next"
+import BorderButton from "../../shared/borderButton"
+import { useState } from "react"
+import { ButtonDescription } from "../../buttonDescription"
 export const SelectValoriaWayIn = ({
     setProgress,
     progress
@@ -15,7 +17,8 @@ export const SelectValoriaWayIn = ({
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
     progress: UserProgressType
     }) => {
-    const {t}=useTranslation()
+    const { t } = useTranslation()
+    const [way, setWay] = useState<Way_IN|null>(null)
     const calculateManPower = (way: Way_IN, currentPower: ManPower) => {
         let result: ManPower = currentPower
         switch (way) {
@@ -33,16 +36,17 @@ export const SelectValoriaWayIn = ({
         }
         return result
     }
-    const onSelectWayIn = (way: Way_IN) => {
-        const newPowers = calculateManPower(way, progress.manPower)
-        setProgress(prev => {
-            return {
-                ...prev,
-                manPower: newPowers,
-                selectedWayIn: way,
-                currentFlow: FLOW_ENUM.SELECT_ROAD
-            }
-        })
+    const onSelectWayIn = () => {
+        console.log("way", way)
+        const newPowers = calculateManPower(way as Way_IN, progress.manPower)
+         setProgress(prev => {
+             return {
+                 ...prev,
+                 manPower: newPowers,
+                 selectedWayIn: way as Way_IN,
+                 currentFlow: FLOW_ENUM.SELECT_ROAD
+             }
+         })
     }
  
     return (
@@ -51,31 +55,47 @@ export const SelectValoriaWayIn = ({
             classes="!justify-around !w-[90%] !h-[90]
             !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[26px]">
                 {t("way_map")}
             </p>
-            <div className="flex items-center gap-8">
-                <ImageButton
-                    onClick={() => {
-                        onSelectWayIn(Way_IN.SPY)
-                    }}
+            <div className="flex flex-col items-start gap-8">
+                <ButtonDescription
+                    description={t("send_spy1")}
                     icon={spy}
                     text={t("send_spy")}
-                />
-                <ImageButton
+                    isSelected={way == Way_IN.SPY}
                     onClick={() => {
-                        onSelectWayIn(Way_IN.ALLIE)
+                        setWay(Way_IN.SPY)
                     }}
+                />
+                <ButtonDescription
+                    description={t("favour_allie1")}
                     icon={allie}
                     text={t("favour_allie")}
-                />
-                <ImageButton
+                    isSelected={way == Way_IN.ALLIE}
                     onClick={() => {
-                        onSelectWayIn(Way_IN.ATTACK)
+                        setWay(Way_IN.ALLIE)
                     }}
+                />
+                <ButtonDescription
+                    description={t("attack_nw1")}
                     icon={attack}
                     text={t("attack_nw")}
+                    isSelected={way == Way_IN.ATTACK}
+                    onClick={() => {
+                        setWay(Way_IN.ATTACK)
+                    }}
                 />
+
+       
+                <div className="flex w-full justify-center">
+                    <BorderButton
+                        size="sm"
+                        disabled={way == null}
+                        text="SELECT"
+                        onClick={onSelectWayIn}
+                    />
+                </div>
             </div>
         </ModalWrapper>
     )

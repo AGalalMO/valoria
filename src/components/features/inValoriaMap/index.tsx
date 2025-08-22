@@ -47,7 +47,7 @@ export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW
                                     size="xs"
                                     bottomBorder={false}
                                     onClick={() => {
-                                        changeState(FLOW_ENUM.NOW_WE_ARE_IN_VALORIA_INTRO_BRIDGE)
+                                        changeState(FLOW_ENUM.HOW_TO_PASS_BRIDGE)
                                     }}
                                 />
                             </div>

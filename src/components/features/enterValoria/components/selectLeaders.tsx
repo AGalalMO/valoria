@@ -2,23 +2,32 @@ import { ModalWrapper } from "./modalWrapper"
 import { leaders } from "../leaderData"
 import BorderButton from "../../../shared/borderButton"
 import type { LeaderType } from "../../../../types/leaders"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LeaderPowers from "../../controlValoria/LeaderPowers"
-import ImageButtonDoubleAuctions from "../../../shared/imageButton/doubleActions"
 import { useTranslation } from "react-i18next"
+import { ButtonDescription } from "../../../buttonDescription"
 
 export const ChooseFiveLeaders = ({
     selectedLeaders,
     setSelectedLeaders,
-    openValoriaHandler
+    openValoriaHandler,
+    wrongChoices
 }: {
     selectedLeaders: LeaderType[]
     setSelectedLeaders: React.Dispatch<React.SetStateAction<LeaderType[]>>
     openValoriaHandler: () => void
-    }) => {
-        const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
+    wrongChoices:LeaderType[]
+}) => {
+    const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
     const { t } = useTranslation()
+    useEffect(() => {
+        if (wrongChoices?.length)
+        {
+            const result = selectedLeaders.filter(item => !wrongChoices.includes(item))
+            setSelectedLeaders(result)
 
+        }
+},[wrongChoices])
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -28,19 +37,18 @@ export const ChooseFiveLeaders = ({
                 {t("choose_leaders")}
             </p>
 
-            <div className="mb-5 grid grid-cols-4 content-center justify-items-center gap-x-2 gap-y-8 xl:!grid-cols-5 xl:gap-x-4">
+            <div className="mb-5 flex flex-col content-center justify-items-center gap-x-2 gap-y-4 xl:!grid-cols-5 xl:gap-x-4">
                 {leaders?.map(item => {
                     const isSelected = selectedLeaders?.findIndex(
                         leader => leader?.name == item?.name
                     )
                     return (
-                        <ImageButtonDoubleAuctions
+                        <ButtonDescription
+                            isWrong={wrongChoices?.findIndex((lead)=>lead?.name==item?.name)>=0}
+                            description={item?.desc}
                             icon={item?.icon}
-                            selected={isSelected >= 0 ? true : false}
-                            onClickImage={() => {
-                                setPowerModal(item)
-                            }}
-                            onClickButton={() => {
+                            isSelected={isSelected >= 0 ? true : false}
+                            onClick={() => {
                                 if (isSelected >= 0) {
                                     const newLeaders = selectedLeaders
                                     newLeaders?.splice(isSelected, 1)

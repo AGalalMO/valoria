@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import intersect from '../../../assets/maps/intesect.png';
-import danger from "../../../assets/sword.png"
 import checked from "../../../assets/footstep.png"
 import { Way_IN } from "../../../types/Enums";
+import danger from "../../../assets/sword.png"
+import water from "../../../assets/maps/water.png"
+import food from "../../../assets/maps/food.png"
+import enemy from "../../../assets/maps/enemy.png"
+import change from "../../../assets/maps/changeRoad.png"
+
 import MapModal from "./MapModal";
 import type { InteractiveMapPropsType } from "../../../types/InteractiveMap";
 import { useInteractiveValeriaMap } from "./useInteractiveValeriaMap";
@@ -16,13 +21,15 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
        onClickChangeRoute,
        onClickCancelChangeRoute,
        selectArmyPower,
-       onSelectSoliderPercentage,
        askForMen,
        continueWithoutMoreMen,
        roadZone,
        selectedRoad,
        modalOptions,
-       roadPhase
+       roadPhase,
+       onCloseModal,
+       onSacrifice,
+       visible
    } = useInteractiveValeriaMap({ selectedWayIn, setProgress })
 
 
@@ -37,142 +44,189 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
 
 
     return (
-        <div className="max-w-[900px] min-w-[550px]">
-            <div
-                style={{
-                    position: "relative",
-                    width: "100%",
-                    maxWidth: "100%",
-                    minWidth: "100%",
-                    margin: "0 auto"
-                }}
-            >
-                {/* Background Image */}
-                <img
-                    src={roadZone?.map}
-                    alt="Valoria Map"
-                    style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
-                />
-
+        <div className="relative">
+            <div className="max-w-[900px] min-w-[550px]">
                 <div
-                    key={"start"}
-                    className="rounded-full"
                     style={{
-                        position: "absolute",
-                        top: "27.5%",
-                        right: "2%",
-                        width: "32px",
-                        height: "32px",
-                        zIndex: 500
+                        position: "relative",
+                        width: "100%",
+                        maxWidth: "100%",
+                        minWidth: "100%",
+                        margin: "0 auto"
                     }}
                 >
-                    <img src={checked} className="rotate-[300deg]" width={40} height={40} />
-                </div>
-                {/* Clickable Zones */}
-                {roadZone?.roads.map((zone, index) => (
-                    <>
-                        {/* road labels */}
-                        {selectedRoad ? null : (
-                            <div
-                                key={zone.id}
-                                onClick={() => selectArmyPower(index)}
-                                className="flex h-[10%] w-20 items-center justify-center rounded-md border-[2px] border-solid border-[#DC8E2F] bg-black/50 p-3 hover:!bg-black/80"
-                                style={{
-                                    position: "absolute",
-                                    cursor: "pointer",
-                                    ...zone.style
-                                }}
-                                title={zone.label}
-                            >
-                                <p className="font-trajan text-base font-bold text-white">
-                                    {zone?.label}
-                                </p>
-                            </div>
-                        )}
+                    {/* Background Image */}
+                    <img
+                        src={roadZone?.map}
+                        alt="Valoria Map"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "block",
+                            objectFit: "cover"
+                        }}
+                    />
 
-                        {/* hidden Enemies */}
-                        {selectedRoad
-                            ? selectedRoad?.road?.map(item => {
-                                  if (item.id.includes("hidden") && item?.phase >= roadPhase)
-                                      return (
-                                          <div
-                                              key={item.id}
-                                              className="rounded-full"
-                                              style={{
-                                                  position: "absolute",
-                                                  ...item.style
-                                              }}
-                                          >
-                                              <img src={danger} width={40} height={40} />
-                                          </div>
-                                      )
-                              })
-                            : null}
-
-                        {zone?.intersections?.map(item => (
-                            <div
-                                key={item.id}
-                                className="z-[500] h-8 w-8 rounded-full hover:!bg-white/50"
-                                style={{
-                                    position: "absolute",
-                                    cursor: "pointer",
-                                    ...item.style
-                                }}
-                            >
-                                <img src={intersect} width={40} height={40} />
-                            </div>
-                        ))}
-                    </>
-                ))}
-
-                <motion.div variants={containerVariants} initial="hidden" animate="visible">
-                    {completedRoad?.map((item: any, index: number) => {
-                        if (item?.id?.includes("hidden") && item?.phase >= roadPhase) return null
-
-                        return (
-                            <motion.div
-                                key={item.id}
-                                className="rounded-full"
-                                style={{
-                                    position: "absolute",
-                                    ...item.style
-                                }}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.2, duration: 0.4 }}
-                            >
-                                <img
-                                    src={checked}
-                                    className="rotate-[300deg]"
-                                    width={32}
-                                    height={32}
-                                />
-                            </motion.div>
-                        )
-                    })}
-                </motion.div>
-                {selectedWayIn == Way_IN.ATTACK ? null : (
                     <div
                         key={"start"}
                         className="rounded-full"
                         style={{
                             position: "absolute",
-                            top: "30%",
-                            right: "78%"
+                            top: "27.5%",
+                            right: "2%",
+                            width: "32px",
+                            height: "32px",
+                            zIndex: 500
                         }}
                     >
-                        <img src={intersect} width={40} height={40} />
+                        <img src={checked} className="rotate-[300deg]" width={40} height={40} />
                     </div>
-                )}
+                    {/* Clickable Zones */}
+                    {roadZone?.roads.map((zone, index) => (
+                        <>
+                            {/* road labels */}
+                            {selectedRoad ? null : (
+                                <div
+                                    key={zone.id}
+                                    onClick={() => selectArmyPower(index)}
+                                    className="flex h-[10%] w-20 items-center justify-center rounded-md border-[2px] border-solid border-[#DC8E2F] bg-black/50 p-3 hover:!bg-black/80"
+                                    style={{
+                                        position: "absolute",
+                                        cursor: "pointer",
+                                        ...zone.style
+                                    }}
+                                    title={zone.label}
+                                >
+                                    <p className="font-trajan text-base font-bold text-white">
+                                        {zone?.label}
+                                    </p>
+                                </div>
+                            )}
 
-                <MapModal
-                    modalOptions={modalOptions}
-                    onClickCancelChangeRoute={onClickCancelChangeRoute}
-                    onClickChangeRoute={onClickChangeRoute}
-                    onSelectSoliderPercentage={onSelectSoliderPercentage}
-                    askForMen={askForMen}
-                    continueWithoutMoreMen={continueWithoutMoreMen}
-                />
+                            {/* hidden Enemies */}
+                            {selectedRoad
+                                ? selectedRoad?.road?.map(item => {
+                                      if (item.id.includes("hidden") && item?.phase >= roadPhase)
+                                          return (
+                                              <div
+                                                  key={item.id}
+                                                  className="rounded-full"
+                                                  style={{
+                                                      position: "absolute",
+                                                      ...item.style
+                                                  }}
+                                              >
+                                                  <img src={danger} width={40} height={40} />
+                                              </div>
+                                          )
+                                  })
+                                : visible?zone?.road?.map(item => {
+                                      if (item.id.includes("hidden") && item?.phase >= roadPhase)
+                                          return (
+                                              <div
+                                                  key={item.id}
+                                                  className="rounded-full"
+                                                  style={{
+                                                      position: "absolute",
+                                                      ...item.style
+                                                  }}
+                                              >
+                                                  <img src={danger} width={40} height={40} />
+                                              </div>
+                                          )
+                                  }):null}
+
+                            {zone?.intersections?.map(item => (
+                                <div
+                                    key={item.id}
+                                    className="z-[500] h-8 w-8 rounded-full hover:!bg-white/50"
+                                    style={{
+                                        position: "absolute",
+                                        cursor: "pointer",
+                                        ...item.style
+                                    }}
+                                >
+                                    <img src={intersect} width={40} height={40} />
+                                </div>
+                            ))}
+                        </>
+                    ))}
+
+                    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+                        {completedRoad?.map((item: any, index: number) => {
+                            if (item?.id?.includes("hidden") && item?.phase >= roadPhase)
+                                return null
+
+                            return (
+                                <motion.div
+                                    key={item.id}
+                                    className="rounded-full"
+                                    style={{
+                                        position: "absolute",
+                                        ...item.style
+                                    }}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.2, duration: 0.4 }}
+                                >
+                                    <img
+                                        src={checked}
+                                        className="rotate-[300deg]"
+                                        width={32}
+                                        height={32}
+                                    />
+                                </motion.div>
+                            )
+                        })}
+                    </motion.div>
+                    {selectedWayIn == Way_IN.ATTACK ? null : (
+                        <div
+                            key={"start"}
+                            className="rounded-full"
+                            style={{
+                                position: "absolute",
+                                top: "30%",
+                                right: "78%"
+                            }}
+                        >
+                            <img src={intersect} width={40} height={40} />
+                        </div>
+                    )}
+
+                    <MapModal
+                        modalOptions={modalOptions}
+                        onClickCancelChangeRoute={onClickCancelChangeRoute}
+                        onClickChangeRoute={onClickChangeRoute}
+                        // onSelectSoliderPercentage={onSelectSoliderPercentage}
+                        onCloseModal={onCloseModal}
+                        onSacrifice={onSacrifice}
+                        askForMen={askForMen}
+                        continueWithoutMoreMen={continueWithoutMoreMen}
+                    />
+                </div>
+            </div>
+            <div className="absolute -start-1.5 -bottom-4 flex w-[101.3%] flex-row items-center justify-start gap-3 bg-black p-2">
+                <p> Map Legend :</p>
+                <div className="flex items-center gap-1">
+                    <img src={food} width={40} height={40} />
+                    <p> Food </p>
+                </div>
+                <div className="flex items-center gap-1">
+                    <img src={water} width={40} height={40} />
+                    <p> Water </p>
+                </div>
+                <div className="flex items-center gap-1">
+                    <img src={change} width={40} height={40} />
+                    <p> change road </p>
+                </div>
+                <div className="flex items-center gap-1">
+                    <img src={danger} width={32} height={32} />
+                    <p> Hidden Enemy</p>
+                </div>
+                <div className="flex items-center gap-1">
+                    <img src={enemy} width={24} height={32} />
+                    <p> Enemy</p>
+                </div>
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export default function TryAgainModal({ closeModal, headerText1, headerText2, bu
  }) {
     return (
         <div className="flex h-full w-full flex-col items-center justify-around">
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex  min-h-[40vh] flex-col items-center gap-4">
                 <img src={danger} width={136} height={136} />
                 <p className="font-trajan text-center text-[40px] !leading-none font-bold">
                     {headerText1}
@@ -17,7 +17,7 @@ export default function TryAgainModal({ closeModal, headerText1, headerText2, bu
                     {headerText2}
                 </p>
             </div>
-            <BorderButton onClick={closeModal} text={buttonText} />
+            <BorderButton onClick={closeModal} size="md" text={buttonText} />
         </div>
     )
 }

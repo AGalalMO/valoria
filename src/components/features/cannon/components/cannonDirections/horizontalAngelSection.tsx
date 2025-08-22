@@ -6,12 +6,14 @@ import { useTranslation } from "react-i18next"
 
 export default function HorizontalAngelSection({
     cannonDirection,
-    setXValue
+    setXValue,
+    wrongAnswers
 }: {
     cannonDirection: CannonDirectType
-    setXValue:(value:number)=>void
-    }) {
-        const { t ,i18n} = useTranslation()
+    setXValue: (value: number) => void
+    wrongAnswers: number[]
+}) {
+    const { t, i18n } = useTranslation()
 
     return (
         <div className="flex !w-full flex-col gap-2">
@@ -20,43 +22,46 @@ export default function HorizontalAngelSection({
             >
                 <img
                     src={angel}
-                    height={135}
-                    width={135}
-                    className="h-[80px] w-[80px] xl:!h-[135px] xl:!w-[135px]"
+                    height={110}
+                    width={110}
+                    className="h-[80px] w-[80px] xl:!h-[110px] xl:!w-[110px]"
                 />
-                <p className="font-trajan !text-lg !leading-none font-bold xl:!text-xl xl:!text-[30px]">
+                <p className="font-trajan !text-lg !leading-none font-bold xl:!text-2xl">
                     {t("choose_horizontal")}
                 </p>
             </div>
             <div className="flex items-center justify-around">
                 {cannonDirection.xAngle.success ? (
-                    <img src={check} />
+                    <img src={check} width={32} height={32} className="h-8 w-8" />
                 ) : (
                     <>
                         <BorderButton
-                            size="xs"
+                            size="xxs"
                             text={t("toLeft")}
                             bottomBorder={false}
                             isSelected={cannonDirection?.xAngle.value == 2.25}
+                            isWrongAnswer={wrongAnswers?.findIndex?.(item => item == 2.25) >= 0}
                             onClick={() => {
                                 setXValue(2.25)
                             }}
                         />
 
                         <BorderButton
-                            size="xs"
+                            size="xxs"
                             text={t("direct_to_point")}
                             bottomBorder={false}
                             isSelected={cannonDirection?.xAngle.value == 0}
+                            isWrongAnswer={wrongAnswers?.findIndex?.(item => item == 0) >= 0}
                             onClick={() => {
                                 setXValue(0)
                             }}
                         />
                         <BorderButton
                             text={t("toRight")}
-                            size="xs"
+                            size="xxs"
                             bottomBorder={false}
                             isSelected={cannonDirection?.xAngle.value == -2.25}
+                            isWrongAnswer={wrongAnswers?.findIndex?.(item => item == -2.25) >= 0}
                             onClick={() => {
                                 setXValue(-2.25)
                             }}

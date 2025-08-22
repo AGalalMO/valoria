@@ -6,5 +6,8 @@ export type LeaderType = {
     icon: string
     pros?: string[]
     cons?: string[]
-    rightJobIndex?:number
+    rightJobIndex?: number
+    desc: string;
+    isWrong?: boolean
+    desc2?: string;
 }

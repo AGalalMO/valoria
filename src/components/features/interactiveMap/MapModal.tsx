@@ -4,20 +4,26 @@ import yes from "../../../assets/icons/yes.png"
 import no from "../../../assets/icons/no.png"
 import ImageButton from "../../shared/imageButton"
 import { MAP_MODAL_TYPE } from "../../../types/Enums"
-import BorderButton from "../../shared/borderButton"
 import type { MapModalPropsType } from "../../../types/InteractiveMap"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslation } from "react-i18next"
+import BorderButton from "../../shared/borderButton"
+import { useState } from "react"
 
 export default function MapModal({
     onClickChangeRoute,
     onClickCancelChangeRoute,
     modalOptions,
-    onSelectSoliderPercentage,
+    // onSelectSoliderPercentage,
+    onCloseModal,
+    onSacrifice,
     askForMen,
     continueWithoutMoreMen
 }: MapModalPropsType) {
-    const {t}=useTranslation()
+    const [introPhase,setIntroPhase]=useState(0)
+    const { t } = useTranslation()
+    
+
     return (
         <>
             <AnimatePresence>
@@ -46,7 +52,7 @@ export default function MapModal({
                                 damping: 15
                             }}
                         >
-                            {modalOptions.modalType == MAP_MODAL_TYPE.CHANGE_ROUTE ? (
+                            {modalOptions.modalType == MAP_MODAL_TYPE.INTRO ? (
                                 <>
                                     <motion.div
                                         className="flex items-center"
@@ -68,7 +74,82 @@ export default function MapModal({
                                                 ease: "easeInOut"
                                             }}
                                         />
-                                      
+                                    </motion.div>
+                                    <motion.p
+                                        className="text-center text-xl text-white xl:text-xl"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {introPhase == 0
+                                            ? `
+                                        There are unknown enemies hidden all over the map, facing them affects your popularity level,
+food & water resources affect your resources pillar rate positively, facing known enemies affects your army power pillar. 
+
+
+                                        `
+                                            : `sacrifice a -2 each pillar to reveal what’s missing on the map.`}
+                                    </motion.p>
+                                    {introPhase == 1 ? (
+                                        <motion.div
+                                            className="flex w-[80%] items-center justify-between"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <motion.div
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                            >
+                                                <ImageButton
+                                                    icon={yes}
+                                                    onClick={onSacrifice}
+                                                    text={t("yes")}
+                                                />
+                                            </motion.div>
+                                            <motion.div
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                            >
+                                                <ImageButton
+                                                    icon={no}
+                                                    onClick={onCloseModal}
+                                                    text={t("no")}
+                                                />
+                                            </motion.div>
+                                        </motion.div>
+                                    ) : (
+                                        <BorderButton
+                                            onClick={() => {
+                                                setIntroPhase(1)
+                                            }}
+                                            text={t("next")}
+                                            size="xs"
+                                        />
+                                    )}
+                                </>
+                            ) : modalOptions.modalType == MAP_MODAL_TYPE.CHANGE_ROUTE ? (
+                                <>
+                                    <motion.div
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <motion.img
+                                            src={dangerImg}
+                                            width={120}
+                                            height={120}
+                                            animate={{
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
                                     </motion.div>
                                     <motion.p
                                         className="text-center text-xl text-white xl:text-2xl"
@@ -106,67 +187,6 @@ export default function MapModal({
                                         </motion.div>
                                     </motion.div>
                                 </>
-                            ) : modalOptions.modalType == MAP_MODAL_TYPE.SOLIDER_PERCENTAGE ? (
-                                <>
-                                    <motion.div
-                                        className="flex items-center"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <motion.img
-                                            src={dangerImg}
-                                            width={120}
-                                            height={120}
-                                            animate={{
-                                                scale: [1, 1.1, 1],
-                                                rotate: [0, 5, -5, 0]
-                                            }}
-                                            transition={{
-                                                duration: 2,
-                                                repeat: Infinity,
-                                                ease: "easeInOut"
-                                            }}
-                                        />
-                                        
-                                    </motion.div>
-                                    <motion.p
-                                        className="text-center text-xl text-white xl:text-2xl"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        {t("choose_soldiers")}
-                                    </motion.p>
-                                    <motion.div
-                                        className="flex w-[80%] items-center justify-between"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        {["70%", "60%", "50%"].map((percentage, index) => (
-                                            <motion.div
-                                                key={percentage}
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{
-                                                    delay: index * 0.1,
-                                                    duration: 0.3,
-                                                    type: "spring",
-                                                    stiffness: 200
-                                                }}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                            >
-                                                <BorderButton
-                                                    bottomBorder={false}
-                                                    onClick={onSelectSoliderPercentage}
-                                                    text={percentage}
-                                                />
-                                            </motion.div>
-                                        ))}
-                                    </motion.div>
-                                </>
                             ) : modalOptions.modalType == MAP_MODAL_TYPE.INCREASE_SOLDIERS ? (
                                 <>
                                     <motion.div
@@ -189,7 +209,6 @@ export default function MapModal({
                                                 ease: "easeInOut"
                                             }}
                                         />
-                                      
                                     </motion.div>
                                     <motion.p
                                         className="text-center text-xl text-white xl:text-2xl"
@@ -212,7 +231,7 @@ export default function MapModal({
                                             <ImageButton
                                                 icon={yes}
                                                 onClick={askForMen}
-                                                text={t('yes')}
+                                                text={t("yes")}
                                             />
                                         </motion.div>
                                         <motion.div
@@ -222,7 +241,7 @@ export default function MapModal({
                                             <ImageButton
                                                 icon={no}
                                                 onClick={continueWithoutMoreMen}
-                                                text={t('no')}
+                                                text={t("no")}
                                             />
                                         </motion.div>
                                     </motion.div>
@@ -237,3 +256,69 @@ export default function MapModal({
 }
 
  
+
+
+
+// :
+//                                 modalOptions.modalType == MAP_MODAL_TYPE.SOLIDER_PERCENTAGE ? (
+//                                 <>
+//                                     <motion.div
+//                                         className="flex items-center"
+//                                         initial={{ opacity: 0, y: 20 }}
+//                                         animate={{ opacity: 1, y: 0 }}
+//                                         transition={{ duration: 0.2 }}
+//                                     >
+//                                         <motion.img
+//                                             src={dangerImg}
+//                                             width={120}
+//                                             height={120}
+//                                             animate={{
+//                                                 scale: [1, 1.1, 1],
+//                                                 rotate: [0, 5, -5, 0]
+//                                             }}
+//                                             transition={{
+//                                                 duration: 2,
+//                                                 repeat: Infinity,
+//                                                 ease: "easeInOut"
+//                                             }}
+//                                         />
+                                        
+//                                     </motion.div>
+//                                     <motion.p
+//                                         className="text-center text-xl text-white xl:text-2xl"
+//                                         initial={{ opacity: 0, y: 20 }}
+//                                         animate={{ opacity: 1, y: 0 }}
+//                                         transition={{ duration: 0.2 }}
+//                                     >
+//                                         {t("choose_soldiers")}
+//                                     </motion.p>
+//                                     <motion.div
+//                                         className="flex w-[80%] items-center justify-between"
+//                                         initial={{ opacity: 0, y: 20 }}
+//                                         animate={{ opacity: 1, y: 0 }}
+//                                         transition={{ duration: 0.2 }}
+//                                     >
+//                                         {["70%", "60%", "50%"].map((percentage, index) => (
+//                                             <motion.div
+//                                                 key={percentage}
+//                                                 initial={{ opacity: 0, scale: 0.8 }}
+//                                                 animate={{ opacity: 1, scale: 1 }}
+//                                                 transition={{
+//                                                     delay: index * 0.1,
+//                                                     duration: 0.3,
+//                                                     type: "spring",
+//                                                     stiffness: 200
+//                                                 }}
+//                                                 whileHover={{ scale: 1.05 }}
+//                                                 whileTap={{ scale: 0.95 }}
+//                                             >
+//                                                 <BorderButton
+//                                                     bottomBorder={false}
+//                                                     onClick={onSelectSoliderPercentage}
+//                                                     text={percentage}
+//                                                 />
+//                                             </motion.div>
+//                                         ))}
+//                                     </motion.div>
+//                                 </>
+//                             )

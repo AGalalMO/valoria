@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useEffect, useMemo, useState } from "react"
-import { MAP_MODAL_TYPE, Way_IN } from "../../../types/Enums"
+import { MAP_MODAL_TYPE } from "../../../types/Enums";
 import type { RoadCheckPointType, RoadPhasesType, RoadType } from "../../../types/RoadTypes"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { InteractiveMapPropsType, ModalOptionType } from "../../../types/InteractiveMap"
@@ -13,12 +13,17 @@ export const useInteractiveValeriaMap = ({
     selectedWayIn
 }: InteractiveMapPropsType) => {
     //#region  STATES
+    // const roadZone = useMemo(() => {
+    //     if (selectedWayIn == Way_IN.SPY) return JourneyMapBlueprint.Spy
+    //     if (selectedWayIn == Way_IN.ALLIE) return JourneyMapBlueprint.Allie
+    //     if (selectedWayIn == Way_IN.ATTACK) return JourneyMapBlueprint.Attack
+    // }, [selectedWayIn])
+
     const roadZone = useMemo(() => {
-        if (selectedWayIn == Way_IN.SPY) return JourneyMapBlueprint.Spy
-        if (selectedWayIn == Way_IN.ALLIE) return JourneyMapBlueprint.Allie
-        if (selectedWayIn == Way_IN.ATTACK) return JourneyMapBlueprint.Attack
+        return JourneyMapBlueprint.Spy
     }, [selectedWayIn])
     const [selectedRoad, setSelectedRoad] = useState<RoadType | null>()
+    const [visible,setVisible]=useState(false)
     const [alternate, setAlternate] = useState<RoadPhasesType | null>(null)
     const [roadPhase, setRoadPhase] = useState(0)
     const [completedRoad, setCompletedRoads] = useState<any>([])
@@ -30,6 +35,14 @@ export const useInteractiveValeriaMap = ({
 
     //#region effects
 
+    useEffect(() => {
+        setTimeout(() => {
+            setModalOptions({
+                isOpen: true,
+                modalType: MAP_MODAL_TYPE.INTRO
+            })
+        },1000)
+    },[])
     useEffect(() => {
         if ((roadPhase == 7 && selectedRoad?.index == 0) || roadPhase == 8) {
             setProgress(prev => ({ ...prev, currentFlow: FLOW_ENUM.SHOW_VALORIA_MAP }))
@@ -51,6 +64,25 @@ export const useInteractiveValeriaMap = ({
         onSelectRoad(selectedRoad?.index as number, roadPhase + 1, false)
     }
 
+    const onCloseModal = () => {
+       setModalOptions({
+           isOpen: false,
+           modalType: null
+       })
+    }
+    const onSacrifice = () => {
+
+         setProgress(prev => ({
+             ...prev,
+             manPower: {
+                 army: prev?.manPower?.army - 2,
+                 people: prev?.manPower?.people - 2,
+                 money: prev?.manPower?.money - 2
+             }
+         }))
+        setVisible(true)
+       onCloseModal()
+    }
     //#region main journey handler
     // main function responsible for all phase changing and start the journey
     const onSelectRoad = (index: number, phase: number, isChange?: boolean) => {
@@ -155,7 +187,6 @@ export const useInteractiveValeriaMap = ({
 
     //sub function for main function to check if there an army or intersection with another road
     const changePhase = (phase: number, currentRoad: any) => {
-        console.log("CHANGE FPADs",phase)
         setRoadPhase(phase)
         const alternates = currentRoad?.phases?.filter((item: any) => item?.id == phase)
         const enemies = currentRoad?.road?.filter(
@@ -178,11 +209,7 @@ export const useInteractiveValeriaMap = ({
     //#region army power handlers
     //handler For click the desired power for start army
     const selectArmyPower = (index: number) => {
-        setModalOptions({
-            isOpen: true,
-            modalType: MAP_MODAL_TYPE.SOLIDER_PERCENTAGE,
-            index: index
-        })
+         onSelectRoad(index, 1)
     }
 
     // function executes to set the power of the army started
@@ -274,7 +301,10 @@ export const useInteractiveValeriaMap = ({
         roadZone,
         selectedRoad,
         modalOptions,
-        roadPhase
+        roadPhase,
+        onSacrifice,
+        onCloseModal,
+        visible
     }
 }
 

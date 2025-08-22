@@ -1,4 +1,3 @@
-import valoriaMap from "../../../assets/valoriaMap-min.png"
 import BorderButton from "../../shared/borderButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import bridgee from "../../../assets/bridgee.png"
@@ -20,11 +19,11 @@ export default function RaceTimeFailed({
     return (
         <div className="flex h-full w-full flex-col items-center justify-start xl:mt-10">
             <div
-                style={{
-                    backgroundImage: `url(${valoriaMap})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center"
-                }}
+                // style={{
+                //     backgroundImage: `url(${valoriaMap})`,
+                //     backgroundRepeat: "no-repeat",
+                //     backgroundPosition: "center"
+                // }}
                 className="h-[80vh] w-[95vw] xl:!h-[70vh] xl:!w-[80vw]"
             >
                 <ModalWrapper
@@ -40,9 +39,10 @@ export default function RaceTimeFailed({
                             onClick={() => {
                                 changePowers({ army: -10, people: -9, money: -5 })
                                 setSelectedSubLeaders(null)
-                                changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE)
+                                changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
                             }}
                             text={t("alternate_bridge")}
+                            size="sm"
                         />
                     </div>
                 </ModalWrapper>

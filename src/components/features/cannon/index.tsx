@@ -18,7 +18,7 @@ export default function FireCannon({
 }) {
  
 const {t,i18n}=useTranslation()
-    const { hitByCannon, setPowers, setXValue, setYValue, tryAgain, setTryAgain, cannonDirection } =
+    const { hitByCannon, setPowers, setXValue, setYValue, tryAgain, setTryAgain, cannonDirection,wrongAnswers } =
         useFireCannon({ changePowers, changeFlowState })
     return (
         <div
@@ -38,19 +38,25 @@ const {t,i18n}=useTranslation()
                         headerText2={t("try_again")}
                     />
                 ) : (
-                    <div className="flex !w-full flex-col justify-start pb-20 xl:pb-0 gap-4">
+                    <div className="flex !w-full flex-col justify-start gap-4 pb-20 xl:pb-0">
                         <VerticalAngelSection
                             cannonDirection={cannonDirection}
                             setYValue={setYValue}
+                            wrongAnswers={wrongAnswers}
                         />
-                        <HitPowerSection cannonDirection={cannonDirection} setPowers={setPowers} />
+                        <HitPowerSection
+                            wrongAnswers={wrongAnswers}
+                            cannonDirection={cannonDirection}
+                            setPowers={setPowers}
+                        />
                         <HorizontalAngelSection
                             cannonDirection={cannonDirection}
                             setXValue={setXValue}
+                            wrongAnswers={wrongAnswers}
                         />
 
                         <div className="flex w-full items-center justify-center pt-4">
-                            <BorderButton onClick={hitByCannon} text={t("hit_enemy")} />
+                            <BorderButton onClick={hitByCannon} size="sm" text={t("hit_enemy")} />
                         </div>
                     </div>
                 )}

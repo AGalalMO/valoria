@@ -11,14 +11,16 @@ export type InteractiveMapPropsType = {
     selectedWayIn: Way_IN | null
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
 }
-export type  MapModalPropsType = {
-     modalOptions: {
-         isOpen: boolean
-         modalType: MAP_MODAL_TYPE | null
-     }
-     onClickCancelChangeRoute: () => void
-     onClickChangeRoute: () => void
-     onSelectSoliderPercentage: (percentage: number) => void
-     continueWithoutMoreMen: () => void
-     askForMen: () => void
- }
+export type MapModalPropsType = {
+    modalOptions: {
+        isOpen: boolean
+        modalType: MAP_MODAL_TYPE | null
+    }
+    onClickCancelChangeRoute: () => void
+    onClickChangeRoute: () => void
+    //  onSelectSoliderPercentage: (percentage: number) => void
+    continueWithoutMoreMen: () => void
+    askForMen: () => void
+    onCloseModal: () => void
+    onSacrifice:()=>void
+}

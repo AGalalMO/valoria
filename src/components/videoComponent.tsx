@@ -29,13 +29,14 @@ export default function VideoPlayer({ video, onEnd }: { video: string, onEnd: Vo
          }
      }, [])
     return (
-        <ModalWrapper>
+        <ModalWrapper classes="!px-0  !pt-0">
             <div style={{ position: "relative", width: "100%" }}>
                 <video
                     ref={videoRef}
                     onEnded={onEnd}
                     autoPlay
                     playsInline
+                    controls
                     style={{ width: "100%" }}
                     onLoadedData={() => {
                         setIsLoading(false)
@@ -65,7 +66,7 @@ export default function VideoPlayer({ video, onEnd }: { video: string, onEnd: Vo
                 )}
             </div>
             <div className="flex flex-row items-center">
-                <BorderButton
+                {/* <BorderButton
                     onClick={() => {
                         if (isMuted) {
                             ;(videoRef as any).current.muted = false
@@ -77,8 +78,11 @@ export default function VideoPlayer({ video, onEnd }: { video: string, onEnd: Vo
                     }}
                     text={!isMuted ? t("mute") : t("unmute")}
                     size="sm"
-                />
-                <BorderButton onClick={onEnd} text={t("skip")} size="sm" />
+                /> */}
+                <BorderButton onClick={() => {
+                    console.log("IS MUTEd",isMuted)
+                    onEnd()
+                }} text={t("skip")} size="sm" />
             </div>
         </ModalWrapper>
     )

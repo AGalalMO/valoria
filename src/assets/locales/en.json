@@ -86,7 +86,8 @@
     "select_your_leader": "SELECT LEADER",
     "un_select_your_leader": "UNSELECT LEADER",
     "race_time_failed_head": " your about to defuse the bridge but it blows up now you have to build alternative bridge",
-    "finally_we_entered_valoria": "finally we entered valoria, now we have  to put a mission for each leader to  fully occupy valoria",
+    "finally_we_entered_valoria": "finally we entered valoria",
+    "finally_we_entered_valoria1": "now we have  to put a mission for each leader to  fully occupy valoria",
     "trusted": "do you trust him ?",
     "eng_failed": "the engineer betrays you now you have to build alternative bridge",
     "dead_body": "over my dead body",
@@ -125,11 +126,11 @@
     "try_again": "Try Again",
     "wrong_selection": "Wrong Selection",
     "control_valoria": "Control Valoria",
-    "the_warden": "The Warden <br/> of Defense",
-    "the_marshal": "The Marshal <br/> of Operations",
-    "architect": "The Architect <br/> of Infrastructure",
-    "overseer": "The Overseer of <br/> Territory & Resources",
-    "commander": "The Commander <br/> of Borders & Trade",
+    "the_warden": " Secure the inner districts and prevent any uprising by working alongside skilled yet variable-commitment soldiers. Engage them in planning and patrols to keep morale high and ensure no resistance can take root again.",
+    "the_marshal": "Hold strategic points with eager but less experienced troops. Guide them step-by-step to fortify gates, bridges, and posts, turning their loyalty into disciplined, effective defense.",
+    "architect": "Clear forests and gardens of any enemy remnants using elite, self-driven soldiers. Trust them to adapt and innovate while securing every hiding place without constant oversight.",
+    "overseer": "Restore movement routes and strengthen military infrastructure with raw recruits. Issue clear, strict orders and closely monitor every step to ensure speed and accuracy.",
+    "commander": "Control the Valoria River with inexperienced troops by enforcing strict discipline. Guard every pier, patrol the waters, and block all unauthorized movement under tight command.",
     "CHOOSE_JOB": "CHOOSE JOB",
     "mute": "Mute",
     "unmute": "unmute",
@@ -176,3 +177,5 @@
         }
     }
 }   
+
+  

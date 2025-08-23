@@ -4,7 +4,6 @@ import money from "../../../assets/icons/money.svg"
 import type { ManPower } from "../../../types/manPower"
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import { useMotionValue, useAnimationFrame, animate } from "framer-motion"
 import BorderButton from "../borderButton"
 import { useTranslation } from "react-i18next"
 import { Tooltip as ReactTooltip } from "react-tooltip"
@@ -74,26 +73,95 @@ const Power = ({ img, text }: { img: string; text: string }) => {
     const number = numberMatch ? parseFloat(numberMatch[1]) : null
     const suffix = text.replace(/([\d.]+)/, "")
     const prevNumber = useRef(number)
-    const motionValue = useMotionValue(number ?? 0)
     const [display, setDisplay] = useState(number ?? 0)
+    const [changeAmount, setChangeAmount] = useState<string | null>(null)
+    const [showChange, setShowChange] = useState(false)
+    
     useEffect(() => {
         if (number !== null && prevNumber.current !== number) {
-            motionValue.set(prevNumber.current ?? 0)
-            animate(motionValue, number, { type: "spring", stiffness: 100, damping: 20 })
-            prevNumber.current = number
+            const prev = prevNumber.current ?? 0
+            const current = number
+            const change = current - prev
+            
+            if (change !== 0) {
+                // Show the change amount first
+                const changeText = change > 0 ? `+${change}` : `${change}`
+                setChangeAmount(changeText)
+                setShowChange(true)
+                
+                // Hide change amount after animation
+                setTimeout(() => {
+                    setShowChange(false)
+                    setChangeAmount(null)
+                }, 1000)
+                
+                // Then animate the value
+                if (change < 0) {
+                    // Number is decreasing - animate countdown
+                    let currentValue = prev
+                    const interval = setInterval(() => {
+                        if (currentValue > current) {
+                            currentValue--
+                            setDisplay(currentValue)
+                        } else {
+                            clearInterval(interval)
+                            prevNumber.current = number
+                            setDisplay(current)
+                        }
+                    }, 200) // Adjust speed as needed
+                    
+                    // Cleanup function to clear interval if component unmounts
+                    return () => clearInterval(interval)
+                } else {
+                    // Number is increasing - animate countup
+                    let currentValue = prev
+                    const interval = setInterval(() => {
+                        if (currentValue < current) {
+                            currentValue++
+                            setDisplay(currentValue)
+                        } else {
+                            clearInterval(interval)
+                            prevNumber.current = number
+                            setDisplay(current)
+                        }
+                    }, 200) // Adjust speed as needed
+                    
+                    // Cleanup function to clear interval if component unmounts
+                    return () => clearInterval(interval)
+                }
+            } else {
+                // No change, just update
+                prevNumber.current = number
+                setDisplay(current)
+            }
         }
-    }, [number, motionValue])
-    useAnimationFrame(() => {
-        setDisplay(motionValue.get())
-    })
+    }, [number])
+    
     return (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 relative">
             <img
                 src={img}
                 width={"50px"}
                 height={"50px"}
                 className="h-8 w-8 xl:h-[50px] xl:w-[50px]"
             />
+            
+            {/* Change amount animation */}
+            <AnimatePresence>
+                {showChange && changeAmount && (
+                    <motion.div
+                        key={changeAmount}
+                        className="absolute -top-8 left-0 font-trajan text-lg text-white xl:text-xl"
+                        initial={{ y: -20, opacity: 0, scale: 0.8 }}
+                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                        exit={{ y: -10, opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {changeAmount}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            
             <AnimatePresence mode="wait" initial={false}>
                 {number !== null ? (
                     <motion.span
@@ -120,8 +188,6 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                     </motion.p>
                 )}
             </AnimatePresence>
-
-            
         </div>
     )
 }

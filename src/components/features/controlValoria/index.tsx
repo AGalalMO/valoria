@@ -1,82 +1,37 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react"
 import type { LeaderType } from "../../../types/leaders"
-import BorderButton from "../../shared/borderButton"
-import ImageButtonDoubleAuctions from "../../shared/imageButton/doubleActions"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
-import LeaderPowers from "./LeaderPowers"
-import LeaderJobs from "./leaderJobs"
-import { RightLeaders } from "../enterValoria/leaderData"
 import type { ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next"
+import { ButtonDescription } from "../../buttonDescription"
 
-export default function ControlValoria({
-    selectedLeaders,
-    changePowers,
-    changeFlowState
-}: propTypes) {
-    const [powerModal,setPowerModal]=useState<LeaderType|null>(null)
-    const [jobModal, setJobModal] = useState<LeaderType | null>(null)
+import MissionLeaders from "./missionLeaders"
+import Powers from "./powers"
+export default function ControlValoria({ selectedLeaders, changePowers, changeFlowState }: propTypes) {
+    const [powerModal, setPowerModal] = useState(false)
     const [tryAgain, setTryAgain] = useState(false)
-    const [selectedJobs, setSelectedJobs] = useState<SelectedJobsType[]>([])
+    const [selectedLeadersJobs, setSelectedLeadersJobs] = useState<LeaderType[]>([])
+    const [doneJobs, setDoneJobs] = useState<number[]>([])
+    const [selectedJobIndex, setSelectedJobIndex] = useState(-1)
     const { t } = useTranslation()
- const notify = () =>
-     toast(t("please_Select_leader_Jobs"), {
-         progress: 0,
-         theme: "dark",
-         autoClose: 1500,
-         position: "top-center"
-     })
-const leaders = useMemo(() => {
-    const newLeaders: LeaderType[] = []
+        const jobs = [
+            t("the_warden"),
+            t("the_marshal"),
+            t("architect"),
+            t("overseer"),
+            t("commander")
+        ]
+
+
     
-    const jobs: SelectedJobsType[] = []
-    selectedLeaders?.map((item) => {
-            if (RightLeaders?.includes(item?.name))
-            {
-                newLeaders.push(item)
-                jobs?.push({ index: null, leader: item })
-            }
-          
-    })
-    setSelectedJobs(jobs )
-        return newLeaders
-}, [])
-
-
-    const controlValoria = () => {
-        let rightCount = 0;
-        const isNotCompleted = selectedJobs?.filter((item) => item?.index == null)?.[0]
-        if (isNotCompleted) {
-            notify()
-            return
-        }
-      
-          selectedJobs?.map((item) => {
-                if (item?.leader?.rightJobIndex == item.index)
-                   { rightCount=rightCount+1}
-            })
-            if (rightCount == selectedJobs?.length)
-            {
-               
-                const minusPower = 5 - rightCount
-                const powers = {
-                    army:( -2 * minusPower)+2,
-                    people:( -3 * minusPower)+2,
-                    money: (-2 * minusPower)+2
-                }
-                changePowers(powers)
+    useEffect(() => {
+        if (doneJobs?.length == 5)
+            setTimeout(() => {
                 changeFlowState(FLOW_ENUM.THE_END)
-             }
-            else
-            {
-                changePowers({ army: -4, money: -4, people: -4 })
-                setTryAgain(true)
-                }
-
-    }
+            }, 500)
+    }, [doneJobs])
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -93,60 +48,58 @@ const leaders = useMemo(() => {
                 />
             ) : (
                 <>
-                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+                    <p className="font-trajan w-full text-center text-lg font-bold xl:text-2xl">
                         {t("finally_we_entered_valoria")}
                     </p>
-                    <div className="mb-5 flex flex-wrap justify-center gap-x-8 gap-y-8">
-                        {leaders?.map(item => {
+                    <p className="font-trajan w-full text-center font-bold xl:text-base">
+                        {t("finally_we_entered_valoria1")}
+                    </p>
+                    <div className="flex w-full flex-col  items-center justify-center gap-6">
+                        {jobs?.map((item,index) => {
                             return (
-                                <>
-                                    <ImageButtonDoubleAuctions
-                                        icon={item?.icon}
-                                        onClickButton={() => {
-                                            setJobModal(item)
-                                        }}
-                                        onClickImage={() => {
-                                            setPowerModal(item)
-                                        }}
-                                        text={t(item?.name)}
-                                    />
-                                </>
+                                <ButtonDescription
+                                    index={(index + 1) as number}
+                                    onClick={() => {
+                                    
+                                        setSelectedJobIndex(index)
+                                    }}
+                                    text={""}
+                                    description={item}
+                                    small
+                                    isSelected={false}
+                                    isDone={doneJobs?.includes(index)}
+                                />
                             )
                         })}
                     </div>
-                    <BorderButton size="sm" onClick={controlValoria} text={t("control_valoria")} />
                 </>
             )}
             {powerModal ? (
-                <LeaderPowers
+                <Powers
                     closeModal={() => {
-                        setPowerModal(null)
+                        setPowerModal(false)
                     }}
-                    leader={powerModal}
-                    btnText={t("CHOOSE_JOB")}
-                    onClickButton={() => {
-                        setJobModal(powerModal)
-                        setPowerModal(null)
-                    }}
-                    key={`leaderModal ${powerModal?.name}`}
+                    leaders={selectedLeaders}
                 />
             ) : null}
-            {jobModal ? (
-                <LeaderJobs
-                    selectJob={index => {
-                        const jobs = selectedJobs
-                        const leadIndex = jobs?.findIndex(
-                            item => item?.leader?.name == jobModal?.name
-                        )
-                        jobs[leadIndex] = { ...jobs?.[leadIndex], index: index }
-                        setSelectedJobs([...jobs])
-                    }}
-                    selectedJobs={selectedJobs}
+            {selectedJobIndex >= 0 ? (
+                <MissionLeaders
+                    selectedLeadersJobs={selectedLeadersJobs}
+                    changePowers={changePowers}
+                    
                     closeModal={() => {
-                        setJobModal(null)
+                        setSelectedJobIndex(-1)
                     }}
-                    leader={jobModal}
-                    key={`leaderModal ${jobModal?.name}`}
+                    onSelectLeader={(leader: LeaderType) => {
+                        setSelectedLeadersJobs(prev => [...prev, leader])
+                        setDoneJobs(prev => [...prev, selectedJobIndex])
+                        setSelectedJobIndex(-1)
+                    }}
+                    openLeaderPowers={() => {
+                        setPowerModal(true)
+                    }}
+                    selectedJobIndex={selectedJobIndex}
+                    leaders={selectedLeaders}
                 />
             ) : null}
         </ModalWrapper>
@@ -157,7 +110,3 @@ type propTypes = {
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
 }
-
-
-type SelectedJobsType =
-    { index: number | null; leader: LeaderType }

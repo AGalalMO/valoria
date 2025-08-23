@@ -11,11 +11,13 @@ export const ButtonDescription = ({
     isWrong,
     onClickImage,
     small,
-    isDone
+    isDone,
+    index,
+    removeDesc
 }: {
     onClick: VoidFunction
     isSelected: boolean
-    icon: string
+    icon?: string
     text: string
     description?: string
     description2?: string
@@ -23,32 +25,38 @@ export const ButtonDescription = ({
     onClickImage?: VoidFunction
     small?: boolean
     isDone?: boolean
+    index?: number
+    removeDesc?:boolean
 }) => {
     return (
         <div
             className={`flex w-full cursor-pointer items-center gap-4 rounded-md border border-[#DBBD51] p-2 ${isSelected ? "bg-[#DBBD51]/60" : isWrong ? "bg-[#DBBD51]/30" : "hover:bg-[#DBBD51]/60"}`}
-            onClick={isWrong||isDone ? () => {} : onClick}
+            onClick={isWrong || isDone ? () => {} : onClick}
         >
-            <img
-                onClick={e => {
-                    if (onClickImage) {
-                        e?.stopPropagation()
-                        onClickImage()
-                    }
-                }}
-                src={icon}
-                width={small ? 80 : 100}
-                height={small ? 80 : 100}
-            />
+            {icon ? (
+                <img
+                    onClick={e => {
+                        if (onClickImage) {
+                            e?.stopPropagation()
+                            onClickImage()
+                        }
+                    }}
+                    src={icon}
+                    width={small ? 80 : 100}
+                    height={small ? 80 : 100}
+                />
+            ) : index ? (
+                <p className="text-2xl">{index}-</p>
+            ) : null}
             <div className="flex h-full flex-col justify-around">
                 <p className={`text-lg font-bold ${small ? "xl:text-xl" : "xl:text-2xl"}`}>
                     {text}
                 </p>
-                {description&&!isDone ? (
+                {description ? (
                     <p
                         className={`text-base font-semibold text-white/70 ${small ? "xl:text-lg" : "xl:text-xl"}`}
                     >
-                        {description}
+                        {!icon ? description : (!isDone||!removeDesc) ? description : null}
                     </p>
                 ) : null}
                 {description2 && !isDone ? (

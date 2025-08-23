@@ -11,23 +11,23 @@ export const ChooseFiveLeaders = ({
     selectedLeaders,
     setSelectedLeaders,
     openValoriaHandler,
-    wrongChoices
+    wrongChoices,
+    doneLeaders
 }: {
     selectedLeaders: LeaderType[]
     setSelectedLeaders: React.Dispatch<React.SetStateAction<LeaderType[]>>
     openValoriaHandler: () => void
-    wrongChoices:LeaderType[]
+    wrongChoices: LeaderType[]
+    doneLeaders:string[]
 }) => {
     const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
     const { t } = useTranslation()
     useEffect(() => {
-        if (wrongChoices?.length)
-        {
+        if (wrongChoices?.length) {
             const result = selectedLeaders.filter(item => !wrongChoices.includes(item))
             setSelectedLeaders(result)
-
         }
-},[wrongChoices])
+    }, [wrongChoices])
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center"
@@ -44,10 +44,12 @@ export const ChooseFiveLeaders = ({
                     )
                     return (
                         <ButtonDescription
-                            isWrong={wrongChoices?.findIndex((lead)=>lead?.name==item?.name)>=0}
+                            isWrong={wrongChoices?.findIndex(lead => lead?.name == item?.name) >= 0}
                             description={item?.desc}
                             icon={item?.icon}
+                            removeDesc={false}
                             isSelected={isSelected >= 0 ? true : false}
+                            isDone={doneLeaders?.includes(item?.name)}
                             onClick={() => {
                                 if (isSelected >= 0) {
                                     const newLeaders = selectedLeaders

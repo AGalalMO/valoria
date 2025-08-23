@@ -28,7 +28,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
     const [selectedBefore, setSelectedBefore] = useState<VALORIA_ROAD_METHOD_ENUM[]>([])
     const [selectedWay, setSelectedWay] = useState<VALORIA_ROAD_METHOD_ENUM | null>(null)
     const [wrongChoices, setWrongChoices] = useState<LeaderType[]>([])
-
+    const [doneLeaders,setDoneLeaders]=useState<string[]>([])
     const [flow, setFlow] = useState<VALORIA_ROAD_ENUM>()
     const {t,i18n}=useTranslation()
     const notify = () =>
@@ -60,7 +60,9 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
             return
         }
         let advantage: ManPower = { army: 0, money: 0, people: 0 }
-        selectedLeaders?.map(item => {
+        selectedLeaders?.map(item =>
+        {
+            if (doneLeaders?.includes(item?.name)) return;
             advantage = {
                 army: advantage.army + item?.advantage?.army,
                 people: advantage.people + item?.advantage?.people,
@@ -69,6 +71,9 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
             if (item?.advantage?.army < 0) {
                 setWrongChoices((prev) => [...prev, item])
                 wrongChoice=true
+            }
+            else {
+                setDoneLeaders((prev)=>[...prev,item?.name])
             }
            
         })
@@ -106,6 +111,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                     selectedLeaders={selectedLeaders}
                     setSelectedLeaders={setSelectedLeaders}
                     openValoriaHandler={openValoriaHandler}
+                    doneLeaders={doneLeaders}
                     wrongChoices={wrongChoices}
                 />
             ) : currentFlow == FLOW_ENUM.SELECT_ROAD_TO_VALORILA ? (
@@ -161,7 +167,8 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                             <p
                                 className={`font-trajan w-full text-center text-2xl font-bold xl:text-[30px]`}
                             >
-                                You have successfully  <br/>entered Valoria
+                                You have successfully <br />
+                                entered Valoria
                             </p>
                             <BorderButton
                                 text="NEXT"

@@ -115,13 +115,7 @@ export default function Attacked({ selectedLeaders, changePowers,changeFlowState
             {selectedJobIndex >= 0 ? (
                 <MissionLeaders
                     selectedLeadersJobs={selectedLeadersJobs}
-                    title={
-                        selectedJobIndex == 0
-                            ? t("dead_body")
-                            : selectedJobIndex == 1
-                              ? t("see_me")
-                              : t("allez")
-                    }
+                  
                     changePowers={changePowers}
                     icon={selectedJobIndex == 0 ? deadBody : selectedJobIndex == 1 ? seeme : alliez}
                     closeModal={() => {

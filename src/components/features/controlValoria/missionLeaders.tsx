@@ -16,7 +16,8 @@ export default function MissionLeaders({
     selectedLeadersJobs,
     changePowers,
     selectedJobIndex,
-    onSelectLeader
+    onSelectLeader,
+    setFeedBack
 }: {
     leaders: LeaderType[]
     closeModal: VoidFunction
@@ -25,7 +26,15 @@ export default function MissionLeaders({
     selectedLeadersJobs: LeaderType[]
     changePowers: (powers: ManPower) => void
     selectedJobIndex: number
-    onSelectLeader:(leader:LeaderType)=>void
+    onSelectLeader: (leader: LeaderType) => void
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }) {
     const { t, i18n } = useTranslation()
     const [selectedLeader, setSelectedLeader] = useState<LeaderType | null>(null)
@@ -33,7 +42,7 @@ export default function MissionLeaders({
     const [tryAgain, setTryAgain] = useState(false)
     const onSelect = () => {
         if (selectedJobIndex == 0 && selectedLeader?.name == "DRAR") {
-           onSelectLeader(selectedLeader)
+            onSelectLeader(selectedLeader)
         } else if (selectedJobIndex == 1 && selectedLeader?.name == "SABET") {
             onSelectLeader(selectedLeader)
         } else if (selectedJobIndex == 2 && selectedLeader?.name == "SLAM") {
@@ -46,6 +55,12 @@ export default function MissionLeaders({
             setWrongAnswers(prev => [...prev, selectedLeader as LeaderType])
             setSelectedLeader(null)
             changePowers({ army: -1, money: -1, people: -1 })
+            setFeedBack({
+                army: `army_decreaseXX1`,
+                people: `people_decreaseXX1`,
+                money: `money_decreaseXX1`,
+                info: "wrongLeader"
+            })
             setTryAgain(true)
         }
     }
@@ -59,7 +74,7 @@ export default function MissionLeaders({
         >
             {tryAgain ? (
                 <TryAgainModal
-                    buttonText={"choose leader"}
+                    buttonText={t("chooseLeader")}
                     closeModal={() => {
                         setTryAgain(false)
                     }}
@@ -88,7 +103,7 @@ export default function MissionLeaders({
                             >
                                 <div className="flex w-full items-center justify-end">
                                     <BorderButton
-                                        text="show Leaders Jobs"
+                                        text={t("showJobs")}
                                         onClick={openLeaderPowers}
                                         bottomBorder={false}
                                         size="xxs"
@@ -98,7 +113,7 @@ export default function MissionLeaders({
                                     {icon ? <img src={icon} width={100} height={100} /> : null}
 
                                     <p className="my-3 text-center text-lg font-bold text-white xl:text-xl">
-                                        Choose Leader
+                                        {t("chooseLeader")}
                                     </p>
                                 </div>
                             </div>
@@ -123,7 +138,7 @@ export default function MissionLeaders({
                             </div>
                         </div>
                         <div className="mt-5 flex w-full justify-center">
-                            <BorderButton onClick={onSelect} text="SELECT" size="sm" />
+                            <BorderButton onClick={onSelect} text={t("select")} size="sm" />
                         </div>
                     </div>
                 </>

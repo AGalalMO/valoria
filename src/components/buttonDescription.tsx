@@ -1,5 +1,6 @@
 import wrong from "../assets/x.png"
 import check from "../assets/check.png"
+import { useTranslation } from "react-i18next"
 
 export const ButtonDescription = ({
     onClick,
@@ -27,9 +28,11 @@ export const ButtonDescription = ({
     isDone?: boolean
     index?: number
     removeDesc?:boolean
-}) => {
+    }) => {
+    const {i18n}=useTranslation()
     return (
         <div
+            dir={i18n?.language=='ar'?'rtl':'ltr'}
             className={`flex w-full cursor-pointer items-center gap-4 rounded-md border border-[#DBBD51] p-2 ${isSelected ? "bg-[#DBBD51]/60" : isWrong ? "bg-[#DBBD51]/30" : "hover:bg-[#DBBD51]/60"}`}
             onClick={isWrong || isDone ? () => {} : onClick}
         >

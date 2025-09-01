@@ -38,14 +38,5 @@ export type JourneyMapsType = {
         map: string
         roads: RoadType[]
     }
-    Allie: {
-        map: string
-
-        roads: RoadType[]
-    }
-    Attack: {
-        map: string
-
-        roads: RoadType[]
-    }
+   
 }

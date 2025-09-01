@@ -82,25 +82,24 @@ export default function HowToPass({
                             text={t("negotiate")}
                         />
                         <div className="mt-1">
-                            <BorderButton onClick={onClickNext} size="xs" text="SELECT" />
+                            <BorderButton onClick={onClickNext} size="xs" text={t('select')} />
                         </div>
                     </div>
                     {!removeNote ? (
                         <div className="mt-4 flex flex-col justify-center bg-black/30 px-2">
                             <div className="flex flex-col items-center justify-between gap-3">
                                 <p className="text-lg">
-                                    * if you want to consult the black powder expert on the best
-                                    decision, and it will cost 4 resources in exchange
+                                    {t("consult_black_powder_note")}
                                 </p>
                                 <div className="flex w-full items-center justify-center gap-5">
                                     <BorderButton
-                                        text="YES"
+                                        text={t("yes")}
                                         size="xxs"
                                         bottomBorder={false}
                                         onClick={onSelectBlackPowder}
                                     />
                                     <BorderButton
-                                        text="NO"
+                                        text={t("no")}
                                         size="xxs"
                                         bottomBorder={false}
                                         onClick={() => {

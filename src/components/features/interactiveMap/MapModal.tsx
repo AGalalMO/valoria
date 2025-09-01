@@ -18,11 +18,11 @@ export default function MapModal({
     onCloseModal,
     onSacrifice,
     askForMen,
-    continueWithoutMoreMen
+    continueWithoutMoreMen,
+   
 }: MapModalPropsType) {
-    const [introPhase,setIntroPhase]=useState(0)
+    const [introPhase, setIntroPhase] = useState(0)
     const { t } = useTranslation()
-    
 
     return (
         <>
@@ -81,14 +81,7 @@ export default function MapModal({
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        {introPhase == 0
-                                            ? `
-                                        There are unknown enemies hidden all over the map, facing them affects your popularity level,
-food & water resources affect your resources pillar rate positively, facing known enemies affects your army power pillar. 
-
-
-                                        `
-                                            : `sacrifice a -2 each pillar to reveal what’s missing on the map.`}
+                                        {introPhase == 0 ? t("infoMessage") : t("sacrifice")}
                                     </motion.p>
                                     {introPhase == 1 ? (
                                         <motion.div

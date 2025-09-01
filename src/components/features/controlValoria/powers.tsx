@@ -33,11 +33,9 @@ export default function Powers({ leaders, closeModal }: { leaders: LeaderType[];
                         <ButtonDescription
                             icon={item?.icon}
                             isSelected={false}
-                            onClick={() => {
-                                
-                            }}
+                            onClick={() => {}}
                             text={t(item?.name)}
-                            description={item?.desc2}
+                            description={t(item?.desc2??'')}
                         />
                     )
                 })}

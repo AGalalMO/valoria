@@ -8,127 +8,73 @@ import gates_test from "../../../../assets/icons/tesst.png"
 import keep_gates from "../../../../assets/icons/attack.png"
 import burnWood from "../../../../assets/icons/forest/burnWood.png"
 import ground from "../../../../assets/icons/forest/ground.png"
-import table from "../../../../assets/scrren2.png"
+import table from "../../../../assets/table2.png"
 import send_spy from "../../../../assets/icons/forest/send_spy.png"
 import { useTranslation } from "react-i18next";
 import { ButtonDescription } from "../../../buttonDescription";
 import BorderButton from "../../../shared/borderButton";
+import Zoom from "react-medium-image-zoom"
+import "react-medium-image-zoom/dist/styles.css"
 export const SelectedRoadOptions = ({
     setProgress,
     selectedWay,
-     setFlow,
+    setFlow,
     selectedBefore,
+    setFeedBack
 }: propTypes) => {
     const { t } = useTranslation()
-    const [step,setStep]=useState(0)
+    const [step, setStep] = useState(0)
     const modalData = useMemo(() => {
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST)
             return {
+                head: t("traps_hidden"),
                 actionIcon: burnWood,
                 alternativeButtonIcon: send_spy,
-                actionText: "Keep attacking through forest",
-                alternativeButtonText: "Burn them all",
-                alternateSecondButtonText: `Send Spy`,
+                actionText: t("keep_attacking_forest"),
+                alternativeButtonText: t("burn_them_all"),
+                alternateSecondButtonText: t("send_spy_option"),
                 alternateSecondButtonIcon: changePlan
             }
         else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES)
             return {
                 head: t("not_easy_to_attack"),
-                actionText: "Keep fighting",
-                alternativeButtonText: "Sieging the city",
-                alternateSecondButtonText: `Send Spy`,
+                actionText: t("keep_fighting"),
+                alternativeButtonText: t("sieging_city"),
+                alternateSecondButtonText: t("send_spy_option"),
                 actionIcon: keep_gates,
                 alternativeButtonIcon: gates_test,
-                alternateSecondButtonIcon: changePlan,
-
-
-
+                alternateSecondButtonIcon: changePlan
             }
-             
         else
-             return {
-                 head: t("traps_hidden_river"),
-                 actionIcon: ground,
-                 alternativeButtonIcon: gates_test,
-                 actionText: "Send Spy",
-                 alternativeButtonText: "Keep attacking through the river",
-                 alternateSecondButtonText: `Get out of the river & fight`,
-                 alternateSecondButtonIcon: changePlan
-             }
+            return {
+                head: t("traps_hidden_river"),
+                actionIcon: ground,
+                alternativeButtonIcon: gates_test,
+                actionText: t("send_spy_option"),
+                alternativeButtonText: t("keep_attacking_river"),
+                alternateSecondButtonText: t("get_out_river_fight"),
+                alternateSecondButtonIcon: changePlan
+            }
     }, [selectedWay])
-    
-    // const onChangePlan = () => {
-    //     setProgress(prev => {
-    //         return {
-    //             ...prev,
-    //             manPower: {
-    //                 army: prev?.manPower?.army - 6,
-    //                 people: prev?.manPower?.people - 6,
-    //                 money: prev?.manPower?.money - 3
-    //             }
-    //         }
-    //     })
-    //     setSelectedBefore(prev => [...prev, selectedWay as VALORIA_ROAD_METHOD_ENUM])
-    //     setSelectedSubLeaders([])
-    //     setSelectedWay(null)
-    //     setFlow(VALORIA_ROAD_ENUM.SELECT_ROAD_TO_VALORILA)
-    // }
 
-    // const onAttackOrSendSpy = (attack = false) => {
-    //     if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST) {
-    //         setProgress(prev => {
-    //             return {
-    //                 ...prev,
-    //                 manPower: {
-    //                     money: prev?.manPower?.money + (attack ? -5 : -8),
-    //                     people: prev?.manPower?.people + (attack ? 1 : -4),
-    //                     army: prev?.manPower?.army + (attack ? -6 : -3)
-    //                 },
-    //                 currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
-    //             }
-    //         })
-    //     } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES) {
-    //         setProgress(prev => {
-    //             return {
-    //                 ...prev,
-    //                 manPower: {
-    //                     money: prev?.manPower?.money + (attack ? -7 : -8),
-    //                     people: prev?.manPower?.people + (attack ? 1 : -4),
-    //                     army: prev?.manPower?.army + (attack ? -10 : -5)
-    //                 },
-    //                 currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
-    //             }
-    //         })
-    //     } else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER) {
-    //         setProgress(prev => {
-    //             return {
-    //                 ...prev,
-    //                 manPower: {
-    //                     money: prev?.manPower?.money + (attack ? -6 : -8),
-    //                     people: prev?.manPower?.people + (attack ? 1 : -4),
-    //                     army: prev?.manPower?.army + (attack ? -9 : -3)
-    //                 },
-    //                 currentFlow: FLOW_ENUM.WHAT_HAPPENS_IN_VALORIA_INTRO
-    //             }
-    //         })
-    //     }
-    // }
-
-
-    const onSelectOthers = (index:number) => {
-         setProgress(prev => {
-             return {
-                 ...prev,
-                 manPower: {
-                     money: prev?.manPower?.money + (index ? -1 : -3),
-                     people: prev?.manPower?.people + (index ? -1 : -3),
-                     army: prev?.manPower?.army + (index ? -1 : -3)
-                 },
-             }
+    const onSelectOthers = (index: number) => {
+        setProgress(prev => {
+            return {
+                ...prev,
+                manPower: {
+                    money: prev?.manPower?.money + (index ? -1 : -3),
+                    people: prev?.manPower?.people + (index ? -1 : -3),
+                    army: prev?.manPower?.army + (index ? -1 : -3)
+                }
+            }
+        })
+         setFeedBack({
+             army: `army_decreaseXX${index ? "1" : "3"}`,
+             people: `people_decreaseXX${index ? "1" : "3"}`,
+             money: `money_decreaseXX${index ? "1" : "3"}`,
+             info: "dueTo"
          })
-    setFlow(VALORIA_ROAD_ENUM.ENTERED)
-
-    
+        setFlow(VALORIA_ROAD_ENUM.ENTERED)
     }
     const onSelectRightChoice = () => {
         setFlow(VALORIA_ROAD_ENUM.ENTERED)
@@ -136,20 +82,22 @@ export const SelectedRoadOptions = ({
     return (
         <ModalWrapper
             parentClass="!w-full !justify-center "
-            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 xl:px-[80px]"
+            classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !relative px-20 !gap-4 xl:px-[80px]"
         >
             <p className="font-trajan w-full max-w-[80%] text-center text-2xl font-bold xl:text-[30px]">
                 {modalData?.head}
             </p>
             {step == 0 ? (
                 <>
-                    <img src={table} />
+                    <Zoom>
+                        <img src={table} />
+                    </Zoom>
                     <BorderButton
                         onClick={() => {
                             setStep(1)
                         }}
                         size="sm"
-                        text="NEXT"
+                        text={t("next_button")}
                     />
                 </>
             ) : (
@@ -196,4 +144,12 @@ type propTypes = {
     setFlow: React.Dispatch<React.SetStateAction<VALORIA_ROAD_ENUM | undefined>>
     selectedBefore: VALORIA_ROAD_METHOD_ENUM[]
     setSelectedBefore: React.Dispatch<React.SetStateAction<VALORIA_ROAD_METHOD_ENUM[]>>
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }

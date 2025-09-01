@@ -11,15 +11,31 @@ import VerticalAngelSection from "./components/cannonDirections/verticalAngelSec
 import { useTranslation } from "react-i18next"
 export default function FireCannon({
     changePowers,
-    changeFlowState
+    changeFlowState,
+    setFeedBack,
 }: {
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }) {
- 
-const {t,i18n}=useTranslation()
-    const { hitByCannon, setPowers, setXValue, setYValue, tryAgain, setTryAgain, cannonDirection,wrongAnswers } =
-        useFireCannon({ changePowers, changeFlowState })
+    const { t, i18n } = useTranslation()
+    const {
+        hitByCannon,
+        setPowers,
+        setXValue,
+        setYValue,
+        tryAgain,
+        setTryAgain,
+        cannonDirection,
+        wrongAnswers
+    } = useFireCannon({ changePowers, changeFlowState, setFeedBack })
     return (
         <div
             className={`ms-5 me-5 flex ${i18n?.language == "ar" ? "flex-row-reverse" : ""} w-[95%] items-start justify-center gap-4 xl:ms-[5%] xl:me-[5%] xl:!w-[90%]`}

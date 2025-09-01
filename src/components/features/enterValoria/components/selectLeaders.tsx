@@ -37,7 +37,7 @@ export const ChooseFiveLeaders = ({
                 {t("choose_leaders")}
             </p>
 
-            <div className="mb-5 flex flex-col content-center justify-items-center gap-x-2 gap-y-4 xl:!grid-cols-5 xl:gap-x-4">
+            <div className="mb-5 flex flex-col w-full content-center justify-items-center gap-x-2 gap-y-4 xl:!grid-cols-5 xl:gap-x-4">
                 {leaders?.map(item => {
                     const isSelected = selectedLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -45,7 +45,7 @@ export const ChooseFiveLeaders = ({
                     return (
                         <ButtonDescription
                             isWrong={wrongChoices?.findIndex(lead => lead?.name == item?.name) >= 0}
-                            description={item?.desc}
+                            description={t(item?.desc)}
                             icon={item?.icon}
                             removeDesc={false}
                             isSelected={isSelected >= 0 ? true : false}

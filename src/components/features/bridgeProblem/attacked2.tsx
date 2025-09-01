@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react"
+
+import { useEffect, useState } from "react";
 import type { LeaderType } from "../../../types/leaders"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import type { ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { useTranslation } from "react-i18next"
+import seeme from "../../../assets/seeme.png"
+import alliez from "../../../assets/alliez.png"
+import deadBody from "../../../assets/deadBody.png"
 import { ButtonDescription } from "../../buttonDescription"
 
 import MissionLeaders from "./missionLeaders"
-import Powers from "./powers"
-export default function ControlValoria({
+import Powers from "./powers";
+export default function AttackedSECOND({
     selectedLeaders,
     changePowers,
     changeFlowState,
@@ -21,12 +25,18 @@ export default function ControlValoria({
     const [doneJobs, setDoneJobs] = useState<number[]>([])
     const [selectedJobIndex, setSelectedJobIndex] = useState(-1)
     const { t } = useTranslation()
-    const jobs = [t("the_warden"), t("the_marshal"), t("architect"), t("overseer"), t("commander")]
+    // const notify = () =>
+    //     toast(t("please_Select_leader_Jobs"), {
+    //         progress: 0,
+    //         theme: "dark",
+    //         autoClose: 1500,
+    //         position: "top-center"
+    //     })
 
     useEffect(() => {
-        if (doneJobs?.length == 5)
+        if (doneJobs?.length == 3)
             setTimeout(() => {
-                changeFlowState(FLOW_ENUM.THE_END)
+                changeFlowState(FLOW_ENUM.CANNON_ATTACK)
             }, 500)
     }, [doneJobs])
     return (
@@ -45,25 +55,52 @@ export default function ControlValoria({
                 />
             ) : (
                 <>
-                    <p className="font-trajan w-full text-center font-bold xl:text-2xl">
-                        {t("finally_we_entered_valoria2")}
+                    <p className="font-trajan w-full text-center text-lg font-bold xl:text-2xl">
+                        {t("attacked_building")}
                     </p>
+
                     <div className="flex w-full flex-col items-center justify-center gap-6">
-                        {jobs?.map((item, index) => {
-                            return (
-                                <ButtonDescription
-                                    index={(index + 1) as number}
-                                    onClick={() => {
-                                        setSelectedJobIndex(index)
-                                    }}
-                                    text={""}
-                                    description={item}
-                                    small
-                                    isSelected={false}
-                                    isDone={doneJobs?.includes(index)}
-                                />
-                            )
-                        })}
+                        <ButtonDescription
+                            description={t("dead_body_description")}
+                            description2={t("dead_body_description2")}
+                            icon={deadBody}
+                            onClick={() => {
+                                // setSelectedSubLeaders(null)
+                                // changeFlowState(FLOW_ENUM.OVER_MY_DEAD_BODY)
+                                setSelectedJobIndex(0)
+                            }}
+                            text={t("dead_body")}
+                            small
+                            isSelected={false}
+                            isDone={doneJobs?.includes(0)}
+                        />
+
+                        <ButtonDescription
+                            description={t("see_me_description")}
+                            description2={t("see_me_description2")}
+                            icon={seeme}
+                            onClick={() => {
+                                // setSelectedSubLeaders(null)
+                                // changeFlowState(FLOW_ENUM.SEE_ME)
+                                setSelectedJobIndex(1)
+                            }}
+                            text={t("see_me")}
+                            small
+                            isSelected={false}
+                            isDone={doneJobs?.includes(1)}
+                        />
+                        <ButtonDescription
+                            description={t("allez_description")}
+                            description2={t("allez_description2")}
+                            icon={alliez}
+                            onClick={() => {
+                                setSelectedJobIndex(2)
+                            }}
+                            text={t("allez")}
+                            isDone={doneJobs?.includes(2)}
+                            small
+                            isSelected={false}
+                        />
                     </div>
                 </>
             )}
@@ -78,8 +115,16 @@ export default function ControlValoria({
             {selectedJobIndex >= 0 ? (
                 <MissionLeaders
                     selectedLeadersJobs={selectedLeadersJobs}
+                    title={
+                        selectedJobIndex == 0
+                            ? t("dead_body")
+                            : selectedJobIndex == 1
+                              ? t("see_me")
+                              : t("allez")
+                    }
                     changePowers={changePowers}
                     setFeedBack={setFeedBack}
+                    icon={selectedJobIndex == 0 ? deadBody : selectedJobIndex == 1 ? seeme : alliez}
                     closeModal={() => {
                         setSelectedJobIndex(-1)
                     }}
@@ -111,3 +156,4 @@ type propTypes = {
         }>
     >
 }
+

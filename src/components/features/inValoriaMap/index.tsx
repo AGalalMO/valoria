@@ -1,5 +1,4 @@
 
-import valoriaMap from "../../../assets/valoriaMap-min.png"
 import spyy from "../../../assets/spyy.png"
 import framText from "../../../assets/framText.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
@@ -7,16 +6,11 @@ import { useTranslation } from "react-i18next"
 import BorderButton from "../../shared/borderButton"
 export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW_ENUM) => void }) {
     const {t}=useTranslation()
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         changeState(FLOW_ENUM.NOW_WE_ARE_IN_VALORIA_INTRO_BRIDGE)
-    //     }, 3500)
-    // }, [])
-
+  
     return (
         <div className="flex h-screen w-screen flex-col items-center justify-start">
             <div className="relative h-[80%] w-[80%]">
-                <img src={valoriaMap} className="h-full w-full" />
+                {/* <img src={valoriaMap} className="h-full w-full" /> */}
                 <div className="absolute -bottom-10 -left-20 flex w-full flex-row items-center">
                     <img
                         src={spyy}
@@ -35,7 +29,7 @@ export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW
                         <p className="ps-20 text-base font-bold text-[#DBBD51] uppercase xl:!text-[24px]">
                             {t("message_from_spy")}
                         </p>
-                        <p className="!w-[77vw] pe-9 ps-20 text-base font-bold xl:text-[24px]">
+                        <p className="!w-[77vw] ps-20 pe-9 text-base font-bold xl:text-[24px]">
                             <div className="flex items-center justify-between">
                                 <div>
                                     {t("spy_message")}
@@ -43,7 +37,7 @@ export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW
                                     {t("spy_message_2")}
                                 </div>
                                 <BorderButton
-                                    text="NEXT"
+                                    text={t("next")}
                                     size="xs"
                                     bottomBorder={false}
                                     onClick={() => {

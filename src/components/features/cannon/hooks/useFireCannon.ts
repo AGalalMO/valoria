@@ -6,10 +6,19 @@ import { toast } from "react-toastify"
 
 export default function useFireCannon({
     changePowers,
-    changeFlowState
+    changeFlowState,
+    setFeedBack
 }: {
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }) {
     const [tryAgain, setTryAgain] = useState(false)
     const { t } = useTranslation()
@@ -82,6 +91,13 @@ export default function useFireCannon({
                 cannonDirection.yAngle.selected
             ) {
                 changePowers({ army: 0, people: 3, money: -3 })
+                 changePowers(powers)
+                 setFeedBack({
+                     army: null,
+                     people: `people_increaseXX3`,
+                     money: `money_decreaseXX3`,
+                     info: "Firing"
+                 })
                 changeFlowState(FLOW_ENUM.FIRE_CANNON_SUCCESS)
             } else if (
                 !cannonDirection.power.selected ||
@@ -98,6 +114,12 @@ export default function useFireCannon({
                 })
                 setTryAgain(true)
                 changePowers(powers)
+                  setFeedBack({
+                      army: `army_decreaseXX${powers.army*-1}`,
+                      people: `people_decreaseXX${powers.people*-1}`,
+                      money: `money_decreaseXX${powers.money*-1}`,
+                      info: "wrongChoice"
+                  })
             }
         }
     }

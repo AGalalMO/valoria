@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,  } from "react"
 import { VALORIA_ROAD_ENUM, VALORIA_ROAD_METHOD_ENUM } from "../../../../types/Enums"
 import type { LeaderType } from "../../../../types/leaders"
 import type { UserProgressType } from "../../../../types/UserProgress"
@@ -16,7 +16,8 @@ export const SelectSuitableLeader = ({
     setFlow,
     setProgress,
     headText,
-    selectedWay = VALORIA_ROAD_METHOD_ENUM?.BRIDGE
+    selectedWay = VALORIA_ROAD_METHOD_ENUM?.BRIDGE,
+    setFeedBack
 }: propTypes) => {
     const [powerModal, setPowerModal] = useState<LeaderType | null>(null)
     const [wrongChoices, setWrongChoices] = useState<LeaderType[]>([])
@@ -44,6 +45,12 @@ export const SelectSuitableLeader = ({
                     }
                 }
             })
+             setFeedBack({
+                 army: `army_decreaseXX5`,
+                 people: `people_decreaseXX4`,
+                 money: `money_decreaseXX4`,
+                 info: "not_easy_to_attackFeed"
+             })
         }
         else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST && selectedSubLeaders?.[0]?.name == "SLAM")
         {
@@ -56,7 +63,14 @@ export const SelectSuitableLeader = ({
                army: prev?.manPower?.army - 5
            }
        }
+
    })
+             setFeedBack({
+                 army: `army_decreaseXX5`,
+                 people: `people_decreaseXX4`,
+                 money: `money_decreaseXX4`,
+                 info: "traps_hiddenFeed"
+             })
         }
         else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER && selectedSubLeaders?.[0]?.name == "BOTHER")
         {
@@ -69,6 +83,12 @@ export const SelectSuitableLeader = ({
                          army: prev?.manPower?.army - 5
                      }
                  }
+             })
+             setFeedBack({
+                 army: `army_decreaseXX5`,
+                 people: `people_decreaseXX3`,
+                 money: `money_decreaseXX6`,
+                 info: "traps_hidden_riverFeed"
              })
         }
         else
@@ -83,6 +103,12 @@ export const SelectSuitableLeader = ({
                          army: prev?.manPower?.army - 1
                      }
                  }
+             })
+             setFeedBack({
+                 army: `army_decreaseXX1`,
+                 people: `people_decreaseXX1`,
+                 money: `money_decreaseXX1`,
+                 info: "wrongLeader"
              })
             return true
             }
@@ -116,7 +142,7 @@ export const SelectSuitableLeader = ({
                 )}
             </p>
 
-            <div className="mb-5 flex flex-col  gap-2">
+            <div className="mb-5 flex flex-col w-full  gap-2">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -141,7 +167,7 @@ export const SelectSuitableLeader = ({
                                 }
                             }}
                             text={t(item?.name)}
-                            description={item?.desc}
+                            description={t(item?.desc)}
                         />
                     )
                 })}
@@ -192,4 +218,12 @@ type propTypes = {
     setProgress?: (value: React.SetStateAction<UserProgressType>) => void
     selectedWay?: VALORIA_ROAD_METHOD_ENUM | null
     headText?: string
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }

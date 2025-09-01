@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from "../../shared/modal"
-import mapVAL from "../../../assets/valoria-min.png"
+import mapVAL from "../../../assets/valoriaMapDEs.jpeg"
 import { useEffect, useState } from "react";
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"
@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 import { ModalWrapper } from "./components/modalWrapper";
 import BorderButton from "../../shared/borderButton";
 
-export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,setSelectedLeaders}: propTypes) => {
+export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,setSelectedLeaders,setFeedBack}: propTypes) => {
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType[]>([])
     const [selectedBefore, setSelectedBefore] = useState<VALORIA_ROAD_METHOD_ENUM[]>([])
     const [selectedWay, setSelectedWay] = useState<VALORIA_ROAD_METHOD_ENUM | null>(null)
@@ -77,6 +77,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
             }
            
         })
+
         setProgress(prev => ({
             ...prev,
             manPower: {
@@ -86,6 +87,21 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
             },
             currentFlow: wrongChoice ? prev?.currentFlow : FLOW_ENUM.SELECT_ROAD_TO_VALORILA
         }))
+       setFeedBack({
+           army:
+               advantage?.army != 0
+                   ? `army_${advantage?.army > 0 ? "increase" : "decrease"}XX${advantage.army}`
+                   : null,
+           people:
+               advantage?.people != 0
+                   ? `people_${advantage?.people > 0 ? "increase" : "decrease"}XX${advantage.people}`
+                   : null,
+           money:
+               advantage?.money != 0
+                   ? `money_${advantage?.money > 0 ? "increase" : "decrease"}XX${advantage.money}`
+                   : null,
+           info: "choosingLeaders"
+       })
         if (wrongChoice)
             return
         else
@@ -96,7 +112,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
 
     const selectWayHandler = (way: VALORIA_ROAD_METHOD_ENUM) => {
         setSelectedWay(way)
-                    setWrongChoices([])
+        setWrongChoices([])
         setFlow(VALORIA_ROAD_ENUM.SELECT_SUITABLE_LEADER)
         
     }
@@ -144,6 +160,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                         <SelectSuitableLeader
                             setFlow={setFlow}
                             setProgress={setProgress}
+                            setFeedBack={setFeedBack}
                             selectedLeaders={selectedLeaders}
                             selectedSubLeaders={selectedSubLeaders}
                             selectedWay={selectedWay}
@@ -154,6 +171,7 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                             selectedWay={selectedWay}
                             setFlow={setFlow}
                             setProgress={setProgress}
+                            setFeedBack={setFeedBack}
                             setSelectedSubLeaders={setSelectedSubLeaders}
                             setSelectedWay={setSelectedWay}
                             selectedBefore={selectedBefore}
@@ -167,11 +185,11 @@ export const EnterValoriaFlow = ({ currentFlow, setProgress ,selectedLeaders,set
                             <p
                                 className={`font-trajan w-full text-center text-2xl font-bold xl:text-[30px]`}
                             >
-                                You have successfully <br />
-                                entered Valoria
+                                {t("success1")} <br />
+                                {t("success2")}
                             </p>
                             <BorderButton
-                                text="NEXT"
+                                text={t("next")}
                                 size="md"
                                 onClick={() => {
                                     setProgress(prev => {
@@ -205,4 +223,12 @@ type propTypes = {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
     selectedLeaders: LeaderType[]
     setSelectedLeaders: React.Dispatch<React.SetStateAction<LeaderType[]>>
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }

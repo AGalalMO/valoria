@@ -2,46 +2,46 @@
 import intersect from '../../../assets/maps/intesect.png';
 import checked from "../../../assets/footstep.png"
 import { Way_IN } from "../../../types/Enums";
-import danger from "../../../assets/sword.png"
-import water from "../../../assets/maps/water.png"
+import danger from "../../../assets/hidden.png"
+import water from "../../../assets/lako.png"
 import food from "../../../assets/maps/food.png"
 import enemy from "../../../assets/maps/enemy.png"
-import change from "../../../assets/maps/changeRoad.png"
+import change from "../../../assets/turning.png"
 
 import MapModal from "./MapModal";
 import type { InteractiveMapPropsType } from "../../../types/InteractiveMap";
 import { useInteractiveValeriaMap } from "./useInteractiveValeriaMap";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 
-export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPropsType) => {
+export const InteractiveMap = ({ selectedWayIn, setProgress, setFeedBack }: InteractiveMapPropsType) => {
+    const { t } = useTranslation()
+    const {
+        completedRoad,
+        onClickChangeRoute,
+        onClickCancelChangeRoute,
+        selectArmyPower,
+        askForMen,
+        continueWithoutMoreMen,
+        roadZone,
+        selectedRoad,
+        modalOptions,
+        roadPhase,
+        onCloseModal,
+        onSacrifice,
+        visible,
+        disabled
+    } = useInteractiveValeriaMap({ selectedWayIn, setProgress, setFeedBack })
 
-   const {
-       completedRoad,
-       onClickChangeRoute,
-       onClickCancelChangeRoute,
-       selectArmyPower,
-       askForMen,
-       continueWithoutMoreMen,
-       roadZone,
-       selectedRoad,
-       modalOptions,
-       roadPhase,
-       onCloseModal,
-       onSacrifice,
-       visible
-   } = useInteractiveValeriaMap({ selectedWayIn, setProgress })
-
-
- const containerVariants = {
-     hidden: {},
-     visible: {
-         transition: {
-             staggerChildren: 0.3
-         }
-     }
- }
-
+    const containerVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.3
+            }
+        }
+    }
 
     return (
         <div className="relative">
@@ -88,8 +88,10 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                             {selectedRoad ? null : (
                                 <div
                                     key={zone.id}
-                                    onClick={() => selectArmyPower(index)}
-                                    className="flex h-[10%] w-20 items-center justify-center rounded-md border-[2px] border-solid border-[#DC8E2F] bg-black/50 p-3 hover:!bg-black/80"
+                                    onClick={() => {
+                                        if (!disabled) selectArmyPower(index)
+                                    }}
+                                    className={`flex h-[10%] w-20 items-center justify-center rounded-md border-[2px] border-solid border-[#DC8E2F] bg-black/50 p-3 ${disabled ? "" : "hover:!bg-black/80"}`}
                                     style={{
                                         position: "absolute",
                                         cursor: "pointer",
@@ -116,25 +118,27 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                                                       ...item.style
                                                   }}
                                               >
-                                                  <img src={danger} width={40} height={40} />
+                                                  <img src={danger} width={55} height={55} />
                                               </div>
                                           )
                                   })
-                                : visible?zone?.road?.map(item => {
-                                      if (item.id.includes("hidden") && item?.phase >= roadPhase)
-                                          return (
-                                              <div
-                                                  key={item.id}
-                                                  className="rounded-full"
-                                                  style={{
-                                                      position: "absolute",
-                                                      ...item.style
-                                                  }}
-                                              >
-                                                  <img src={danger} width={40} height={40} />
-                                              </div>
-                                          )
-                                  }):null}
+                                : visible
+                                  ? zone?.road?.map(item => {
+                                        if (item.id.includes("hidden") && item?.phase >= roadPhase)
+                                            return (
+                                                <div
+                                                    key={item.id}
+                                                    className="rounded-full"
+                                                    style={{
+                                                        position: "absolute",
+                                                        ...item.style
+                                                    }}
+                                                >
+                                                    <img src={danger} width={55} height={55} />
+                                                </div>
+                                            )
+                                    })
+                                  : null}
 
                             {zone?.intersections?.map(item => (
                                 <div
@@ -146,7 +150,12 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                                         ...item.style
                                     }}
                                 >
-                                    <img src={intersect} width={40} height={40} />
+                                    <img
+                                        src={change}
+                                        className="!w-[60px] !rounded-[20px]"
+                                        width={50}
+                                        height={50}
+                                    />
                                 </div>
                             ))}
                         </>
@@ -163,7 +172,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                                     className="rounded-full"
                                     style={{
                                         position: "absolute",
-                                        ...item.style
+                                        ...item?.style
                                     }}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -198,6 +207,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                         onClickCancelChangeRoute={onClickCancelChangeRoute}
                         onClickChangeRoute={onClickChangeRoute}
                         // onSelectSoliderPercentage={onSelectSoliderPercentage}
+
                         onCloseModal={onCloseModal}
                         onSacrifice={onSacrifice}
                         askForMen={askForMen}
@@ -205,27 +215,26 @@ export const InteractiveMap = ({ selectedWayIn, setProgress }: InteractiveMapPro
                     />
                 </div>
             </div>
-            <div className="absolute -start-1.5 -bottom-4 flex w-[101.3%] flex-row items-center justify-start gap-3 bg-black p-2">
-                <p> Map Legend :</p>
-                <div className="flex items-center gap-1">
-                    <img src={food} width={40} height={40} />
-                    <p> Food </p>
+            <div className="absolute -start-1.5 -bottom-[100px] flex h-[120px] w-[101.3%] flex-row items-center justify-between border-[3px] border-[#844501] bg-[#f5ddaa] px-2">
+                <div className="flex flex-col items-center gap-1">
+                    <img src={food} width={80} height={80} />
+                    <p className="font-sans font-bold text-black"> {t("farm")} </p>
                 </div>
-                <div className="flex items-center gap-1">
-                    <img src={water} width={40} height={40} />
-                    <p> Water </p>
+                <div className="flex flex-col items-center gap-1">
+                    <img src={water} width={80} height={80} />
+                    <p className="font-sans font-bold text-black"> {t("lake")} </p>
                 </div>
-                <div className="flex items-center gap-1">
-                    <img src={change} width={40} height={40} />
-                    <p> change road </p>
+                <div className="flex flex-col items-center gap-1">
+                    <img src={change} width={60} height={60} className="rounded-[50px]" />
+                    <p className="font-sans font-bold text-black">{t("changeRoad")} </p>
                 </div>
-                <div className="flex items-center gap-1">
-                    <img src={danger} width={32} height={32} />
-                    <p> Hidden Enemy</p>
+                <div className="flex flex-col items-center gap-1">
+                    <img src={danger} width={80} height={80} />
+                    <p className="font-sans font-bold text-black"> {t("hiddenEnemy")}</p>
                 </div>
-                <div className="flex items-center gap-1">
-                    <img src={enemy} width={24} height={32} />
-                    <p> Enemy</p>
+                <div className="flex flex-col items-center gap-1">
+                    <img src={enemy} width={50} height={70} />
+                    <p className="font-sans font-bold text-black"> {t("enemy")}</p>
                 </div>
             </div>
         </div>

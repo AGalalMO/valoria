@@ -4,6 +4,11 @@ import aws from '../../../assets/backgrounds/aws.png'
 import slam from '../../../assets/backgrounds/salama.png'
 import bother from '../../../assets/backgrounds/b7er.png'
 import sabet from "../../../assets/backgrounds/sabt.png"
+import lead1 from "../../../assets/lead1.jpeg"
+import lead2 from "../../../assets/lead2.jpeg"
+import lead3 from "../../../assets/lead3.jpeg"
+import lead4 from "../../../assets/lead4.jpeg"
+import lead5 from "../../../assets/lead5.jpeg"
 export const leaders: LeaderType[] = [
     {
         advantage: {
@@ -13,53 +18,22 @@ export const leaders: LeaderType[] = [
         },
         name: "DRAR",
         icon: leadIcon,
-        desc: `expert in fighting in narrow streets and inside neighborhoods `,
-        desc2: `Low Directive & High Supportive Behavior, Derar thrives with a Participating Style, rallying the troops through shared decision-making and emotional engagement, ensuring that skill is matched with unshakable resolve.`,
+        desc: `drar1`,
+        desc2: `drar2`,
         pros: ["leader_power.DRAR.1", "leader_power.DRAR.2", "leader_power.DRAR.3"],
         cons: ["leader_power.DRAR.4", "leader_power.DRAR.5"],
         rightJobIndex: 1
     },
+
     {
         advantage: {
-            army: 2,
-            money: 0,
-            people: 1
+            army: -1,
+            money: -1,
+            people: -1
         },
-        name: "AWS",
-        desc: `expert in fighting mountains`,
-        desc2: `Highly Directive & Low Supportive Behavior. AWS embrace the Directing Style, issuing clear, non-negotiable orders, monitoring execution closely, and ensuring that every move serves the singular goal: crossing the bridge before it’s too late`,
-        icon: aws,
-        pros: ["leader_power.AWS.1", "leader_power.AWS.2", "leader_power.AWS.3"],
-        cons: ["leader_power.AWS.4", "leader_power.AWS.5"],
-        rightJobIndex: 2
-    },
-    {
-        advantage: {
-            army: 2,
-            money: 0,
-            people: 1
-        },
-        name: "SLAM",
-        desc: `can fight in landscapes & Forests.`,
-        desc2:`Low Directive & Low Supportive Behavior. Salam uses the Delegating Style, trusting skilled, motivated soldiers to act independently. He sets the vision, steps back, and lets his team adapt and deliver the mission with minimal oversight.`,
-        icon: slam,
-        pros: ["leader_power.SLAM.1", "leader_power.SLAM.2", "leader_power.SLAM.3"],
-        cons: ["leader_power.SLAM.4", "leader_power.SLAM.5"],
-        rightJobIndex: 3
-    },
-    {
-        advantage: {
-            army: 2,
-            money: 0,
-            people: 1
-        },
-        name: "BOTHER",
-        desc: `expert in fighting in rivers`,
-        icon: bother,
-        pros: ["leader_power.DRAR.1", "leader_power.DRAR.2", "leader_power.DRAR.3"],
-        desc2:` Highly Directive & Low Supportive Behavior. Beher embrace the Directing Style, issuing clear, non-negotiable orders, monitoring execution closely, and ensuring that every move serves the singular goal: crossing the bridge before it’s too late.`,
-        cons: ["leader_power.DRAR.4", "leader_power.DRAR.5"],
-        rightJobIndex: 4
+        name: "HARES",
+        desc: `hares1`,
+        icon: lead3
     },
     {
         advantage: {
@@ -68,8 +42,8 @@ export const leaders: LeaderType[] = [
             people: 1
         },
         name: "SABET",
-        desc2: `Highly Directive & Highly Supportive Behavior, Thabet adopt a Coaching Style, providing step-by-step instructions while fueling morale, turning raw enthusiasm into precise, coordinated maneuvers that outwit the opposition.`,
-        desc: `expert in conquering bridges & cross points.`,
+        desc2: "sabet1",
+        desc: `sabet2`,
         icon: sabet,
         pros: ["leader_power.SABET.1", "leader_power.SABET.2", "leader_power.SABET.3"],
         cons: ["leader_power.SABET.4", "leader_power.SABET.5"],
@@ -83,28 +57,8 @@ export const leaders: LeaderType[] = [
             people: -1
         },
         name: "QSAM",
-        icon: leadIcon,
-        desc: `expert in fighting in dark places and caves`
-    },
-    {
-        advantage: {
-            army: -1,
-            money: -1,
-            people: -1
-        },
-        name: "GLWAN",
-        desc: `expert in fighting in snow weather`,
-        icon: leadIcon
-    },
-    {
-        advantage: {
-            army: -1,
-            money: -1,
-            people: -1
-        },
-        name: "HARES",
-        desc: `expert in fighting in hot weather`,
-        icon: leadIcon
+        icon: lead4,
+        desc: `qasm1`
     },
     {
         advantage: {
@@ -113,8 +67,22 @@ export const leaders: LeaderType[] = [
             people: -1
         },
         name: "SAHAR",
-        desc: `expert in fighting in deserts`,
-        icon: leadIcon
+        desc: `sahar1`,
+        icon: lead5
+    },
+    {
+        advantage: {
+            army: 2,
+            money: 0,
+            people: 1
+        },
+        name: "SLAM",
+        desc: `slam1`,
+        desc2: `slam2`,
+        icon: slam,
+        pros: ["leader_power.SLAM.1", "leader_power.SLAM.2", "leader_power.SLAM.3"],
+        cons: ["leader_power.SLAM.4", "leader_power.SLAM.5"],
+        rightJobIndex: 3
     },
     {
         advantage: {
@@ -122,9 +90,49 @@ export const leaders: LeaderType[] = [
             money: -1,
             people: -1
         },
+        name: "GLWAN",
+        desc: `glwan1`,
+        icon: lead1
+    },
+
+    {
+        advantage: {
+            army: 2,
+            money: 0,
+            people: 1
+        },
+        name: "BOTHER",
+        desc: `bother1`,
+        icon: bother,
+        pros: ["leader_power.DRAR.1", "leader_power.DRAR.2", "leader_power.DRAR.3"],
+        desc2: `bother2`,
+        cons: ["leader_power.DRAR.4", "leader_power.DRAR.5"],
+        rightJobIndex: 4
+    },
+
+    {
+        advantage: {
+            army: -1,
+            money: -1,
+            people: -1
+        },
         name: "GHAWAS",
-        desc: `expert in fighting in oceans and deep seas.`,
-        icon: leadIcon
+        desc: `gawas1`,
+        icon: lead2
+    },
+    {
+        advantage: {
+            army: 2,
+            money: 0,
+            people: 1
+        },
+        name: "AWS",
+        desc: `aws1`,
+        desc2: `aws2`,
+        icon: aws,
+        pros: ["leader_power.AWS.1", "leader_power.AWS.2", "leader_power.AWS.3"],
+        cons: ["leader_power.AWS.4", "leader_power.AWS.5"],
+        rightJobIndex: 2
     }
 ]
 export const RightLeaders = ["DRAR", "AWS", "SLAM", "BOTHER", "SABET"]

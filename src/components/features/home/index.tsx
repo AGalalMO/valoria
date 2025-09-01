@@ -72,7 +72,7 @@ export default function Home() {
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.THE_END,
+        currentFlow: FLOW_ENUM.INTRO,
         selectedWayIn: null,
         manPower: { army: 100, money: 100, people: 100 }
     })
@@ -208,17 +208,16 @@ export default function Home() {
 
     return (
         <>
-           
             <div className="relative flex h-screen w-screen flex-col justify-between">
                 {showInfo ? (
                     <div
-                        className="slide-in absolute start-5 top-[15%] z-[10000] mx-10 flex cursor-pointer items-center gap-1 border border-white p-3 text-sm text-white"
+                        className={`slide-in absolute start-5 top-[10%] xl:!top-[15%] z-[10000] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white ${i18n?.language=='ar'?'flex-row-reverse':''}`}
                         onClick={() => {
                             setShowMap(true)
                         }}
                     >
                         <img src={mapIcon} width={30} height={15} />
-                        <span>{t("showMap")}</span>
+                        <span className="text-lg">{t("showMap")}</span>
                     </div>
                 ) : null}
 

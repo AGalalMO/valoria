@@ -82,7 +82,7 @@ export default function MissionLeaders({
             ) : (
                 <>
                     <div
-                        className="relative -me-6 -mt-12 flex justify-end"
+                        className="relative -me-6 -mt-6 md:!mt-0 xl:!-mt-12 flex justify-end"
                         dir={i18n?.language == "ar" ? "rtl" : "ltr"}
                     >
                         <img

@@ -40,7 +40,7 @@ export default function LeaderPowers({
             }}
         >
             <div
-                className={`relative ${i18n?.language == "ar" ? "-ms-6 justify-start" : "-me-6 justify-end"} -mt-12 flex`}
+                className={`relative ${i18n?.language == "ar" ? "-ms-6 justify-start" : "-me-6 justify-end"} mt-0 flex xl:!-mt-12`}
             >
                 <img
                     src={closeModalIcon}

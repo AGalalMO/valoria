@@ -15,7 +15,7 @@ export default function Powers({ leaders, closeModal }: { leaders: LeaderType[];
             }}
         >
             <div
-                className="relative -me-6 -mt-12 z-[100] flex justify-end"
+                className="relative -me-6 -mt-6 md:!mt-0 xl:!-mt-12 z-[100] flex justify-end"
                 dir={i18n?.language == "ar" ? "rtl" : "ltr"}
             >
                 <img

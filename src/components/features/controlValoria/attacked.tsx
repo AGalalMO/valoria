@@ -13,11 +13,11 @@ import { ButtonDescription } from "../../buttonDescription"
 
 import MissionLeaders from "./missionLeaders"
 import Powers from "./powers";
-export default function Attacked({ selectedLeaders, changePowers,changeFlowState }: propTypes) {
+export default function Attacked({ selectedLeaders, changePowers, changeFlowState, setFeedBack }: propTypes) {
     const [powerModal, setPowerModal] = useState(false)
     const [tryAgain, setTryAgain] = useState(false)
     const [selectedLeadersJobs, setSelectedLeadersJobs] = useState<LeaderType[]>([])
-    const [doneJobs,setDoneJobs]=useState<number[]>([])
+    const [doneJobs, setDoneJobs] = useState<number[]>([])
     const [selectedJobIndex, setSelectedJobIndex] = useState(-1)
     const { t } = useTranslation()
     // const notify = () =>
@@ -31,7 +31,8 @@ export default function Attacked({ selectedLeaders, changePowers,changeFlowState
     useEffect(() => {
         if (doneJobs?.length == 3)
             setTimeout(() => {
-            changeFlowState(FLOW_ENUM.CANNON_ATTACK)}, 500)
+                changeFlowState(FLOW_ENUM.CANNON_ATTACK)
+            }, 500)
     }, [doneJobs])
     return (
         <ModalWrapper
@@ -115,7 +116,7 @@ export default function Attacked({ selectedLeaders, changePowers,changeFlowState
             {selectedJobIndex >= 0 ? (
                 <MissionLeaders
                     selectedLeadersJobs={selectedLeadersJobs}
-                  
+                    setFeedBack={setFeedBack}
                     changePowers={changePowers}
                     icon={selectedJobIndex == 0 ? deadBody : selectedJobIndex == 1 ? seeme : alliez}
                     closeModal={() => {
@@ -124,7 +125,7 @@ export default function Attacked({ selectedLeaders, changePowers,changeFlowState
                     onSelectLeader={(leader: LeaderType) => {
                         setSelectedLeadersJobs(prev => [...prev, leader])
                         setDoneJobs(prev => [...prev, selectedJobIndex])
-                         setSelectedJobIndex(-1)
+                        setSelectedJobIndex(-1)
                     }}
                     openLeaderPowers={() => {
                         setPowerModal(true)
@@ -140,5 +141,13 @@ type propTypes = {
     selectedLeaders: LeaderType[]
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
+    setFeedBack: React.Dispatch<
+        React.SetStateAction<{
+            people: string | null
+            army: string | null
+            money: string | null
+            info: string | null
+        }>
+    >
 }
 

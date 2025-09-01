@@ -121,6 +121,7 @@ export default function Home() {
         }
     },[feedback])
     useEffect(() => {
+        console.log("showF",showFeedBack)
         setTimeout(() => {
             setLoading(false)
         }, 1000)
@@ -386,12 +387,14 @@ export default function Home() {
                     ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED ? (
                         <Attacked
                             changeFlowState={changeFlowState}
-                            changePowers={changePowers}
+                                                                                            changePowers={changePowers}
+                                                                                            
                             selectedLeaders={selectedLeaders}
                             // setSelectedSubLeaders={setSelectedSubLeaders}
                         />
                     ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED_SECOND ? (
                         <AttackedSECOND
+                        
                             changeFlowState={changeFlowState}
                             changePowers={changePowers}
                             setFeedBack={setFeedBack}

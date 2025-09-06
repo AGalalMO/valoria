@@ -58,9 +58,9 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         <ToastCtx.Provider value={value}>
             {children}
             {createPortal(
-                <div className="pointer-events-none fixed inset-0">
+                <div className="pointer-events-none fixed inset-0 z-[1000000]">
                     <div
-                        className={`absolute ${toasts?.[0]?.isArabic ? "end-4 top-[140px]" : "start-4 top-[140px]"} z-[9999] flex flex-col gap-2`}
+                        className={`absolute ${toasts?.[0]?.isArabic ? "end-4 top-[140px]" : "start-4 top-[140px]"} z-[100000000] flex flex-col gap-2`}
                     >
                         {toasts.map(t => (
                             <ToastCard key={t.id} toast={t}  />
@@ -97,10 +97,9 @@ function ToastCard({ toast }: { toast: Toast }) {
         info: "bg-sky-500",
         warning: "bg-amber-500"
     }
-console.log("isArabic", toast.isArabic)
     return (
         <div
-            className={`${base} data-[state=closed]:translate-y-2 data-[state=closed]:opacity-0 data-[state=open]:translate-y-0 data-[state=open]:opacity-100 ${variant[toast.variant]}`}
+            className={`${base} data-[state=closed]:translate-y-2 data-[state=closed]:opacity-0 z-[10000] data-[state=open]:translate-y-0 data-[state=open]:opacity-100 ${variant[toast.variant]}`}
             dir={toast?.isArabic?'rtl':'ltr'}
             data-state="open"
             role="status"

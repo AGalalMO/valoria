@@ -25,7 +25,7 @@ export type MapModalPropsType = {
         isOpen: boolean
         modalType: MAP_MODAL_TYPE | null
     }
-   
+
     onClickCancelChangeRoute: () => void
     onClickChangeRoute: () => void
     //  onSelectSoliderPercentage: (percentage: number) => void
@@ -33,4 +33,5 @@ export type MapModalPropsType = {
     askForMen: () => void
     onCloseModal: () => void
     onSacrifice: () => void
+    isHidden?:boolean|null
 }

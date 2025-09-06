@@ -19,10 +19,11 @@ export default function MapModal({
     onSacrifice,
     askForMen,
     continueWithoutMoreMen,
-   
+    isHidden
 }: MapModalPropsType) {
     const [introPhase, setIntroPhase] = useState(0)
     const { t } = useTranslation()
+    console.log("modalOptions", modalOptions)
 
     return (
         <>
@@ -75,14 +76,44 @@ export default function MapModal({
                                             }}
                                         />
                                     </motion.div>
+
                                     <motion.p
-                                        className="text-center text-xl text-white xl:text-xl"
+                                        className={`text-center ${introPhase == 0 ? "text-lg" : "text-xl"} text-white`}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
                                         {introPhase == 0 ? t("infoMessage") : t("sacrifice")}
                                     </motion.p>
+
+                                    {introPhase == 0 ? (
+                                        <div className="flex flex-col gap-2">
+                                            <motion.p
+                                                className={`text-start text-base text-white`}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                ● {t("infoMessage1")}
+                                            </motion.p>
+                                            <motion.p
+                                                className={`text-start text-base text-white`}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                ● {t("infoMessage2")}
+                                            </motion.p>
+                                            <motion.p
+                                                className={`text-start text-base text-white`}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                ● {t("infoMessage3")}
+                                            </motion.p>
+                                        </div>
+                                    ) : null}
                                     {introPhase == 1 ? (
                                         <motion.div
                                             className="flex w-[80%] items-center justify-between"
@@ -209,7 +240,7 @@ export default function MapModal({
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        {t("enemies_ahead")}
+                                        {isHidden ? t("enemies_ahead1") : t("enemies_ahead")}
                                     </motion.p>
                                     <motion.div
                                         className="flex w-[80%] items-center justify-between"

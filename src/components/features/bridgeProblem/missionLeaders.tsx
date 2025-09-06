@@ -46,20 +46,20 @@ export default function MissionLeaders({
             onSelectLeader(selectedLeader)
         } else if (selectedJobIndex == 1 && selectedLeader?.name == "SABET") {
             onSelectLeader(selectedLeader)
-        } else if (selectedJobIndex == 2 && selectedLeader?.name == "AWS") {
+        } else if (selectedJobIndex == 2 && selectedLeader?.name == "SLAM") {
             onSelectLeader(selectedLeader)
         } else {
             setWrongAnswers(prev => [...prev, selectedLeader as LeaderType])
             setSelectedLeader(null)
             changePowers({ army: -1, money: -1, people: -1 })
-                        setTryAgain(true)
+            setTryAgain(true)
 
-              setFeedBack({
-                  army: `army_decreaseXX1`,
-                  people: `people_decreaseXX1`,
-                  money: `money_decreaseXX1`,
-                  info: "wrongLeader"
-              })
+            setFeedBack({
+                army: `army_decreaseXX1`,
+                people: `people_decreaseXX1`,
+                money: `money_decreaseXX1`,
+                info: "wrongLeader"
+            })
         }
     }
     return (

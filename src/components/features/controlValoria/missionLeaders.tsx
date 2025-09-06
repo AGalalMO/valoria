@@ -47,7 +47,7 @@ export default function MissionLeaders({
             onSelectLeader(selectedLeader)
         } else if (selectedJobIndex == 2 && selectedLeader?.name == "SLAM") {
             onSelectLeader(selectedLeader)
-        } else if (selectedJobIndex == 3 && selectedLeader?.name == "BOTHER") {
+        } else if (selectedJobIndex == 3 && selectedLeader?.name == "BEHER") {
             onSelectLeader(selectedLeader)
         } else if (selectedJobIndex == 4 && selectedLeader?.name == "AWS") {
             onSelectLeader(selectedLeader)

@@ -15,10 +15,11 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
         i18n.changeLanguage(lng)
     }
     return (
-        <div className={`flex w-full items-center justify-between`}>
+        <div className={`flex w-full items-center justify-between  z-[100000]`}>
             {isTheEnd ? null : (
                 <BorderButton
                     size="xs"
+
                     bottomBorder={false}
                     text={t("change_lang")}
                     onClick={() => changeLanguage(i18n?.language == "en" ? "ar" : "en")}
@@ -30,7 +31,7 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                 <div data-tooltip-id="my-tooltip-1" className="flex items-center gap-2">
                     <div className="flex flex-col gap-1">
                         <Power img={crown} text={`${powers.people}%`} />
-                        <p className="font-trajan text-center text-xl font-bold text-white">
+                        <p className="font-trajan text-center text-lg font-bold text-white">
                             {t("people")}
                         </p>
                     </div>
@@ -39,7 +40,7 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                 <div data-tooltip-id="my-tooltip-2" className="flex items-center gap-2">
                     <div className="flex flex-col gap-1">
                         <Power img={kill} text={`${powers?.army}%`} />
-                        <p className="font-trajan text-center text-xl font-bold text-white">
+                        <p className="font-trajan text-center text-lg font-bold text-white">
                             {t("army")}
                         </p>
                     </div>
@@ -48,7 +49,7 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                 <div data-tooltip-id="my-tooltip-3" className="flex items-center gap-2">
                     <div className="flex flex-col gap-1">
                         <Power img={money} text={`${powers.money}%`} />
-                        <p className="font-trajan text-center text-xl font-bold text-white">
+                        <p className="font-trajan text-center text-lg font-bold text-white">
                             {t("money")}
                         </p>
                     </div>
@@ -143,7 +144,7 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                 src={img}
                 width={"50px"}
                 height={"50px"}
-                className="h-8 w-8 xl:h-[50px] xl:w-[50px]"
+                className="h-8 w-8 xl:h-[40px] xl:w-[40px]"
             />
             
             {/* Change amount animation */}
@@ -166,7 +167,7 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                 {number !== null ? (
                     <motion.span
                         key={number}
-                        className="font-trajan text-lg text-white xl:text-3xl"
+                        className="font-trajan text-lg text-white xl:text-2xl"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}
@@ -178,7 +179,7 @@ const Power = ({ img, text }: { img: string; text: string }) => {
                 ) : (
                     <motion.p
                         key={text}
-                        className="font-trajan text-lg text-white xl:text-3xl"
+                        className="font-trajan text-lg text-white xl:text-2xl"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 1.2, opacity: 0 }}

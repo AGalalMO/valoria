@@ -40,6 +40,7 @@ import  VideoPlayer from "../../videoComponent"
 import SelectLanguage from "../../selectLanguage"
 import mapIcon from '../../../assets/mapInfo.png'
 import mapVL from "../../../assets/valoriaMapDEs.jpeg"
+import mapVL1 from "../../../assets/ccc.png"
 import Intro from "../../Intro"
 import Zoom from "react-medium-image-zoom"
 import "react-medium-image-zoom/dist/styles.css"
@@ -53,9 +54,9 @@ export default function Home() {
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
     const [showInfo, setShowInfo] = useState(false)
+    const [showMapActions, setShowMapActions] = useState(false)
     const [showFeedBack, setShowFeedBack] = useState(false)
       const { show } = useToast()
-
     const [feedback, setFeedBack] = useState<{
         people: string|null
         army: string|null
@@ -72,10 +73,12 @@ export default function Home() {
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.INTRO,
+        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
         selectedWayIn: null,
         manPower: { army: 100, money: 100, people: 100 }
     })
+        console.log("TAAa", progress.currentFlow)
+
 
     useEffect(() => {
         if (feedback?.army || feedback?.money || feedback?.people)
@@ -128,10 +131,14 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        if (progress.currentFlow == FLOW_ENUM.SHOW_VALORIA_MAP)
+        if (progress.currentFlow==FLOW_ENUM.SELECT_ROAD || progress.currentFlow== FLOW_ENUM.CHANGE_ROAD)
         {
-            setShowInfo(true)
+            setShowMapActions(true)
         }
+        else if (progress.currentFlow == FLOW_ENUM.SHOW_VALORIA_MAP) {
+            setShowInfo(true)
+            
+            }
         if (progress.currentFlow == FLOW_ENUM.CANNON_ATTACK)
         {
             setShowInfo(false)
@@ -212,7 +219,7 @@ export default function Home() {
             <div className="relative flex h-screen w-screen flex-col justify-between">
                 {showInfo ? (
                     <div
-                        className={`slide-in absolute start-5 top-[10%] xl:!top-[15%] z-[10000] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white ${i18n?.language=='ar'?'flex-row-reverse':''}`}
+                        className={`slide-in absolute start-5 top-[10%] z-[10000] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white xl:!top-[15%] ${i18n?.language == "ar" ? "flex-row-reverse" : ""}`}
                         onClick={() => {
                             setShowMap(true)
                         }}
@@ -220,39 +227,19 @@ export default function Home() {
                         <img src={mapIcon} width={30} height={15} />
                         <span className="text-lg">{t("showMap")}</span>
                     </div>
-                ) : null}
-
-                {/* {showFeedBack ? (
+                ) : showMapActions ? (
                     <div
-                        className="slide-in absolute start-5 top-[15%] z-[10000] flex cursor-pointer flex-col items-center justify-center gap-3 border border-[#844501] bg-[#f5ddaa] p-2 text-sm font-bold text-black"
+                        className={`slide-in absolute start-5 top-[10%] z-[999999] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white xl:!top-[15%] ${i18n?.language == "ar" ? "flex-row-reverse" : ""}`}
                         onClick={() => {
                             setShowMap(true)
                         }}
                     >
-                        {feedback?.army ? (
-                            <p className="text-lg">
-                                {t(`${feedback?.army?.split("XX")?.[0]}`)} :{" "}
-                                {feedback?.army?.split("XX")?.[1]}
-                            </p>
-                        ) : null}
-                        {feedback?.people ? (
-                            <p className="text-lg">
-                                {t(`${feedback?.people?.split("XX")?.[0]}`)} :{" "}
-                                {feedback?.people?.split("XX")?.[1]}
-                            </p>
-                        ) : null}
-                        {feedback?.money ? (
-                            <p className="text-lg">
-                                {t(`${feedback?.money?.split("XX")?.[0]}`)} :{" "}
-                                {feedback?.money?.split("XX")?.[1]}
-                            </p>
-                        ) : null}
-                        <p className="text-lg">{feedback?.info ? t(feedback?.info) : t("dueTo")}</p>
+                        <span className="text-lg">{t("showMap2")}</span>
                     </div>
-                ) : null} */}
+                ) : null}
 
                 {!loading && progress.currentFlow != FLOW_ENUM.FINISH ? (
-                    <div className="flex w-full justify-end p-10">
+                    <div className="z-[10000] flex w-full justify-end p-10">
                         <UserPowers isTheEnd={false} powers={progress.manPower} />
                     </div>
                 ) : null}
@@ -387,14 +374,12 @@ export default function Home() {
                     ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED ? (
                         <Attacked
                             changeFlowState={changeFlowState}
-                                                                                            changePowers={changePowers}
-                                                                                            
+                            changePowers={changePowers}
                             selectedLeaders={selectedLeaders}
                             // setSelectedSubLeaders={setSelectedSubLeaders}
                         />
                     ) : progress?.currentFlow == FLOW_ENUM.GOT_ATTACKED_SECOND ? (
                         <AttackedSECOND
-                        
                             changeFlowState={changeFlowState}
                             changePowers={changePowers}
                             setFeedBack={setFeedBack}
@@ -455,7 +440,7 @@ export default function Home() {
                             classDialog="z-[9999]" // ensure above your modal/backdrop
                         >
                             <img
-                                src={mapVL}
+                                src={showInfo ? mapVL : mapVL1}
                                 alt="Decision matrix"
                                 className="max-h-[600px] cursor-zoom-in"
                             />

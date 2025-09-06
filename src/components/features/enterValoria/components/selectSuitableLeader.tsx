@@ -72,46 +72,47 @@ export const SelectSuitableLeader = ({
                  info: "traps_hiddenFeed"
              })
         }
-        else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER && selectedSubLeaders?.[0]?.name == "BOTHER")
-        {
-             setProgress?.(prev => {
-                 return {
-                     ...prev,
-                     manPower: {
-                         money: prev?.manPower?.money - 6,
-                         people: prev?.manPower?.people - 3,
-                         army: prev?.manPower?.army - 5
-                     }
-                 }
-             })
-             setFeedBack({
-                 army: `army_decreaseXX5`,
-                 people: `people_decreaseXX3`,
-                 money: `money_decreaseXX6`,
-                 info: "traps_hidden_riverFeed"
-             })
-        }
-        else
-        {   setSelectedSubLeaders([])
+        else if (
+            selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER &&
+            selectedSubLeaders?.[0]?.name == "BEHER"
+        ) {
+            setProgress?.(prev => {
+                return {
+                    ...prev,
+                    manPower: {
+                        money: prev?.manPower?.money - 6,
+                        people: prev?.manPower?.people - 3,
+                        army: prev?.manPower?.army - 5
+                    }
+                }
+            })
+            setFeedBack({
+                army: `army_decreaseXX5`,
+                people: `people_decreaseXX3`,
+                money: `money_decreaseXX6`,
+                info: "traps_hidden_riverFeed"
+            })
+        } else {
+            setSelectedSubLeaders([])
             setWrongChoices(prev => [...prev, selectedSubLeaders?.[0]])
-             setProgress?.(prev => {
-                 return {
-                     ...prev,
-                     manPower: {
-                         money: prev?.manPower?.money - 1,
-                         people: prev?.manPower?.people - 1,
-                         army: prev?.manPower?.army - 1
-                     }
-                 }
-             })
-             setFeedBack({
-                 army: `army_decreaseXX1`,
-                 people: `people_decreaseXX1`,
-                 money: `money_decreaseXX1`,
-                 info: "wrongLeader"
-             })
+            setProgress?.(prev => {
+                return {
+                    ...prev,
+                    manPower: {
+                        money: prev?.manPower?.money - 1,
+                        people: prev?.manPower?.people - 1,
+                        army: prev?.manPower?.army - 1
+                    }
+                }
+            })
+            setFeedBack({
+                army: `army_decreaseXX1`,
+                people: `people_decreaseXX1`,
+                money: `money_decreaseXX1`,
+                info: "wrongLeader"
+            })
             return true
-            }
+        }
     }
     const selectSubLeaderHandler = () => {
         if (selectedSubLeaders?.length == 0 ) {

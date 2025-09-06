@@ -101,7 +101,7 @@ export const leaders: LeaderType[] = [
             money: 0,
             people: 1
         },
-        name: "BOTHER",
+        name: "BEHER",
         desc: `bother1`,
         icon: bother,
         pros: ["leader_power.DRAR.1", "leader_power.DRAR.2", "leader_power.DRAR.3"],
@@ -135,4 +135,4 @@ export const leaders: LeaderType[] = [
         rightJobIndex: 2
     }
 ]
-export const RightLeaders = ["DRAR", "AWS", "SLAM", "BOTHER", "SABET"]
+export const RightLeaders = ["DRAR", "AWS", "SLAM", "BEHER", "SABET"]

@@ -25,13 +25,7 @@ export default function AttackedSECOND({
     const [doneJobs, setDoneJobs] = useState<number[]>([])
     const [selectedJobIndex, setSelectedJobIndex] = useState(-1)
     const { t } = useTranslation()
-    // const notify = () =>
-    //     toast(t("please_Select_leader_Jobs"), {
-    //         progress: 0,
-    //         theme: "dark",
-    //         autoClose: 1500,
-    //         position: "top-center"
-    //     })
+
 
     useEffect(() => {
         if (doneJobs?.length == 3)

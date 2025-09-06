@@ -24,6 +24,7 @@ export const useInteractiveValeriaMap = ({
     const [roadPhase, setRoadPhase] = useState(0)
     const [disabled, setDisabled] = useState(true)
     const [completedRoad, setCompletedRoads] = useState<any>([])
+    const [isHidden,setIsHidden]=useState<boolean|null>(null)
     const [modalOptions, setModalOptions] = useState<ModalOptionType>({
         isOpen: false,
         modalType: null
@@ -129,7 +130,6 @@ export const useInteractiveValeriaMap = ({
                 let haveEnemies = false
                 roadZone?.roads?.[index]?.intersections?.map((item: any) => {
                     if (item?.phase == phase) {
-                        console.log("ITEM", item)
                         roads.push(item)
                     }
                 })
@@ -176,8 +176,10 @@ export const useInteractiveValeriaMap = ({
                                   
                                 }
                             }
-                        } else if (item?.phase == phase && item?.id?.includes("enemy")) {
+                        } else if (item?.phase == phase && item?.id?.includes("enemy"))
+                        {
                             haveEnemies = true
+                            setIsHidden(item?.id?.includes('hidden')?true:false)
                         }
                     })
                 }
@@ -187,7 +189,8 @@ export const useInteractiveValeriaMap = ({
                         setTimeout(() => {
                             setModalOptions({
                                 isOpen: true,
-                                modalType: MAP_MODAL_TYPE.INCREASE_SOLDIERS
+                                modalType: MAP_MODAL_TYPE.INCREASE_SOLDIERS,
+                              
                             })
                         }, 2000)
                     } else {
@@ -226,6 +229,8 @@ export const useInteractiveValeriaMap = ({
             return
         }
         if (enemies?.length) {
+              setIsHidden(enemies?.[0]?.id?.includes("hidden") ? true : false)
+
             setTimeout(() => {
                 setModalOptions({ isOpen: true, modalType: MAP_MODAL_TYPE.INCREASE_SOLDIERS })
             }, 2000)
@@ -282,22 +287,23 @@ export const useInteractiveValeriaMap = ({
         setProgress(prev => ({
             ...prev,
             manPower: {
-                army: prev?.manPower?.army,
-                people: prev?.manPower?.people - 3,
-                money: prev?.manPower?.money - 5
+                army: prev?.manPower?.army-2,
+                people: prev?.manPower?.people - 2,
+                money: prev?.manPower?.money - 2
             }
         }))
           setFeedBack({
-              army: null,
-              people: `people_decreaseXX3`,
-              money: `money_decreaseXX5`,
+              army: `army_decreaseXX22`,
+              people: `people_decreaseXX2`,
+              money: `money_decreaseXX2`,
               info: "face_enemy"
           })
-
         setTimeout(() => {
             setModalOptions({ isOpen: false, modalType: null })
             setCompletedRoads((prev: any) => [...prev, enemy])
             onSelectRoad(selectedRoad?.index as number, (enemy?.phase as number) + 1)
+                      setIsHidden(null)
+
         }, 1000)
     }
     const continueWithoutMoreMen = () => {
@@ -308,20 +314,21 @@ export const useInteractiveValeriaMap = ({
         setProgress(prev => ({
             ...prev,
             manPower: {
-                army: prev?.manPower?.army - (isKnown ? 3 : 5),
-                people: prev?.manPower?.people - (isKnown ? 0 : 2),
-                money: prev?.manPower?.money - 2
+                army: prev?.manPower?.army - (isKnown ? 2 : 4),
+                people: prev?.manPower?.people - (isKnown ? 1 : 3),
+                money: prev?.manPower?.money - (isKnown ? 1 : 2)
             }
         }))
          setFeedBack({
-             army: `army_decreaseXX${isKnown ? 3 : 5}`,
-             people:isKnown?null: `people_decreaseXX2`,
-             money: `money_decreaseXX2`,
+             army: `army_decreaseXX${isKnown ? 2 : 4}`,
+             people: isKnown ? null : `people_decreaseXX${isKnown ? 1 : 3}`,
+             money: `money_decreaseXX${isKnown ? 1 : 2}`,
              info: "face_enemy"
          })
         setTimeout(() => {
             setModalOptions({ isOpen: false, modalType: null })
             setCompletedRoads((prev: any) => [...prev, enemy])
+                  setIsHidden(null)
 
             onSelectRoad(selectedRoad?.index as number, (enemy?.phase as number) + 1)
         }, 1000)
@@ -342,7 +349,8 @@ export const useInteractiveValeriaMap = ({
         onSacrifice,
         onCloseModal,
         visible,
-        disabled
+        disabled,
+        isHidden
     }
 }
 

@@ -32,8 +32,8 @@ export const SelectedRoadOptions = ({
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST)
             return {
                 head: t("traps_hidden"),
-                actionIcon: burnWood,
-                alternativeButtonIcon: send_spy,
+                actionIcon: send_spy,
+                alternativeButtonIcon: burnWood,
                 actionText: t("keep_attacking_forest"),
                 alternativeButtonText: t("burn_them_all"),
                 alternateSecondButtonText: t("send_spy_option"),
@@ -103,7 +103,7 @@ export const SelectedRoadOptions = ({
     }
 
 
-           
+            console.log("modalData?.desc[2]?",modalData?.desc[2])
        
     return (
         <>
@@ -140,7 +140,7 @@ export const SelectedRoadOptions = ({
                                 className={`flex flex-col ${i18n?.language == "ar" ? "items-end" : "items-start"} gap-1`}
                             >
                                 {modalData.desc?.map(item => (
-                                    <p>
+                                    <p className="text-sm">
                                         {i18n?.language == "en" ? "●" : ""} {t(item)}{" "}
                                         {i18n?.language == "ar" ? "●" : ""}
                                     </p>
@@ -148,7 +148,7 @@ export const SelectedRoadOptions = ({
                             </div>
                             <div className="flex w-full justify-center">
                                 <Zoom>
-                                    <img src={table} className="h-[380px] w-[600px]" />
+                                    <img src={table} className="h-[330px] w-[550px]" />
                                 </Zoom>
                             </div>
                             <p className="w-full text-center text-lg">
@@ -181,11 +181,11 @@ export const SelectedRoadOptions = ({
                             }}
                             text={modalData.actionText}
                             isSelected={false}
-                            description={""}
+                            description={t(modalData?.desc[0])?.split("(")?.[1]?.replace(")", "")}
                         />
 
                         <ButtonDescription
-                            description={""}
+                            description={t(modalData?.desc[1])?.split("(")?.[1]?.replace(")", "")}
                             isSelected={false}
                             icon={modalData.alternativeButtonIcon}
                             onClick={() => {
@@ -195,7 +195,9 @@ export const SelectedRoadOptions = ({
                         />
                         {selectedBefore?.length == 2 ? null : (
                             <ButtonDescription
-                                description=""
+                                description={t(
+                                    t(modalData?.desc[2])?.split("(")?.[1]?.replace(")", "")
+                                )}
                                 icon={modalData.alternateSecondButtonIcon}
                                 isSelected={false}
                                 onClick={onSelectRightChoice}

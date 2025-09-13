@@ -14,7 +14,7 @@ export default function MapModal({
     onClickChangeRoute,
     onClickCancelChangeRoute,
     modalOptions,
-    // onSelectSoliderPercentage,
+    passed,
     onCloseModal,
     onSacrifice,
     askForMen,
@@ -23,7 +23,6 @@ export default function MapModal({
 }: MapModalPropsType) {
     const [introPhase, setIntroPhase] = useState(0)
     const { t } = useTranslation()
-    console.log("modalOptions", modalOptions)
 
     return (
         <>
@@ -269,6 +268,88 @@ export default function MapModal({
                                             />
                                         </motion.div>
                                     </motion.div>
+                                </>
+                            ) : modalOptions.modalType == MAP_MODAL_TYPE.PASS_LAKE ? (
+                                <>
+                                    <motion.div
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <motion.img
+                                            src={dangerImg}
+                                            width={120}
+                                            height={120}
+                                            animate={{
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+                                    </motion.div>
+                                    <motion.p
+                                        className="text-center text-xl text-white xl:text-xl"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {t("passByLake1")?.split("XX")?.[0]}
+                                    </motion.p>
+                                    <motion.p
+                                        className="text-center text-xl text-white xl:text-2xl"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {t("passByLake1")?.split("XX")?.[1]}
+                                    </motion.p>
+                                    <BorderButton text={t('next')} size="xs" onClick={passed} />
+                                </>
+                            ) : modalOptions.modalType == MAP_MODAL_TYPE.PASS_FARM ? (
+                                <>
+                                    <motion.div
+                                        className="flex items-center"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <motion.img
+                                            src={dangerImg}
+                                            width={120}
+                                            height={120}
+                                            animate={{
+                                                scale: [1, 1.1, 1],
+                                                rotate: [0, 5, -5, 0]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+                                    </motion.div>
+                                    <motion.p
+                                        className="text-center text-xl text-white xl:text-2xl"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {t("passByFarm1")?.split("XX")?.[0]}
+                                    </motion.p>
+                                    <motion.p
+                                        className="text-center text-xl text-white xl:text-2xl"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {t("passByFarm1")?.split("XX")?.[1]}
+                                    </motion.p>
+                                    <BorderButton text={t('next')} size="xs" onClick={passed} />
                                 </>
                             ) : null}
                         </motion.div>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from "../../shared/modal"
-import mapVAL from "../../../assets/valoriaMapDEs.jpeg"
+import mapVAL from "../../../assets/mapping.png"
 import { useEffect, useState } from "react"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"

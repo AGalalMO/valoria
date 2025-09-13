@@ -1,5 +1,4 @@
 import { FLOW_ENUM } from "../../../types/FLowEnum"
-import type { ManPower } from "../../../types/manPower"
 import BorderButton from "../../shared/borderButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import favor from "../../../assets/favor.png"
@@ -9,7 +8,7 @@ export default function EngineersFailed({
     changePowers,
     changeFlowState
 }: {
-    changePowers: (powers: ManPower) => void
+    changePowers: () => void
     changeFlowState: (flow: FLOW_ENUM) => void
     }) {
     const {t}=useTranslation()
@@ -34,11 +33,7 @@ export default function EngineersFailed({
                     <div className="max-w-[700px]">
                         <BorderButton
                             onClick={() => {
-                                changePowers({
-                                    money: -6,
-                                    army: -8,
-                                    people: -7
-                                })
+                                changePowers()
 
                                 changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
                             }}

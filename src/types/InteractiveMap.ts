@@ -28,10 +28,10 @@ export type MapModalPropsType = {
 
     onClickCancelChangeRoute: () => void
     onClickChangeRoute: () => void
-    //  onSelectSoliderPercentage: (percentage: number) => void
+    passed:VoidFunction
     continueWithoutMoreMen: () => void
     askForMen: () => void
     onCloseModal: () => void
     onSacrifice: () => void
-    isHidden?:boolean|null
+    isHidden?: boolean | null
 }

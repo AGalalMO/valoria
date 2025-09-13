@@ -3,11 +3,13 @@ import { ModalWrapper } from "./features/enterValoria/components/modalWrapper"
 import BorderButton from "./shared/borderButton"
 import { useTranslation } from "react-i18next"
 import table from "../assets/table1.jpeg"
-import ex from "../assets/ex.png"
+import ex from "../assets/ex1.png"
 import infoIcon from "../assets/info.png"
 import Zoom from "react-medium-image-zoom"
 import "react-medium-image-zoom/dist/styles.css"
-
+import allie from "../assets/handShake.jpeg"
+import spy from "../assets/icons/spy.png"
+import attack from "../assets/icons/attack.png"
 export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
     const { t } = useTranslation()
     const [step, setStep] = useState(0)
@@ -39,7 +41,7 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
             <ModalWrapper classes="!px-4 !flex !flex-col !justify-center">
                 <div className="w-full">
                     <div className="flex w-full flex-col items-center justify-center gap-3 px-4 text-center">
-                        <p className="text-xl xl:text-3xl">
+                        <p className={`text-xl xl:text-2xl`}>
                             {step === 0
                                 ? t("intro1")
                                 : step === 1
@@ -48,12 +50,18 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
                                     ? t("intro3")
                                     : null}
                         </p>
-
+                        {step == 1 ? (
+                            <div className="flex items-start mt-5 gap-5">
+                                <img src={spy} width={125} height={125} />
+                                <img src={allie} width={125} height={125} />
+                                <img src={attack} width={125} height={125} />
+                            </div>
+                        ) : null}
                         {step === 2 && (
                             <div className="relative flex h-full w-full items-start justify-center">
                                 <img
-                                    width={48}
-                                    height={48}
+                                    width={32}
+                                    height={32}
                                     src={infoIcon}
                                     onClick={infoClick}
                                     className="absolute end-2 cursor-pointer"
@@ -65,15 +73,15 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
                                     <img
                                         src={table}
                                         alt="Decision matrix"
-                                        className="max-h-[450px] cursor-zoom-in"
+                                        className="max-h-[330px] cursor-zoom-in"
                                     />
                                 </Zoom>
                             </div>
                         )}
                     </div>
                 </div>
-               {step==2? <p className="text-lg">{t("compare")}</p>:null}
-                <div className="flex flex-row items-center mt-8">
+                {step == 2 ? <p className="text-xl">{t("compare")}</p> : null}
+                <div className="mt-8 flex flex-row items-center">
                     <BorderButton
                         onClick={() => (step === 2 ? onEnd() : setStep(p => p + 1))}
                         text={t("next")}

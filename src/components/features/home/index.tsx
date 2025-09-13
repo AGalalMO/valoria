@@ -39,7 +39,7 @@ import endEn from "../../../assets/videos/en/end.webm"
 import  VideoPlayer from "../../videoComponent"
 import SelectLanguage from "../../selectLanguage"
 import mapIcon from '../../../assets/mapInfo.png'
-import mapVL from "../../../assets/valoriaMapDEs.jpeg"
+import mapVL from "../../../assets/mapping.png"
 import mapVL1 from "../../../assets/ccc.png"
 import Intro from "../../Intro"
 import Zoom from "react-medium-image-zoom"
@@ -53,6 +53,12 @@ export default function Home() {
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
+    const [scoreHistory, setScoreHistory] = useState<{
+        people: string | null
+        army: string | null
+        money: string | null
+        info: string | null
+    }[]>([])
     const [showInfo, setShowInfo] = useState(false)
     const [showMapActions, setShowMapActions] = useState(false)
     const [showFeedBack, setShowFeedBack] = useState(false)
@@ -73,11 +79,10 @@ export default function Home() {
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.INTRO,
+        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
         selectedWayIn: null,
         manPower: { army: 100, money: 100, people: 100 }
     })
-        console.log("TAAa", progress.currentFlow)
 
 
     useEffect(() => {
@@ -88,7 +93,7 @@ export default function Home() {
                  setShowFeedBack(false)
                 setTimeout(() => {
                     setShowFeedBack(true)
-
+                    setScoreHistory((prev)=>[...prev,feedback])
                     show({
                         message: [
                             feedback?.army
@@ -167,28 +172,33 @@ export default function Home() {
     }
 
     const ChooseSubLeader = () => {
-        if (progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE) {
+        if (progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE)
+        {
             if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: -2, people: 1 })
             else changePowers({ money: -4, army: -4, people: -2 })
 
             changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
-        } else if (progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME)
+        }
+        else if (progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME)
         {
             if (selectedSubLeaders?.name == "DRAR") changePowers({ money: -1, army: 1, people: 1 })
             else changePowers({ money: -3, army: -2, people: -2 })
             changeFlowState(FLOW_ENUM.RACE_FOR_TIME_FAILED)
-        } else if (progress.currentFlow == FLOW_ENUM.SEE_ME) {
+        }
+        else if (progress.currentFlow == FLOW_ENUM.SEE_ME) {
             if (selectedSubLeaders?.name == "SLAM") changePowers({ money: -3, army: -3, people: 2 })
             else changePowers({ money: -4, army: -5, people: -1 })
              setSelectedSubLeaders(null)
             changeFlowState(FLOW_ENUM.CANNON_ATTACK)
-        } else if (progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY) {
+        }
+        else if (progress.currentFlow == FLOW_ENUM.OVER_MY_DEAD_BODY) {
             if (selectedSubLeaders?.name == "SABET")
                 changePowers({ money: -4, army: -5, people: 1 })
             else changePowers({ money: -6, army: -7, people: -2 })
              setSelectedSubLeaders(null)
             changeFlowState(FLOW_ENUM.CANNON_ATTACK)
-        } else if (progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON) {
+        }
+        else if (progress.currentFlow == FLOW_ENUM.CHOOSE_LEADER_FOR_CANNON) {
             if (selectedSubLeaders?.name == "AWS") changePowers({ money: -1, army: 0, people: 2 })
             else changePowers({ money: -3, army: -2, people: -2 })
             changeFlowState(FLOW_ENUM.FIRE_CANNON_INTRO)
@@ -319,6 +329,19 @@ export default function Home() {
                     ) : progress.currentFlow === FLOW_ENUM.HOW_TO_PASS_BRIDGE ? (
                         <HowToPass
                             changeFlowState={changeFlowState}
+                            changePowerForOpt2={(index: number) => {
+                                changePowers({
+                                    army: index == 0 ? -8 : index == 2 ? -4 : -2,
+                                    money: index == 0 ? -6 : index == 2 ? -4 : -2,
+                                    people: index == 0 ? -5 : index == 2 ? -8 : 2
+                                })
+                                setFeedBack({
+                                    army: `army_decreaseXX${index == 0 ? 8 : index == 2 ? 4 : 2}`,
+                                    money: `people_decreaseXX${index == 0 ? 6 : index == 2 ? 4 : 2}`,
+                                    people: `money_${index == 1 ? "increase" : "decrease"}XX${index == 0 ? 5 : index == 2 ? 8 : 2}`,
+                                    info: index == 1 ? "alternate_bridge2" : "dueTo"
+                                })
+                            }}
                             changePowers={() => {
                                 changePowers({
                                     army: 0,
@@ -356,13 +379,37 @@ export default function Home() {
                     ) : progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME_FAILED ? (
                         <RaceTimeFailed
                             changeFlowState={changeFlowState}
-                            changePowers={changePowers}
+                            changePowers={() => {
+                                changePowers({
+                                    army: -2,
+                                    money: -2,
+                                    people: 2
+                                })
+                                setFeedBack({
+                                    army: `army_decreaseXX2`,
+                                    money: `people_decreaseXX2`,
+                                    people: `money_2`,
+                                    info: "alternate_bridge2"
+                                })
+                            }}
                             setSelectedSubLeaders={setSelectedSubLeaders}
                         />
                     ) : progress.currentFlow == FLOW_ENUM.ENGINEERS_FAILED ? (
                         <EngineersFailed
                             changeFlowState={changeFlowState}
-                            changePowers={changePowers}
+                            changePowers={() => {
+                                changePowers({
+                                    army: -2,
+                                    money: -2,
+                                    people: 2
+                                })
+                                setFeedBack({
+                                    army: `army_decreaseXX2`,
+                                    money: `people_decreaseXX2`,
+                                    people: `money_2`,
+                                    info: "alternate_bridge2"
+                                })
+                            }}
                         />
                     ) : progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE ? (
                         <VideoPlayer

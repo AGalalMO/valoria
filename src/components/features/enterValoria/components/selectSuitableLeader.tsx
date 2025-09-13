@@ -35,64 +35,65 @@ export const SelectSuitableLeader = ({
     const haveWrongChoices = () => {
         if (selectedWay == VALORIA_ROAD_METHOD_ENUM.GATES && selectedSubLeaders?.[0]?.name == "SABET")
         {
-            setProgress?.(prev => {
-                return {
-                    ...prev,
-                    manPower: {
-                        money: prev?.manPower?.money - 4,
-                        people: prev?.manPower?.people - 4,
-                        army: prev?.manPower?.army - 5
-                    }
-                }
-            })
-             setFeedBack({
-                 army: `army_decreaseXX5`,
-                 people: `people_decreaseXX4`,
-                 money: `money_decreaseXX4`,
-                 info: "not_easy_to_attackFeed"
-             })
+            // setProgress?.(prev => {
+            //     return {
+            //         ...prev,
+            //         manPower: {
+            //             money: prev?.manPower?.money - 4,
+            //             people: prev?.manPower?.people - 4,
+            //             army: prev?.manPower?.army - 5
+            //         }
+            //     }
+            // })
+            //  setFeedBack({
+            //      army: `army_decreaseXX5`,
+            //      people: `people_decreaseXX4`,
+            //      money: `money_decreaseXX4`,
+            //      info: "not_easy_to_attackFeed"
+            //  })
         }
         else if (selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST && selectedSubLeaders?.[0]?.name == "SLAM")
         {
-   setProgress?.(prev => {
-       return {
-           ...prev,
-           manPower: {
-               money: prev?.manPower?.money - 4,
-               people: prev?.manPower?.people - 4,
-               army: prev?.manPower?.army - 5
-           }
-       }
+//    setProgress?.(prev => {
+//        return {
+//            ...prev,
+//            manPower: {
+//                money: prev?.manPower?.money - 4,
+//                people: prev?.manPower?.people - 4,
+//                army: prev?.manPower?.army - 5
+//            }
+//        }
 
-   })
-             setFeedBack({
-                 army: `army_decreaseXX5`,
-                 people: `people_decreaseXX4`,
-                 money: `money_decreaseXX4`,
-                 info: "traps_hiddenFeed"
-             })
+//    })
+//              setFeedBack({
+//                  army: `army_decreaseXX5`,
+//                  people: `people_decreaseXX4`,
+//                  money: `money_decreaseXX4`,
+//                  info: "traps_hiddenFeed"
+//              })
         }
         else if (
             selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER &&
             selectedSubLeaders?.[0]?.name == "BEHER"
         ) {
-            setProgress?.(prev => {
-                return {
-                    ...prev,
-                    manPower: {
-                        money: prev?.manPower?.money - 6,
-                        people: prev?.manPower?.people - 3,
-                        army: prev?.manPower?.army - 5
-                    }
-                }
-            })
-            setFeedBack({
-                army: `army_decreaseXX5`,
-                people: `people_decreaseXX3`,
-                money: `money_decreaseXX6`,
-                info: "traps_hidden_riverFeed"
-            })
-        } else {
+            // setProgress?.(prev => {
+            //     return {
+            //         ...prev,
+            //         manPower: {
+            //             money: prev?.manPower?.money - 6,
+            //             people: prev?.manPower?.people - 3,
+            //             army: prev?.manPower?.army - 5
+            //         }
+            //     }
+            // })
+            // setFeedBack({
+            //     army: `army_decreaseXX5`,
+            //     people: `people_decreaseXX3`,
+            //     money: `money_decreaseXX6`,
+            //     info: "traps_hidden_riverFeed"
+            // })
+        }
+        else {
             setSelectedSubLeaders([])
             setWrongChoices(prev => [...prev, selectedSubLeaders?.[0]])
             setProgress?.(prev => {
@@ -120,6 +121,8 @@ export const SelectSuitableLeader = ({
             return
         }
         const choices = haveWrongChoices()
+                console.log("choices", choices)
+
         if (choices)return
         else
          setFlow(VALORIA_ROAD_ENUM.SHOW_VIDEO)

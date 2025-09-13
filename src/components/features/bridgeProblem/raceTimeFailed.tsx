@@ -2,7 +2,6 @@ import BorderButton from "../../shared/borderButton"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import bridgee from "../../../assets/bridgee.png"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
-import type { ManPower } from "../../../types/manPower"
 import type { LeaderType } from "../../../types/leaders"
 import { useTranslation } from "react-i18next"
 
@@ -11,7 +10,7 @@ export default function RaceTimeFailed({
     setSelectedSubLeaders,
     changeFlowState
 }: {
-    changePowers: (powers: ManPower) => void
+    changePowers: () => void
     setSelectedSubLeaders: React.Dispatch<React.SetStateAction<LeaderType | null>>
     changeFlowState: (flow: FLOW_ENUM) => void
     }) {
@@ -37,7 +36,7 @@ export default function RaceTimeFailed({
                     <div className="max-w-[700px]">
                         <BorderButton
                             onClick={() => {
-                                changePowers({ army: -10, people: -9, money: -5 })
+                                changePowers()
                                 setSelectedSubLeaders(null)
                                 changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
                             }}

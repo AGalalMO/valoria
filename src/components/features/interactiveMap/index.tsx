@@ -32,7 +32,8 @@ export const InteractiveMap = ({ selectedWayIn, setProgress, setFeedBack }: Inte
         onSacrifice,
         visible,
         disabled,
-        isHidden
+        isHidden,
+        passed
     } = useInteractiveValeriaMap({ selectedWayIn, setProgress, setFeedBack })
 
     const containerVariants = {
@@ -207,6 +208,7 @@ export const InteractiveMap = ({ selectedWayIn, setProgress, setFeedBack }: Inte
                         modalOptions={modalOptions}
                         onClickCancelChangeRoute={onClickCancelChangeRoute}
                         onClickChangeRoute={onClickChangeRoute}
+                        passed={passed}
                         // onSelectSoliderPercentage={onSelectSoliderPercentage}
                         isHidden={isHidden}
                         onCloseModal={onCloseModal}

@@ -11,28 +11,33 @@ import BorderButton from "../../shared/borderButton"
 export default function HowToPass({
     changeFlowState,
     changePowers,
+    changePowerForOpt2
 }: {
-        changeFlowState: (flow: FLOW_ENUM) => void
-    changePowers:VoidFunction
-    }) {
+    changeFlowState: (flow: FLOW_ENUM) => void
+    changePowers: VoidFunction
+    changePowerForOpt2: (index:number)=>void
+}) {
     const [selectedOption, SetSelectedOption] = useState(-1)
-    const [removeNote,setRemoveNote]=useState(false)
+    const [removeNote, setRemoveNote] = useState(false)
     const { t } = useTranslation()
-    
+
     const onClickNext = () => {
-        if (selectedOption < 0) return;
-        else
-        {
-            if (selectedOption == 0 )
+        if (selectedOption < 0) return
+        else {
+            if (selectedOption == 0) {
+                changePowerForOpt2(0)
                 changeFlowState(FLOW_ENUM.RACE_FOR_TIME)
-            else if (selectedOption == 2)
+            } else if (selectedOption == 2) {
+                changePowerForOpt2(2)
                 changeFlowState(FLOW_ENUM.IS_TRUST_ENGINEERS)
+            } else {
+                if (!removeNote) {
+                    changePowerForOpt2(1)
+                }
 
-            else
                 changeFlowState(FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE)
-
             }
-        
+        }
     }
     const onSelectBlackPowder = () => {
         SetSelectedOption(1)
@@ -82,15 +87,13 @@ export default function HowToPass({
                             text={t("negotiate")}
                         />
                         <div className="mt-1">
-                            <BorderButton onClick={onClickNext} size="xs" text={t('select')} />
+                            <BorderButton onClick={onClickNext} size="xs" text={t("select")} />
                         </div>
                     </div>
                     {!removeNote ? (
                         <div className="mt-4 flex flex-col justify-center bg-black/30 px-2">
                             <div className="flex flex-col items-center justify-between gap-3">
-                                <p className="text-lg">
-                                    {t("consult_black_powder_note")}
-                                </p>
+                                <p className="text-lg">{t("consult_black_powder_note")}</p>
                                 <div className="flex w-full items-center justify-center gap-5">
                                     <BorderButton
                                         text={t("yes")}
@@ -103,7 +106,6 @@ export default function HowToPass({
                                         size="xxs"
                                         bottomBorder={false}
                                         onClick={() => {
-
                                             setRemoveNote(true)
                                         }}
                                     />

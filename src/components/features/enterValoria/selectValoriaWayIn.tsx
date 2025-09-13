@@ -9,29 +9,18 @@ import { useTranslation } from "react-i18next"
 import BorderButton from "../../shared/borderButton"
 import { useState, type Dispatch, type SetStateAction } from "react"
 import { ButtonDescription } from "../../buttonDescription"
+import type { FeedbackType } from "../../../types/manPower"
 export const SelectValoriaWayIn = ({
-    setProgress,
-  
+    setProgress
 }: {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
     progress: UserProgressType
-    setFeedBack: Dispatch<
-        SetStateAction<{
-            people: string|null
-            army: string|null
-            money: string | null
-            info:string|null
-        }>
-    >
+    setFeedBack: Dispatch<SetStateAction<FeedbackType>>
 }) => {
     const { t } = useTranslation()
     const [way, setWay] = useState<Way_IN | null>(null)
 
     const onSelectWayIn = () => {
-    
-     
-
-
         setProgress(prev => {
             return {
                 ...prev,
@@ -50,7 +39,7 @@ export const SelectValoriaWayIn = ({
             <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[26px]">
                 {t("way_map")}
             </p>
-            <div className="flex flex-col items-start gap-8">
+            <div className="flex flex-col items-start gap-8 w-full">
                 <ButtonDescription
                     description={t("send_spy1")}
                     icon={spy}

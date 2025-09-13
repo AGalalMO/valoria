@@ -8,19 +8,13 @@ import { useTranslation } from "react-i18next"
 import { ButtonDescription } from "../../../buttonDescription"
 import { useState } from "react"
 import BorderButton from "../../../shared/borderButton"
+import type { FeedbackType } from "../../../../types/manPower"
 export const SolveLeadersConflict = ({
     setProgress,
     setFeedBack
 }: {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }) => {
     const { t } = useTranslation()
     const [selectedOption, setSelectedOption] = useState(-1)
@@ -42,7 +36,7 @@ export const SolveLeadersConflict = ({
                 army: `army_increaseXX3`,
                 people: `people_decreaseXX5`,
                 money: null,
-                info: "dueTo"
+                info: "solvingConflict"
             })
         } else if (selectedOption == 1) {
             setProgress(prev => {
@@ -56,12 +50,12 @@ export const SolveLeadersConflict = ({
                     currentFlow: FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
                 }
             })
-             setFeedBack({
-                 army: null,
-                 people: `people_increaseXX4`,
-                 money: `money_decreaseXX2`,
-                 info: "dueTo"
-             })
+            setFeedBack({
+                army: null,
+                people: `people_increaseXX4`,
+                money: `money_decreaseXX2`,
+                info: "solvingConflict"
+            })
         } else {
             setProgress(prev => {
                 return {
@@ -74,12 +68,12 @@ export const SolveLeadersConflict = ({
                     currentFlow: FLOW_ENUM.NOW_WE_ARE_IN_VALORIA
                 }
             })
-             setFeedBack({
-                 army: `people_decreaseXX4`,
-                 people: null,
-                 money: `money_increaseXX3`,
-                 info: "dueTo"
-             })
+            setFeedBack({
+                army: `people_decreaseXX4`,
+                people: null,
+                money: `money_increaseXX3`,
+                info: "solvingConflict"
+            })
         }
     }
 

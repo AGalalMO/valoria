@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import type { LeaderType } from "../../../types/leaders"
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
-import type { ManPower } from "../../../types/manPower"
+import type { FeedbackType, ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import { useTranslation } from "react-i18next"
@@ -141,13 +141,6 @@ type propTypes = {
     selectedLeaders: LeaderType[]
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }
 

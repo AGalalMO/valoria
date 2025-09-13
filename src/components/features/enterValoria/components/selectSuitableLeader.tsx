@@ -8,6 +8,7 @@ import LeaderPowers from "../../controlValoria/LeaderPowers"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
 import { ButtonDescription } from "../../../buttonDescription"
+import type { FeedbackType } from "../../../../types/manPower"
 
 export const SelectSuitableLeader = ({
     setSelectedSubLeaders,
@@ -222,12 +223,5 @@ type propTypes = {
     setProgress?: (value: React.SetStateAction<UserProgressType>) => void
     selectedWay?: VALORIA_ROAD_METHOD_ENUM | null
     headText?: string
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }

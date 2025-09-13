@@ -7,19 +7,25 @@ import { useEffect, useRef, useState } from "react"
 import BorderButton from "../borderButton"
 import { useTranslation } from "react-i18next"
 import { Tooltip as ReactTooltip } from "react-tooltip"
-
-export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isTheEnd:boolean }) {
+import info from '../../../assets/info.png'
+export default function UserPowers({
+    powers,
+    isTheEnd,
+    showHistory
+}: {
+    powers: ManPower
+    isTheEnd: boolean
+    showHistory?:VoidFunction}) {
     const { t, i18n } = useTranslation()
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng)
     }
     return (
-        <div className={`flex w-full items-center justify-between  z-[100000]`}>
+        <div className={`z-[100000] flex w-full items-center justify-between`}>
             {isTheEnd ? null : (
                 <BorderButton
                     size="xs"
-
                     bottomBorder={false}
                     text={t("change_lang")}
                     onClick={() => changeLanguage(i18n?.language == "en" ? "ar" : "en")}
@@ -35,7 +41,6 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                             {t("people")}
                         </p>
                     </div>
-                   
                 </div>
                 <div data-tooltip-id="my-tooltip-2" className="flex items-center gap-2">
                     <div className="flex flex-col gap-1">
@@ -44,7 +49,6 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                             {t("army")}
                         </p>
                     </div>
-                   
                 </div>
                 <div data-tooltip-id="my-tooltip-3" className="flex items-center gap-2">
                     <div className="flex flex-col gap-1">
@@ -53,8 +57,19 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                             {t("money")}
                         </p>
                     </div>
-                    
                 </div>
+                {(showHistory && powers?.army < 100) ||
+                powers?.money < 100 ||
+                powers.people < 100 ? (
+                    <img
+                        src={info}
+                        data-tooltip-id="my-tooltip-4"
+                        className="cursor-pointer"
+                        width={32}
+                        height={32}
+                        onClick={showHistory}
+                    />
+                ) : null}
             </div>
 
             <ReactTooltip
@@ -63,8 +78,24 @@ export default function UserPowers({ powers, isTheEnd }: { powers: ManPower; isT
                 variant="dark"
                 content={t("money1")}
             />
-            <ReactTooltip id="my-tooltip-2" place="bottom-end" variant="dark" content={t("army1")} />
-            <ReactTooltip id="my-tooltip-3" place="bottom-end" variant="dark" content={t("people1")} />
+            <ReactTooltip
+                id="my-tooltip-2"
+                place="bottom-end"
+                variant="dark"
+                content={t("army1")}
+            />
+            <ReactTooltip
+                id="my-tooltip-3"
+                place="bottom-end"
+                variant="dark"
+                content={t("people1")}
+            />
+            <ReactTooltip
+                id="my-tooltip-4"
+                place="bottom-end"
+                variant="dark"
+                content={t("scoreHistory")}
+            />
         </div>
     )
 }

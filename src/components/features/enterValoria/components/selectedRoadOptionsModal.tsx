@@ -16,6 +16,7 @@ import { ButtonDescription } from "../../../buttonDescription";
 import BorderButton from "../../../shared/borderButton";
 import Zoom from "react-medium-image-zoom"
 import "react-medium-image-zoom/dist/styles.css"
+import type { FeedbackType } from "../../../../types/manPower";
 export const SelectedRoadOptions = ({
     setProgress,
     selectedWay,
@@ -94,7 +95,7 @@ export const SelectedRoadOptions = ({
              army: `army_decreaseXX${index ? "1" : "3"}`,
              people: `people_decreaseXX${index ? "1" : "3"}`,
              money: `money_decreaseXX${index ? "1" : "3"}`,
-             info: "dueTo"
+             info: "selectingOption",
          })
         setFlow(VALORIA_ROAD_ENUM.ENTERED)
     }
@@ -235,12 +236,5 @@ type propTypes = {
     setFlow: React.Dispatch<React.SetStateAction<VALORIA_ROAD_ENUM | undefined>>
     selectedBefore: VALORIA_ROAD_METHOD_ENUM[]
     setSelectedBefore: React.Dispatch<React.SetStateAction<VALORIA_ROAD_METHOD_ENUM[]>>
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }

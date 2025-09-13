@@ -22,7 +22,7 @@ export default function MapModal({
     isHidden
 }: MapModalPropsType) {
     const [introPhase, setIntroPhase] = useState(0)
-    const { t } = useTranslation()
+    const { t ,i18n} = useTranslation()
 
     return (
         <>
@@ -86,7 +86,7 @@ export default function MapModal({
                                     </motion.p>
 
                                     {introPhase == 0 ? (
-                                        <div className="flex flex-col gap-2">
+                                        <div className="flex flex-col gap-2" dir={i18n?.language=='ar'?'rtl':'ltr' }>
                                             <motion.p
                                                 className={`text-start text-base text-white`}
                                                 initial={{ opacity: 0, y: 20 }}

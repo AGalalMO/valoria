@@ -4,7 +4,7 @@ import closeModalIcon from "../../../assets/closeModal.png"
 import { useTranslation } from "react-i18next"
 import { useState } from "react";
 import BorderButton from "../../shared/borderButton"
-import type { ManPower } from "../../../types/manPower"
+import type { FeedbackType, ManPower } from "../../../types/manPower"
 import TryAgainModal from "../../shared/tryAgainModal"
 import { ButtonDescription } from "../../buttonDescription"
 
@@ -28,14 +28,7 @@ export default function MissionLeaders({
     changePowers: (powers: ManPower) => void
     selectedJobIndex: number
     onSelectLeader: (leader: LeaderType) => void
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }) {
     const { t, i18n } = useTranslation()
     const [selectedLeader, setSelectedLeader] = useState<LeaderType | null>(null)
@@ -82,7 +75,7 @@ export default function MissionLeaders({
             ) : (
                 <>
                     <div
-                        className="relative -me-6 -mt-6 md:!mt-0 xl:!-mt-12 flex justify-end"
+                        className="relative -me-6 -mt-6 flex justify-end md:!mt-0 xl:!-mt-12"
                         dir={i18n?.language == "ar" ? "rtl" : "ltr"}
                     >
                         <img
@@ -101,7 +94,7 @@ export default function MissionLeaders({
                             >
                                 <div className="flex w-full items-center justify-end">
                                     <BorderButton
-                                        text={t('showJobs')}
+                                        text={t("showJobs")}
                                         onClick={openLeaderPowers}
                                         bottomBorder={false}
                                         size="xxs"

@@ -12,7 +12,7 @@ import { SolveLeadersConflict } from "../enterValoria/components/solveLeadersCon
 import { SelectValoriaWayIn } from "../enterValoria/selectValoriaWayIn"
 import InValoriaMap from "../inValoriaMap"
 import { SelectSuitableLeaderToBuildBridge } from "../enterValoria/components/SelectSuitableLeaderToBuildBridge"
-import type { ManPower } from "../../../types/manPower"
+import type { FeedbackType, ManPower } from "../../../types/manPower"
 import FireCannon from "../cannon"
 import HowToPass from "../bridgeProblem/howToPass"
 import RaceTimeFailed from "../bridgeProblem/raceTimeFailed"
@@ -38,7 +38,6 @@ import end from "../../../assets/videos/ar/end.webm"
 import endEn from "../../../assets/videos/en/end.webm"
 import  VideoPlayer from "../../videoComponent"
 import SelectLanguage from "../../selectLanguage"
-import mapIcon from '../../../assets/mapInfo.png'
 import mapVL from "../../../assets/mapping.png"
 import mapVL1 from "../../../assets/ccc.png"
 import Intro from "../../Intro"
@@ -47,43 +46,35 @@ import "react-medium-image-zoom/dist/styles.css"
 import AttackedSECOND from "../bridgeProblem/attacked2"
 import ControlValoriaIntro from "../controlValoria/intro"
 import { useToast } from "../../toaster"
+import { ScoreHistory } from "../../shared/ScoreHistory"
+import { ShowMapButtons } from "../../shared/showMapButtons"
 
 export default function Home() {
 
     const [loading, setLoading] = useState(true)
     const [selectedLeaders, setSelectedLeaders] = useState<LeaderType[]>([])
     const [selectedSubLeaders, setSelectedSubLeaders] = useState<LeaderType | null>(null)
-    const [scoreHistory, setScoreHistory] = useState<{
-        people: string | null
-        army: string | null
-        money: string | null
-        info: string | null
-    }[]>([])
+    const [scoreHistory, setScoreHistory] = useState<FeedbackType[]>([])
     const [showInfo, setShowInfo] = useState(false)
     const [showMapActions, setShowMapActions] = useState(false)
+    const [showHistory,setShowHistory]=useState(false)
     const [showFeedBack, setShowFeedBack] = useState(false)
       const { show } = useToast()
-    const [feedback, setFeedBack] = useState<{
-        people: string|null
-        army: string|null
-        money: string | null
-        info:string|null
-    }>({
+    const [feedback, setFeedBack] = useState<FeedbackType>({
         people: "",
         army: "",
         money: "",
-        info:''
+        info: ""
     })
     const [showMap, setShowMap] = useState(false)
     const mapRef = useRef<HTMLDivElement>(null)
            const { t,i18n } = useTranslation()
 
     const [progress, setProgress] = useState<UserProgressType>({
-        currentFlow: FLOW_ENUM.CHOOSE_FIVE_LEADERS,
+        currentFlow: FLOW_ENUM.INTRO,
         selectedWayIn: null,
         manPower: { army: 100, money: 100, people: 100 }
     })
-
 
     useEffect(() => {
         if (feedback?.army || feedback?.money || feedback?.people)
@@ -222,35 +213,73 @@ export default function Home() {
     }
 
 
-    
-
+    const buildBridge = () => {
+        changePowers({
+            army: -2,
+            money: -2,
+            people: 2
+        })
+        setFeedBack({
+            army: `army_decreaseXX2`,
+            money: `people_decreaseXX2`,
+            people: `money_2`,
+            info: "alternate_bridge2"
+        })
+    }
+    const onPassingBridge = (index:number) => {
+           changePowers({
+               army: index == 0 ? -8 : index == 2 ? -4 : -2,
+               money: index == 0 ? -6 : index == 2 ? -4 : -2,
+               people: index == 0 ? -5 : index == 2 ? -8 : 2
+           })
+           setFeedBack({
+               army: `army_decreaseXX${index == 0 ? 8 : index == 2 ? 4 : 2}`,
+               money: `people_decreaseXX${index == 0 ? 6 : index == 2 ? 4 : 2}`,
+               people: `money_${index == 1 ? "increase" : "decrease"}XX${index == 0 ? 5 : index == 2 ? 8 : 2}`,
+               info:
+                   index == 0
+                       ? "crossBridge"
+                       : index == 1
+                         ? "alternate_bridge2"
+                         : "selecting_Engineers"
+           })
+    }
+    const consultBlackPowder = () => {
+    changePowers({
+        army: 0,
+        people: 0,
+        money: -4
+    })
+    setFeedBack({
+        army: null,
+        people: null,
+        money: `money_decreaseXX4`,
+        info: "dueToPowder"
+    })
+}
     return (
         <>
             <div className="relative flex h-screen w-screen flex-col justify-between">
-                {showInfo ? (
-                    <div
-                        className={`slide-in absolute start-5 top-[10%] z-[10000] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white xl:!top-[15%] ${i18n?.language == "ar" ? "flex-row-reverse" : ""}`}
-                        onClick={() => {
-                            setShowMap(true)
-                        }}
-                    >
-                        <img src={mapIcon} width={30} height={15} />
-                        <span className="text-lg">{t("showMap")}</span>
-                    </div>
-                ) : showMapActions ? (
-                    <div
-                        className={`slide-in absolute start-5 top-[10%] z-[999999] mx-10 flex cursor-pointer items-center gap-2 border border-white p-3 text-sm text-white xl:!top-[15%] ${i18n?.language == "ar" ? "flex-row-reverse" : ""}`}
-                        onClick={() => {
-                            setShowMap(true)
-                        }}
-                    >
-                        <span className="text-lg">{t("showMap2")}</span>
-                    </div>
+                <ShowMapButtons
+                    isTheEnd={progress?.currentFlow == FLOW_ENUM.FINISH}
+                    setShowMap={setShowMap}
+                    showInfo={showInfo}
+                    showMapActions={showMapActions}
+                />
+               
+                {showHistory ? (
+                    <ScoreHistory scoreHistory={scoreHistory} setShowHistory={setShowHistory} />
                 ) : null}
 
                 {!loading && progress.currentFlow != FLOW_ENUM.FINISH ? (
                     <div className="z-[10000] flex w-full justify-end p-10">
-                        <UserPowers isTheEnd={false} powers={progress.manPower} />
+                        <UserPowers
+                            isTheEnd={false}
+                            showHistory={() => {
+                                setShowHistory(true)
+                            }}
+                            powers={progress.manPower}
+                        />
                     </div>
                 ) : null}
                 {!loading ? (
@@ -329,32 +358,8 @@ export default function Home() {
                     ) : progress.currentFlow === FLOW_ENUM.HOW_TO_PASS_BRIDGE ? (
                         <HowToPass
                             changeFlowState={changeFlowState}
-                            changePowerForOpt2={(index: number) => {
-                                changePowers({
-                                    army: index == 0 ? -8 : index == 2 ? -4 : -2,
-                                    money: index == 0 ? -6 : index == 2 ? -4 : -2,
-                                    people: index == 0 ? -5 : index == 2 ? -8 : 2
-                                })
-                                setFeedBack({
-                                    army: `army_decreaseXX${index == 0 ? 8 : index == 2 ? 4 : 2}`,
-                                    money: `people_decreaseXX${index == 0 ? 6 : index == 2 ? 4 : 2}`,
-                                    people: `money_${index == 1 ? "increase" : "decrease"}XX${index == 0 ? 5 : index == 2 ? 8 : 2}`,
-                                    info: index == 1 ? "alternate_bridge2" : "dueTo"
-                                })
-                            }}
-                            changePowers={() => {
-                                changePowers({
-                                    army: 0,
-                                    people: 0,
-                                    money: -4
-                                })
-                                setFeedBack({
-                                    army: null,
-                                    people: null,
-                                    money: `money_decreaseXX4`,
-                                    info: "dueToPowder"
-                                })
-                            }}
+                            changePowerForOpt2={onPassingBridge}
+                            changePowers={consultBlackPowder}
                         />
                     ) : progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME ||
                       progress.currentFlow == FLOW_ENUM.IS_TRUST_ENGINEERS ? (
@@ -379,37 +384,13 @@ export default function Home() {
                     ) : progress.currentFlow == FLOW_ENUM.RACE_FOR_TIME_FAILED ? (
                         <RaceTimeFailed
                             changeFlowState={changeFlowState}
-                            changePowers={() => {
-                                changePowers({
-                                    army: -2,
-                                    money: -2,
-                                    people: 2
-                                })
-                                setFeedBack({
-                                    army: `army_decreaseXX2`,
-                                    money: `people_decreaseXX2`,
-                                    people: `money_2`,
-                                    info: "alternate_bridge2"
-                                })
-                            }}
+                            changePowers={buildBridge}
                             setSelectedSubLeaders={setSelectedSubLeaders}
                         />
                     ) : progress.currentFlow == FLOW_ENUM.ENGINEERS_FAILED ? (
                         <EngineersFailed
                             changeFlowState={changeFlowState}
-                            changePowers={() => {
-                                changePowers({
-                                    army: -2,
-                                    money: -2,
-                                    people: 2
-                                })
-                                setFeedBack({
-                                    army: `army_decreaseXX2`,
-                                    money: `people_decreaseXX2`,
-                                    people: `money_2`,
-                                    info: "alternate_bridge2"
-                                })
-                            }}
+                            changePowers={buildBridge}
                         />
                     ) : progress.currentFlow == FLOW_ENUM.BUILD_ANOTHER_BRIDGE_ISSUE ? (
                         <VideoPlayer
@@ -475,7 +456,12 @@ export default function Home() {
                             video={i18n?.language == "en" ? endEn : end}
                         />
                     ) : progress?.currentFlow == FLOW_ENUM.FINISH ? (
-                        <TheEnd progress={progress} />
+                        <TheEnd
+                            progress={progress}
+                            showHistory={() => {
+                                setShowHistory(true)
+                            }}
+                        />
                     ) : null
                 ) : null}
             </div>

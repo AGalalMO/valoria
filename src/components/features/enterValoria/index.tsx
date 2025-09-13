@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Modal from "../../shared/modal"
-import mapVAL from "../../../assets/mapping.png"
+import mapVAL from "../../../assets/mapping.png";
 import { useEffect, useState } from "react"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import type { LeaderType } from "../../../types/leaders"
-import type { ManPower } from "../../../types/manPower"
+import type { FeedbackType, ManPower } from "../../../types/manPower"
 import type { UserProgressType } from "../../../types/UserProgress"
 import { VALORIA_ROAD_ENUM, VALORIA_ROAD_METHOD_ENUM } from "../../../types/Enums"
 import { SelectedRoadOptions } from "./components/selectedRoadOptionsModal"
@@ -91,15 +89,15 @@ export const EnterValoriaFlow = ({
         setFeedBack({
             army:
                 advantage?.army != 0
-                    ? `army_${advantage?.army > 0 ? "increase" : "decrease"}XX${advantage.army}`
+                    ? `army_${advantage?.army > 0 ? "increase" : "decrease"}XX${Math.abs(advantage.army)}`
                     : null,
             people:
                 advantage?.people != 0
-                    ? `people_${advantage?.people > 0 ? "increase" : "decrease"}XX${advantage.people}`
+                    ? `people_${advantage?.people > 0 ? "increase" : "decrease"}XX${Math.abs(advantage.people)}`
                     : null,
             money:
                 advantage?.money != 0
-                    ? `money_${advantage?.money > 0 ? "increase" : "decrease"}XX${advantage.money}`
+                    ? `money_${advantage?.money > 0 ? "increase" : "decrease"}XX${Math.abs(advantage.money)}`
                     : null,
             info: "choosingLeaders"
         })
@@ -207,11 +205,13 @@ export const EnterValoriaFlow = ({
 
 const Loader = () => {
     return (
-        <Modal background={mapVAL}>
+        <div className="flex h-full w-full items-center justify-center">
             <div
-                className={`justify-center ${"h-[500px] w-[80vw] border-5 border-[#DC8E2F] p-8 xl:!h-[700px] xl:!w-[900px]"} `}
-            ></div>
-        </Modal>
+                className={`justify-center ${"h-[500px] w-[80vw] border-5 border-[#DC8E2F]  lg:!h-[700px] xl:!w-[900px]"} `}
+            >
+                <img src={mapVAL} className="w-full h-full" />
+            </div>
+        </div>
     )
 }
 
@@ -220,12 +220,5 @@ type propTypes = {
     setProgress: React.Dispatch<React.SetStateAction<UserProgressType>>
     selectedLeaders: LeaderType[]
     setSelectedLeaders: React.Dispatch<React.SetStateAction<LeaderType[]>>
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }

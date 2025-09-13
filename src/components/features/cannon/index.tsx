@@ -1,6 +1,6 @@
 import { ModalWrapper } from "../enterValoria/components/modalWrapper"
 import BorderButton from "../../shared/borderButton"
-import type { ManPower } from "../../../types/manPower"
+import type { FeedbackType, ManPower } from "../../../types/manPower"
 import { FLOW_ENUM } from "../../../types/FLowEnum"
 import NotesSection from "./components/cannonDirections/notesSection"
 import useFireCannon from "./hooks/useFireCannon"
@@ -12,18 +12,11 @@ import { useTranslation } from "react-i18next"
 export default function FireCannon({
     changePowers,
     changeFlowState,
-    setFeedBack,
+    setFeedBack
 }: {
     changePowers: (powers: ManPower) => void
     changeFlowState: (flow: FLOW_ENUM) => void
-    setFeedBack: React.Dispatch<
-        React.SetStateAction<{
-            people: string | null
-            army: string | null
-            money: string | null
-            info: string | null
-        }>
-    >
+    setFeedBack: React.Dispatch<React.SetStateAction<FeedbackType>>
 }) {
     const { t, i18n } = useTranslation()
     const {

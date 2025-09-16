@@ -146,8 +146,9 @@ export const SelectSuitableLeader = ({
                     </>
                 )}
             </p>
-
-            <div className="mb-5 flex flex-col w-full  gap-2">
+            <div>
+            </div>
+            <div className="mb-5 flex w-full flex-col gap-2">
                 {selectedLeaders?.map(item => {
                     const isSelected = selectedSubLeaders?.findIndex(
                         leader => leader?.name == item?.name
@@ -212,6 +213,7 @@ export const SelectSuitableLeader = ({
                     }}
                 />
             ) : null}
+           
         </ModalWrapper>
     )
 }

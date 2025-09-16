@@ -5,8 +5,11 @@ import { useTranslation } from "react-i18next"
 import { useState } from "react";
 import BorderButton from "../../shared/borderButton"
 import type { FeedbackType, ManPower } from "../../../types/manPower"
+import infoIcon from "../../../assets/info.png"
+
 import TryAgainModal from "../../shared/tryAgainModal"
 import { ButtonDescription } from "../../buttonDescription"
+import { Tooltip as ReactTooltip } from "react-tooltip"
 
 export default function MissionLeaders({
     leaders,
@@ -102,6 +105,15 @@ export default function MissionLeaders({
                                         size="xxs"
                                     />
                                 </div>
+                                <div className="flex w-full justify-end">
+                                    <img
+                                        src={infoIcon}
+                                        className="cursor-pointer"
+                                        width={32}
+                                        height={32}
+                                        data-tooltip-id="my-tooltip-xx"
+                                    />
+                                </div>
                                 <div className="flex flex-col items-center gap-3">
                                     {icon ? <img src={icon} width={100} height={100} /> : null}
 
@@ -136,6 +148,12 @@ export default function MissionLeaders({
                     </div>
                 </>
             )}
+            <ReactTooltip
+                id="my-tooltip-xx"
+                place="bottom-end"
+                variant="dark"
+                content={t("referTo")}
+            />
         </div>
     )
 }

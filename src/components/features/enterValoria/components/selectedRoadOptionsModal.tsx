@@ -9,7 +9,9 @@ import keep_gates from "../../../../assets/icons/attack.png"
 import burnWood from "../../../../assets/icons/forest/burnWood.png"
 import ground from "../../../../assets/icons/forest/ground.png"
 import infff from "../../../../assets/info.png"
-import table from "../../../../assets/table2.png"
+import table1 from "../../../../assets/rive.png"
+import table2 from "../../../../assets/forest.png"
+import table3 from "../../../../assets/gates.png"
 import send_spy from "../../../../assets/icons/forest/send_spy.png"
 import { useTranslation } from "react-i18next";
 import { ButtonDescription } from "../../../buttonDescription";
@@ -149,7 +151,16 @@ export const SelectedRoadOptions = ({
                             </div>
                             <div className="flex w-full justify-center">
                                 <Zoom>
-                                    <img src={table} className="h-[330px] w-[550px]" />
+                                    <img
+                                        src={
+                                            selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST
+                                                ? table2
+                                                : selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER
+                                                  ? table1
+                                                  : table3
+                                        }
+                                        className="h-[330px] w-[550px]"
+                                    />
                                 </Zoom>
                             </div>
                             <p className="w-full text-center text-lg">
@@ -216,7 +227,13 @@ export const SelectedRoadOptions = ({
                             classDialog="z-[9999]" // ensure above your modal/backdrop
                         >
                             <img
-                                src={table}
+                                src={
+                                    selectedWay == VALORIA_ROAD_METHOD_ENUM.FOREST
+                                        ? table2
+                                        : selectedWay == VALORIA_ROAD_METHOD_ENUM.RIVER
+                                          ? table1
+                                          : table3
+                                }
                                 alt="Decision matrix"
                                 className="max-h-[600px] cursor-zoom-in"
                             />

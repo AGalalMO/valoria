@@ -7,13 +7,15 @@ export default function ImageButton({
     icon,
     onClick,
     selected,
-    size
+    size,
+    disabled
 }: {
     text: string
     icon: string
     onClick: (target?: any) => void
     selected?: boolean
-    size?: "lg" | "normal"|'xl'|'xxl'
+    size?: "xs" | "lg" | "normal" | "xl" | "xxl"
+    disabled?:boolean
 }) {
     return (
         <motion.button
@@ -29,11 +31,11 @@ export default function ImageButton({
         >
             <motion.img
                 src={icon}
-                width={136}
-                height={136}
+                width={size == "xs" ? 125 : 136}
+                height={size == "xs" ? 125 : 136}
                 className="h-[100px] w-[100px] xl:!h-[136px] xl:!w-[136px]"
                 whileHover={{
-                    scale: 1.1,
+                    scale:disabled?1: 1.1,
                     transition: { duration: 0.2, ease: "easeInOut" }
                 }}
             />
@@ -49,7 +51,7 @@ export default function ImageButton({
                     }}
                 />
                 <motion.p
-                    className={`font-trajan m-0 !text-base font-normal uppercase xl:!text-[24px] ${selected ? "text-[#DBBD51]" : "text-white"} group-hover:text-[#DBBD51] ${size == "lg" ? "max-w-[250px]" : size == "normal" ? "max-w-[200px]" : size == "xl" ? "max-w-[240px] xl:!text-[20px]" : size == "xxl" ? "!w-[260px] xl:!text-[20px]" : ""}`}
+                    className={`font-trajan m-0 !text-base font-normal uppercase ${size == "xs" ? "xl:!text-lg" : "xl:!text-[24px]"} ${selected ? "text-[#DBBD51]" : "text-white"} ${disabled ? "" : "group-hover:text-[#DBBD51]"} ${size == "lg" ? "max-w-[250px]" : size == "normal" ? "max-w-[200px]" : size == "xl" ? "max-w-[240px] xl:!text-[20px]" : size == "xxl" ? "!w-[260px] xl:!text-[20px]" : ""}`}
                     whileHover={{
                         scale: 1.05,
                         transition: { duration: 0.2 }

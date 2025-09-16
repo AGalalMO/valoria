@@ -10,6 +10,7 @@ import "react-medium-image-zoom/dist/styles.css"
 import allie from "../assets/handShake.jpeg"
 import spy from "../assets/icons/spy.png"
 import attack from "../assets/icons/attack.png"
+import ImageButton from "./shared/imageButton"
 export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
     const { t } = useTranslation()
     const [step, setStep] = useState(0)
@@ -51,10 +52,28 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
                                     : null}
                         </p>
                         {step == 1 ? (
-                            <div className="flex items-start mt-5 gap-5">
-                                <img src={spy} width={125} height={125} />
-                                <img src={allie} width={125} height={125} />
-                                <img src={attack} width={125} height={125} />
+                            <div className="mt-7 flex w-full items-start justify-around gap-5">
+                                <ImageButton
+                                    icon={spy}
+                                    text={t("send_spy")}
+                                    onClick={() => {}}
+                                    size="xs"
+                                    disabled
+                                />
+                                <ImageButton
+                                    icon={allie}
+                                    text={t("favour_allie")}
+                                    onClick={() => {}}
+                                    size="xs"
+                                    disabled
+                                />
+                                <ImageButton
+                                    icon={attack}
+                                    text={t("attack_nw")}
+                                    onClick={() => {}}
+                                    size="xs"
+                                    disabled
+                                />
                             </div>
                         ) : null}
                         {step === 2 && (

@@ -154,7 +154,7 @@
     "changeForest": "success: 0.2 , Failure: 0.8",
     "changeGates": "",
     "changeRiver": "",
-    "close":"Close",
+    "close": "Close",
     "allez": "allez allez allez ",
     "attacked_building": "You got attacked while building the bridge",
     "attacked_building1": "now you have 3 quick tactics to apply to handle this situation, assign the right leader for each tactic based on the leadership style provided for each leader & the type of warriors in each tactic",
@@ -170,6 +170,8 @@
     "note1": "-the distance between you and the enemy cannon",
     "note1_desc": "1500 meters",
     "note2": "-the wind direction from right to left is",
+    "referTo": "Refer to your playbook for more information about leadership styles",
+
     "note2_desc": "15 m/sec",
     "note3": "--the air resistance reduces hit power by 20% & also affects the vertical shooting angle",
     "note4": "-the vertical angle should be angle 38",

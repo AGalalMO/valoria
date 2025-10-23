@@ -52,7 +52,7 @@ export const ButtonDescription = ({
                 <p className="text-2xl">{index}-</p>
             ) : null}
             <div className="flex h-full flex-col justify-around">
-                <p className={`text-lg font-bold ${small ? "xl:text-xl" : "xl:text-2xl"}`}>
+                <p className={`text-lg text-white font-bold ${small ? "xl:text-xl" : "xl:text-2xl"}`}>
                     {text}
                 </p>
                 {description ? (

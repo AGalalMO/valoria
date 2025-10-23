@@ -22,7 +22,7 @@ export const EnterValoriaMethod = ({
             parentClass="!w-full !justify-center "
             classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] !py-5 !relative px-10 xl:px-[80px] !gap-4"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+            <p className="font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("choose_way")}
             </p>
             <div className="flex h-full w-full flex-col justify-between">

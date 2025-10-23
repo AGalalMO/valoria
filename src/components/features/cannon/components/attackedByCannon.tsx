@@ -21,7 +21,7 @@ export default function CannonAttack({ changeFlowState }: { changeFlowState: (fl
                     classes="!justify-between !w-[90%] !h-[90] !relative"
                 >
                     <img src={cannon} />
-                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+                    <p className="font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]">
                         {t("attacked_by_cannon")}
                     </p>
                     <div className="max-w-[700px]">

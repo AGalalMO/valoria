@@ -51,7 +51,7 @@ export default function HowToPass({
                     parentClass="!w-full !justify-start"
                     classes="!justify-around !w-[100%]   !relative max-h-[95vh] !gap-2"
                 >
-                    <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+                    <p className="font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]">
                         {t("what_to_pass_brige")}
                     </p>
                     <div className="flex w-full flex-col flex-wrap items-center justify-center gap-3 xl:!flex-nowrap">
@@ -93,7 +93,7 @@ export default function HowToPass({
                     {!removeNote ? (
                         <div className="mt-4 flex flex-col justify-center bg-black/30 px-2">
                             <div className="flex flex-col items-center justify-between gap-3">
-                                <p className="text-lg">{t("consult_black_powder_note")}</p>
+                                <p className="text-lg text-white">{t("consult_black_powder_note")}</p>
                                 <div className="flex w-full items-center justify-center gap-5">
                                     <BorderButton
                                         text={t("yes")}

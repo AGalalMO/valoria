@@ -82,7 +82,7 @@ export const SolveLeadersConflict = ({
             parentClass="!w-full !justify-center "
             classes="!justify-around !w-[90%] !h-[90] !max-w-[1200px]  !relative px-10 "
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+            <p className="font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("what_happen_in_valoria")}
             </p>
             <div className="flex w-full flex-col items-center justify-center gap-3">

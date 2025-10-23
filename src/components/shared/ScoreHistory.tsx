@@ -14,7 +14,7 @@ export const ScoreHistory = ({
     const { t, i18n } = useTranslation()
 
     return (
-        <div className="absolute z-[100000] flex h-screen w-screen items-center justify-center bg-black/50">
+        <div className="absolute z-[100000] text-white flex h-screen w-screen items-center justify-center bg-black/50">
             <ModalWrapper classes="!p-4">
                 <div
                     style={{

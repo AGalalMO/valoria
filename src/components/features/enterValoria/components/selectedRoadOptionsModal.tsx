@@ -116,7 +116,7 @@ export const SelectedRoadOptions = ({
             >
                 <div className="relative flex w-full items-center gap-2">
                     <p
-                        className={`font-trajan w-full max-w-[98%] text-center text-xl font-bold ${step == 0 ? "xl:text-xl" : "xl:text-3xl"}`}
+                        className={`font-trajan text-white w-full max-w-[98%] text-center text-xl font-bold ${step == 0 ? "xl:text-xl" : "xl:text-3xl"}`}
                     >
                         {step == 0
                             ? i18n?.language == "ar"
@@ -143,7 +143,7 @@ export const SelectedRoadOptions = ({
                                 className={`flex flex-col ${i18n?.language == "ar" ? "items-end" : "items-start"} gap-1`}
                             >
                                 {modalData.desc?.map(item => (
-                                    <p className="text-sm">
+                                    <p className="text-sm text-white">
                                         {i18n?.language == "en" ? "●" : ""} {t(item)}{" "}
                                         {i18n?.language == "ar" ? "●" : ""}
                                     </p>
@@ -163,7 +163,7 @@ export const SelectedRoadOptions = ({
                                     />
                                 </Zoom>
                             </div>
-                            <p className="w-full text-center text-lg">
+                            <p className="w-full text-center text-lg text-white">
                                 {t("tablee")}
                                 <a
                                     target="_blank"

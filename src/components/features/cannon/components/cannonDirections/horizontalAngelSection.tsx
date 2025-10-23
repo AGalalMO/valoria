@@ -26,7 +26,7 @@ export default function HorizontalAngelSection({
                     width={110}
                     className="h-[80px] w-[80px] xl:!h-[110px] xl:!w-[110px]"
                 />
-                <p className="font-trajan !text-lg !leading-none font-bold xl:!text-2xl">
+                <p className="font-trajan text-white !text-lg !leading-none font-bold xl:!text-2xl">
                     {t("choose_horizontal")}
                 </p>
             </div>

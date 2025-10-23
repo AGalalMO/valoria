@@ -24,7 +24,7 @@ export default function VerticalAngelSection({
                     width={110}
                     className="h-[80px] w-[80px] xl:!h-[110px] xl:!w-[110px]"
                 />
-                <p className="font-trajan !text-lg !leading-none font-bold xl:!text-2xl">
+                <p className="font-trajan !text-lg text-white !leading-none font-bold xl:!text-2xl">
                     {t("choose_vertical")}
                 </p>
             </div>

@@ -11,7 +11,7 @@ export default function TryAgainModal({ closeModal, headerText1, headerText2, bu
         <div className="flex h-full w-full flex-col items-center justify-around">
             <div className="flex  min-h-[40vh] flex-col items-center gap-4">
                 <img src={danger} width={136} height={136} />
-                <p className="font-trajan text-center text-[40px] !leading-none font-bold">
+                <p className="font-trajan text-white text-center text-[40px] !leading-none font-bold">
                     {headerText1}
                     <br />
                     {headerText2}

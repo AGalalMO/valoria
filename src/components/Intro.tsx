@@ -42,7 +42,7 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
             <ModalWrapper classes="!px-4 !flex !flex-col !justify-center">
                 <div className="w-full">
                     <div className="flex w-full flex-col items-center justify-center gap-3 px-4 text-center">
-                        <p className={`text-xl xl:text-2xl`}>
+                        <p className={`text-xl xl:text-2xl text-white`}>
                             {step === 0
                                 ? t("intro1")
                                 : step === 1
@@ -99,7 +99,7 @@ export default function Intro({ onEnd }: { onEnd: VoidFunction }) {
                         )}
                     </div>
                 </div>
-                {step == 2 ? <p className="text-xl">{t("compare")}</p> : null}
+                {step == 2 ? <p className="text-xl text-white">{t("compare")}</p> : null}
                 <div className="mt-8 flex flex-row items-center">
                     <BorderButton
                         onClick={() => (step === 2 ? onEnd() : setStep(p => p + 1))}

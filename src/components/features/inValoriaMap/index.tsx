@@ -30,7 +30,7 @@ export default function InValoriaMap({ changeState }: { changeState: (flow: FLOW
                             {t("message_from_spy")}
                         </p>
                         <p className="!w-[77vw] ps-20 pe-9 text-base font-bold xl:text-[24px]">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center text-white justify-between">
                                 <div>
                                     {t("spy_message")}
                                     <br />

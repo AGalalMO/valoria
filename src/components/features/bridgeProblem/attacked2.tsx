@@ -49,7 +49,7 @@ export default function AttackedSECOND({
                 />
             ) : (
                 <>
-                    <p className="font-trajan w-full text-center text-lg font-bold xl:text-2xl">
+                    <p className="font-trajan text-white w-full text-center text-lg font-bold xl:text-2xl">
                         {t("attacked_building")}
                     </p>
 

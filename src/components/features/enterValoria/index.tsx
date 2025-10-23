@@ -178,7 +178,7 @@ export const EnterValoriaFlow = ({
                             classes="!justify-around !w-[90%] !h-[90] !max-w-[1000px] justify-between  !relative px-20 xl:px-[80px]"
                         >
                             <p
-                                className={`font-trajan w-full text-center text-2xl font-bold xl:text-[30px]`}
+                                className={`font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]`}
                             >
                                 {t("success1")} <br />
                                 {t("success2")}

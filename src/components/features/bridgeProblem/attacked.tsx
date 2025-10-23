@@ -15,10 +15,10 @@ export default function AttackedDESC({ changeFlowState }: propTypes) {
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
-            <p className="font-trajan w-full text-center text-lg font-bold xl:text-3xl">
+            <p className="font-trajan text-white w-full text-center text-lg font-bold xl:text-3xl">
                 {t("attacked_building")}
             </p>
-            <p className="font-trajan w-full text-center font-bold xl:text-xl">
+            <p className="font-trajan w-full text-center font-bold text-white xl:text-xl">
                 {t("attacked_building1")}
             </p>
             <BorderButton

@@ -33,7 +33,7 @@ export const ChooseFiveLeaders = ({
             parentClass="!w-full !justify-center"
             classes="!justify-between !w-[90%] !h-[90] !relative"
         >
-            <p className="font-trajan w-full text-center text-2xl font-bold xl:text-[30px]">
+            <p className="font-trajan text-white w-full text-center text-2xl font-bold xl:text-[30px]">
                 {t("choose_leaders")}
             </p>
 

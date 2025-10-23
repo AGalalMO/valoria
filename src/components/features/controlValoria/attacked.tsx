@@ -50,10 +50,10 @@ export default function Attacked({ selectedLeaders, changePowers, changeFlowStat
                 />
             ) : (
                 <>
-                    <p className="font-trajan w-full text-center text-lg font-bold xl:text-2xl">
+                    <p className="font-trajan text-white w-full text-center text-lg font-bold xl:text-2xl">
                         {t("attacked_building")}
                     </p>
-                    <p className="font-trajan w-full text-center font-bold xl:text-base">
+                    <p className="font-trajan text-white w-full text-center font-bold xl:text-base">
                         {t("attacked_building1")}
                     </p>
                     <div className="flex w-full flex-col items-center justify-center gap-6">
